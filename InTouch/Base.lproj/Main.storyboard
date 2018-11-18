@@ -144,7 +144,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="mu2-V3-JnO" kind="relationship" relationship="viewControllers" id="nTN-CC-hAi"/>
                         <segue destination="QN8-2p-vwH" kind="relationship" relationship="viewControllers" id="2gz-gc-YlS"/>
                         <segue destination="Ym4-Pj-5az" kind="relationship" relationship="viewControllers" id="obb-y3-BN4"/>
                     </connections>
@@ -188,12 +187,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oa9-4B-Bcq">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oa9-4B-Bcq" customClass="RoundImageView" customModule="InTouch" customModuleProvider="target">
                                             <rect key="frame" x="5" y="6" width="32" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="21c-Uy-G6Y"/>
                                                 <constraint firstAttribute="width" constant="32" id="uW6-ka-P3k"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="9"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                    <size key="value" width="0.0" height="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-6k-9Tm">
                                             <rect key="frame" x="57" y="11.5" width="100" height="21"/>
@@ -239,34 +249,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aAi-pc-UVS">
-                            <size key="itemSize" width="104" height="96"/>
+                            <size key="itemSize" width="202" height="226"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FriendCellID" id="FEs-CJ-2Rx" customClass="FriendCell" customModule="InTouch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="104" height="96"/>
+                                <rect key="frame" x="86.5" y="0.0" width="202" height="226"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="104" height="96"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="202" height="226"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Las-tA-ilH">
-                                            <rect key="frame" x="20" y="16" width="64" height="64"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Las-tA-ilH" customClass="RoundImageView" customModule="InTouch" customModuleProvider="target">
+                                            <rect key="frame" x="37" y="33" width="128" height="128"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="64" id="PeU-oe-IcY"/>
-                                                <constraint firstAttribute="height" constant="64" id="qJQ-ar-GpB"/>
+                                                <constraint firstAttribute="width" constant="128" id="PeU-oe-IcY"/>
+                                                <constraint firstAttribute="height" constant="128" id="qJQ-ar-GpB"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="9"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                    <size key="value" width="0.0" height="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBy-tg-hE9" customClass="LikeControl" customModule="InTouch" customModuleProvider="target">
+                                            <rect key="frame" x="37" y="171" width="128" height="40"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="128" id="02E-U6-51Y"/>
+                                                <constraint firstAttribute="height" constant="40" id="xAd-Oa-vIw"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="Las-tA-ilH" firstAttribute="centerX" secondItem="FEs-CJ-2Rx" secondAttribute="centerX" id="SY8-rX-IQv"/>
-                                    <constraint firstItem="Las-tA-ilH" firstAttribute="centerY" secondItem="FEs-CJ-2Rx" secondAttribute="centerY" id="tR4-wq-FoE"/>
+                                    <constraint firstItem="Las-tA-ilH" firstAttribute="centerX" secondItem="FEs-CJ-2Rx" secondAttribute="centerX" id="1Gy-1d-Thp"/>
+                                    <constraint firstItem="PBy-tg-hE9" firstAttribute="top" secondItem="Las-tA-ilH" secondAttribute="bottom" constant="10" id="4zq-1I-pcD"/>
+                                    <constraint firstItem="Las-tA-ilH" firstAttribute="top" secondItem="FEs-CJ-2Rx" secondAttribute="topMargin" constant="5" id="MLI-26-9Wm"/>
+                                    <constraint firstItem="PBy-tg-hE9" firstAttribute="centerX" secondItem="FEs-CJ-2Rx" secondAttribute="centerX" id="y7P-2x-61z"/>
                                 </constraints>
-                                <size key="customSize" width="104" height="96"/>
+                                <size key="customSize" width="202" height="226"/>
                                 <connections>
+                                    <outlet property="friendLikes" destination="PBy-tg-hE9" id="aqR-GO-ov1"/>
                                     <outlet property="friendPhoto" destination="Las-tA-ilH" id="e9l-TA-cDF"/>
                                 </connections>
                             </collectionViewCell>
@@ -302,45 +334,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmG-NB-vdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8999" y="528"/>
-        </scene>
-        <!--Профиль-->
-        <scene sceneID="yBk-LD-Spa">
-            <objects>
-                <viewController title="Профиль" id="mu2-V3-JnO" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GLG-Nt-Xjw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="portret" translatesAutoresizingMaskIntoConstraints="NO" id="6MQ-H4-97J" customClass="RoundImageView" customModule="InTouch">
-                                <rect key="frame" x="128" y="92" width="119" height="114"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shadowVisible" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                        <real key="value" value="9"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                        <size key="value" width="0.0" height="9"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C7C-5H-KMF" customClass="LikeControl" customModule="InTouch" customModuleProvider="target">
-                                <rect key="frame" x="117" y="356" width="141" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="PNL-SH-Yae"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Профиль" id="PcQ-Ki-8u2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bIN-Sp-SXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-9804" y="1138.3808095952024"/>
         </scene>
         <!--Группы-->
         <scene sceneID="2u0-Qf-dCh">
@@ -476,7 +469,4 @@
             <point key="canvasLocation" x="-7543.1999999999998" y="525.78710644677665"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="portret" width="48" height="48"/>
-    </resources>
 </document>

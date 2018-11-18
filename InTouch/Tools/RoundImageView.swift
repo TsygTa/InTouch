@@ -10,13 +10,13 @@ import UIKit
 
 @IBDesignable class RoundImageView: UIImageView {
     
-    @IBInspectable var shadowOpacity: Float = 0.5 {
+    @IBInspectable var shadowOpacity: Float = 2 {
         didSet {
              self.awakeFromNib()
         }
     }
     
-    @IBInspectable var shadowRadius: CGFloat = 6 {
+    @IBInspectable var shadowRadius: CGFloat = 9 {
         didSet {
              self.awakeFromNib()
         }
@@ -35,8 +35,8 @@ import UIKit
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.red.cgColor
+//        layer.borderWidth = 2
+//        layer.borderColor = UIColor.red.cgColor
         
         layer.cornerRadius = self.frame.size.width / 2.0
         layer.masksToBounds = false

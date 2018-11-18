@@ -11,14 +11,15 @@ import UIKit
 class UserFriendsController: UITableViewController {
     
     var userFriends = [
-        DataModel(name: "Друг1", image: UIImage(named: "fr_1.png")!),
-        DataModel(name: "Друг2", image: UIImage(named: "fr_2.png")!),
-        DataModel(name: "Друг3", image: UIImage(named: "fr_3.png")!),
-        DataModel(name: "Друг4", image: UIImage(named: "fr_4.png")!),
-        DataModel(name: "Друг5", image: UIImage(named: "fr_5.png")!),
-        DataModel(name: "Друг6", image: UIImage(named: "fr_6.png")!)
+        DataModel(name: "Друг1", image: UIImage(named: "fr_1.png")!, likes: 25, liked: false),
+        DataModel(name: "Друг2", image: UIImage(named: "fr_2.png")!, likes: 30, liked: false),
+        DataModel(name: "Друг3", image: UIImage(named: "fr_3.png")!, likes: 33, liked: false),
+        DataModel(name: "Друг4", image: UIImage(named: "fr_4.png")!, likes: 777, liked: false),
+        DataModel(name: "Друг5", image: UIImage(named: "fr_5.png")!, likes: 5, liked: false),
+        DataModel(name: "Друг6", image: UIImage(named: "fr_6.png")!, likes: 3, liked: false)
     ]
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,6 +61,8 @@ class UserFriendsController: UITableViewController {
             let friend = userFriends[indexPath.row]
             
             friendController.photo = friend.image
+            friendController.likes = friend.likes
+            friendController.liked = friend.liked
         }
     }
     

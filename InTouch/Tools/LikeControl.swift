@@ -10,8 +10,7 @@ import UIKit
 
 class LikeControl: UIControl {
     
-    //private var image: UIImage = UIImage(named: "heart.png")!
-    private var counter: UInt = 25
+    private var counter: Int = 25
     private var button: UIButton = UIButton()
     private var isLiked: Bool {
         didSet {
@@ -19,14 +18,12 @@ class LikeControl: UIControl {
         }
     }
     
-    private func setupView() {
+    public func setupView() {
         button = UIButton(type: .system)
         button.setImage(UIImage(named: "heart.png")!, for: .normal)
-        button.setImage(UIImage(named: "redheart.png")!, for: .selected)
         button.setTitle(String(format:"%d", counter), for: .normal)
-        button.setTitle(String(format:"%d", counter), for: .selected)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        button.setTitleColor(UIColor.red, for: .selected)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(addLike(_:)), for: .touchUpInside)
         self.addSubview(button)
     }
@@ -34,10 +31,16 @@ class LikeControl: UIControl {
     private func updateButton() {
         if isLiked {
             counter += 1
+            button.setImage(UIImage(named: "redheart.png")!, for: .normal)
+            button.setTitleColor(UIColor.red, for: .normal)
+            button.tintColor = UIColor.red
         } else {
             counter -= 1
+            button.setImage(UIImage(named: "heart.png")!, for: .normal)
+            button.setTitleColor(UIColor.black, for: .normal)
+            button.tintColor = UIColor.black
         }
-        button.titleLabel?.text = String(format:"%d", counter)
+        button.setTitle(String(format:"%d", counter), for: .normal)
         self.layoutSubviews()
     }
     
@@ -64,6 +67,19 @@ class LikeControl: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         button.frame = bounds
+    }
+    
+    public func getCounter() -> Int {
+        return self.counter
+    }
+    
+    public func setCounter(_ counter: Int) {
+        self.counter = counter
+        button.setTitle(String(format:"%d", counter), for: .normal)
+    }
+    
+    public func setLiked(_ liked: Bool) {
+        self.isLiked = liked
     }
     
 }

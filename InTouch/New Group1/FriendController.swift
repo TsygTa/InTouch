@@ -13,6 +13,8 @@ import UIKit
 class FriendController: UICollectionViewController {
     
     var photo = UIImage(named: "cross.png")!
+    var likes = 0
+    var liked = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +56,12 @@ class FriendController: UICollectionViewController {
     
         // Configure the cell
         cell.friendPhoto.image = photo
+        cell.friendLikes.setCounter(likes)
+        cell.friendLikes.setLiked(liked)
     
         return cell
     }
+    
 
     // MARK: UICollectionViewDelegate
 

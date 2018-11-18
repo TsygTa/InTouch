@@ -13,7 +13,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var groups = [
-            DataModel(name: "Физика", image: UIImage(named: "gr_1.png")!),
+        DataModel(name: "Физика", image: UIImage(named: "gr_1.png")!),
             DataModel(name: "Биология", image: UIImage(named: "gr_2.png")!),
             DataModel(name: "Математика", image: UIImage(named: "gr_3.png")!),
             DataModel(name: "IT", image: UIImage(named: "gr_4.png")!),
