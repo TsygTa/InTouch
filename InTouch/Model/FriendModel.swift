@@ -1,14 +1,14 @@
 //
-//  DataModel.swift
-//  Weather
+//  File.swift
+//  InTouch
 //
-//  Created by Цыганкова Татьяна on 12.11.2018.
+//  Created by Tatiana Tsygankova on 20.11.2018.
 //  Copyright © 2018 Tatiana Tsygankova. All rights reserved.
 //
 
 import UIKit
 
-struct DataModel {
+struct FriendModel {
     var name: String
     var image: UIImage
     var likes: Int

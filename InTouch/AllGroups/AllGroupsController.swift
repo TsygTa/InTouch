@@ -13,24 +13,24 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var groups = [
-        DataModel(name: "Физика", image: UIImage(named: "gr_1.png")!),
-            DataModel(name: "Биология", image: UIImage(named: "gr_2.png")!),
-            DataModel(name: "Математика", image: UIImage(named: "gr_3.png")!),
-            DataModel(name: "IT", image: UIImage(named: "gr_4.png")!),
-            DataModel(name: "Книги", image: UIImage(named: "gr_5.png")!),
-            DataModel(name: "Кино", image: UIImage(named: "gr_6.png")!),
-            DataModel(name: "Путешествия", image: UIImage(named: "gr_7.png")!),
-            DataModel(name: "Авто", image: UIImage(named: "avto.png")!),
-            DataModel(name: "Интерьер", image: UIImage(named: "inter.png")!),
-            DataModel(name: "Рестораны", image: UIImage(named: "restor.png")!),
-            DataModel(name: "Медицина", image: UIImage(named: "med.png")!),
-            DataModel(name: "Мода", image: UIImage(named: "moda.png")!),
-            DataModel(name: "Образование", image: UIImage(named: "education.png")!),
-            DataModel(name: "Домашние животные", image: UIImage(named: "pets.png")!),
-            DataModel(name: "Природа", image: UIImage(named: "nature.png")!)
+            GroupModel(name: "Физика", image: UIImage(named: "gr_1.png")!),
+            GroupModel(name: "Биология", image: UIImage(named: "gr_2.png")!),
+            GroupModel(name: "Математика", image: UIImage(named: "gr_3.png")!),
+            GroupModel(name: "IT", image: UIImage(named: "gr_4.png")!),
+            GroupModel(name: "Книги", image: UIImage(named: "gr_5.png")!),
+            GroupModel(name: "Кино", image: UIImage(named: "gr_6.png")!),
+            GroupModel(name: "Путешествия", image: UIImage(named: "gr_7.png")!),
+            GroupModel(name: "Авто", image: UIImage(named: "avto.png")!),
+            GroupModel(name: "Интерьер", image: UIImage(named: "inter.png")!),
+            GroupModel(name: "Рестораны", image: UIImage(named: "restor.png")!),
+            GroupModel(name: "Медицина", image: UIImage(named: "med.png")!),
+            GroupModel(name: "Мода", image: UIImage(named: "moda.png")!),
+            GroupModel(name: "Образование", image: UIImage(named: "education.png")!),
+            GroupModel(name: "Домашние животные", image: UIImage(named: "pets.png")!),
+            GroupModel(name: "Природа", image: UIImage(named: "nature.png")!)
         ]
     
-    var filteredGroups = [DataModel]()
+    var filteredGroups = [GroupModel]()
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
@@ -72,7 +72,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsCell
         
-        let group: DataModel
+        let group: GroupModel
         
         if filteredGroups.count > 0 {
             group = filteredGroups[indexPath.row]

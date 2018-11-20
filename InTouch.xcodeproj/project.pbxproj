@@ -11,13 +11,16 @@
 		038909412198C94F00B2CD13 /* UserGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038909402198C94F00B2CD13 /* UserGroupsCell.swift */; };
 		038909442198C9AE00B2CD13 /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038909432198C9AE00B2CD13 /* AllGroupsController.swift */; };
 		038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038909452198C9C700B2CD13 /* AllGroupsCell.swift */; };
+		03B78A9621A4995F00D5FBD2 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B78A9521A4995F00D5FBD2 /* FriendModel.swift */; };
+		03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B78A9721A4A1FB00D5FBD2 /* UserFriendsHeader.swift */; };
+		03B78A9A21A4A2AD00D5FBD2 /* UserFriendsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B78A9921A4A2AD00D5FBD2 /* UserFriendsHeader.xib */; };
 		03F4C7AC219CA6E500D900E8 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F4C7AB219CA6E500D900E8 /* RoundImageView.swift */; };
 		03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */; };
 		07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DBB2199630A00FF1B5D /* UserFriendsController.swift */; };
 		07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */; };
 		07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC0219963C500FF1B5D /* FriendController.swift */; };
 		07AF4DC3219963D900FF1B5D /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC2219963D900FF1B5D /* FriendCell.swift */; };
-		07AF4DC52199996C00FF1B5D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC42199996C00FF1B5D /* DataModel.swift */; };
+		07AF4DC52199996C00FF1B5D /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC42199996C00FF1B5D /* GroupModel.swift */; };
 		3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */; };
 		3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B2218A3CDC0035F2C0 /* Main.storyboard */; };
 		3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B5218A3CDD0035F2C0 /* Assets.xcassets */; };
@@ -49,13 +52,16 @@
 		038909402198C94F00B2CD13 /* UserGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsCell.swift; sourceTree = "<group>"; };
 		038909432198C9AE00B2CD13 /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
 		038909452198C9C700B2CD13 /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
+		03B78A9521A4995F00D5FBD2 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
+		03B78A9721A4A1FB00D5FBD2 /* UserFriendsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsHeader.swift; sourceTree = "<group>"; };
+		03B78A9921A4A2AD00D5FBD2 /* UserFriendsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserFriendsHeader.xib; sourceTree = "<group>"; };
 		03F4C7AB219CA6E500D900E8 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		07AF4DBB2199630A00FF1B5D /* UserFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsController.swift; sourceTree = "<group>"; };
 		07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsCell.swift; sourceTree = "<group>"; };
 		07AF4DC0219963C500FF1B5D /* FriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
 		07AF4DC2219963D900FF1B5D /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
-		07AF4DC42199996C00FF1B5D /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		07AF4DC42199996C00FF1B5D /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		3F8ED9AB218A3CDC0035F2C0 /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F8ED9B3218A3CDC0035F2C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +120,15 @@
 			path = AllGroups;
 			sourceTree = "<group>";
 		};
+		03B78A9421A4990700D5FBD2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				07AF4DC42199996C00FF1B5D /* GroupModel.swift */,
+				03B78A9521A4995F00D5FBD2 /* FriendModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		03F4C7AA219CA58B00D900E8 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +143,8 @@
 			children = (
 				07AF4DBB2199630A00FF1B5D /* UserFriendsController.swift */,
 				07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */,
+				03B78A9721A4A1FB00D5FBD2 /* UserFriendsHeader.swift */,
+				03B78A9921A4A2AD00D5FBD2 /* UserFriendsHeader.xib */,
 			);
 			name = UserFriends;
 			path = "New Group";
@@ -166,6 +183,7 @@
 		3F8ED9AD218A3CDC0035F2C0 /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
+				03B78A9421A4990700D5FBD2 /* Model */,
 				03F4C7AA219CA58B00D900E8 /* Tools */,
 				07AF4DBF2199638800FF1B5D /* Friend */,
 				07AF4DBA219962AD00FF1B5D /* UserFriends */,
@@ -177,7 +195,6 @@
 				3F8ED9B7218A3CDD0035F2C0 /* LaunchScreen.storyboard */,
 				3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */,
 				3F8ED9BA218A3CDD0035F2C0 /* Info.plist */,
-				07AF4DC42199996C00FF1B5D /* DataModel.swift */,
 			);
 			path = InTouch;
 			sourceTree = "<group>";
@@ -305,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F8ED9B9218A3CDD0035F2C0 /* LaunchScreen.storyboard in Resources */,
+				03B78A9A21A4A2AD00D5FBD2 /* UserFriendsHeader.xib in Resources */,
 				3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */,
 				3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */,
 			);
@@ -333,13 +351,15 @@
 			files = (
 				038909442198C9AE00B2CD13 /* AllGroupsController.swift in Sources */,
 				3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */,
-				07AF4DC52199996C00FF1B5D /* DataModel.swift in Sources */,
+				07AF4DC52199996C00FF1B5D /* GroupModel.swift in Sources */,
 				07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */,
 				07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */,
 				038909412198C94F00B2CD13 /* UserGroupsCell.swift in Sources */,
 				3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */,
 				0389093F2198C91E00B2CD13 /* UserGroupsController.swift in Sources */,
 				03F4C7AC219CA6E500D900E8 /* RoundImageView.swift in Sources */,
+				03B78A9621A4995F00D5FBD2 /* FriendModel.swift in Sources */,
+				03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */,
 				03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */,
 				07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */,
 				038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */,

@@ -8,21 +8,51 @@
 
 import UIKit
 
+struct Header{
+    var letter: Character
+    var number: Int
+    
+    init(_ letter: Character, _ number: Int) {
+        self.letter = letter
+        self.number = number
+    }
+}
+
 class UserFriendsController: UITableViewController {
     
     var userFriends = [
-        DataModel(name: "Друг1", image: UIImage(named: "fr_1.png")!, likes: 25, liked: false),
-        DataModel(name: "Друг2", image: UIImage(named: "fr_2.png")!, likes: 30, liked: false),
-        DataModel(name: "Друг3", image: UIImage(named: "fr_3.png")!, likes: 33, liked: false),
-        DataModel(name: "Друг4", image: UIImage(named: "fr_4.png")!, likes: 777, liked: false),
-        DataModel(name: "Друг5", image: UIImage(named: "fr_5.png")!, likes: 5, liked: false),
-        DataModel(name: "Друг6", image: UIImage(named: "fr_6.png")!, likes: 3, liked: false)
+        FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 25, liked: false),
+        FriendModel(name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 30, liked: false),
+        FriendModel(name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 33, liked: false),
+        FriendModel(name: "Оксана", image: UIImage(named: "Oksana.png")!, likes: 777, liked: false),
+        FriendModel(name: "Анна", image: UIImage(named: "Anna.png")!, likes: 5, liked: false),
+        FriendModel(name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 3, liked: false),
+        FriendModel(name: "Борис", image: UIImage(named: "Boris.png")!, likes: 25, liked: false),
+        FriendModel(name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 30, liked: false),
+        FriendModel(name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 33, liked: false),
+        FriendModel(name: "Инга", image: UIImage(named: "Inga.png")!, likes: 777, liked: false),
+        FriendModel(name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 5, liked: false),
+        FriendModel(name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 3, liked: false)
     ]
     
+    var headers = [Header]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
+        
+        userFriends = userFriends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
+        
+        for friend in userFriends {
+            guard !headers.isEmpty  else { headers.append(Header(friend.name.first!, 1)); continue}
+            if !headers.contains{ $0.letter == friend.name.first!} {
+                headers.append(Header(friend.name.first!, 1))
+            } else {
+                headers[headers.count-1].number += 1
+            }
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,12 +64,12 @@ class UserFriendsController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return headers.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return userFriends.count
+        return headers[section].number
     }
 
 
@@ -52,6 +82,13 @@ class UserFriendsController: UITableViewController {
         cell.userFriendAvatar.image = friendName.image
         
         return cell
+    }
+
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderID")  as! UserFriendsHeader
+        header.label.text = String(headers[section].letter)
+        return header
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

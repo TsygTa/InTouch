@@ -10,7 +10,7 @@ import UIKit
 
 class UserGroupsController: UITableViewController {
     
-    var userGroups = [DataModel]()
+    var userGroups = [GroupModel]()
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         guard segue.identifier == "addGroup" else { return }
@@ -19,7 +19,7 @@ class UserGroupsController: UITableViewController {
         
         if let indexPath = allGroupsController.tableView.indexPathForSelectedRow  {
             
-            var group: DataModel
+            var group: GroupModel
             
             if allGroupsController.filteredGroups.count > 0 {
                 group = allGroupsController.filteredGroups[indexPath.row]
@@ -27,7 +27,7 @@ class UserGroupsController: UITableViewController {
                 group = allGroupsController.groups[indexPath.row]
             }
             
-            let newGroup = DataModel(name: group.name, image: group.image)
+            let newGroup = GroupModel(name: group.name, image: group.image)
             
             for userGroup in userGroups {
                 if userGroup.name == newGroup.name {
