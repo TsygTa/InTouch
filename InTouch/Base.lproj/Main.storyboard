@@ -222,6 +222,7 @@
                                         <constraint firstItem="Oa9-4B-Bcq" firstAttribute="centerY" secondItem="gHE-b6-7cA" secondAttribute="centerY" id="xYc-3D-Cp6"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="userFriendAvatar" destination="Oa9-4B-Bcq" id="gzM-Qt-beA"/>
                                     <outlet property="userFriendName" destination="lyA-6k-9Tm" id="uDu-FA-Vc0"/>

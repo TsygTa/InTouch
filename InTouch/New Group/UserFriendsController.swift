@@ -8,13 +8,14 @@
 
 import UIKit
 
-struct Header{
-    var letter: Character
-    var number: Int
+struct Section{
+    var letter: Character!
+    var friends: [FriendModel]!
     
-    init(_ letter: Character, _ number: Int) {
+    init(_ letter: Character, _ friend: FriendModel) {
         self.letter = letter
-        self.number = number
+        self.friends = [FriendModel]()
+        self.friends.append(friend)
     }
 }
 
@@ -35,7 +36,7 @@ class UserFriendsController: UITableViewController {
         FriendModel(name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 3, liked: false)
     ]
     
-    var headers = [Header]()
+    var  friendsSections = [Section]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +46,11 @@ class UserFriendsController: UITableViewController {
         userFriends = userFriends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
         
         for friend in userFriends {
-            guard !headers.isEmpty  else { headers.append(Header(friend.name.first!, 1)); continue}
-            if !headers.contains{ $0.letter == friend.name.first!} {
-                headers.append(Header(friend.name.first!, 1))
+            guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
+            if friendsSections.last?.letter == friend.name.first! {
+                friendsSections[friendsSections.count-1].friends.append(friend)
             } else {
-                headers[headers.count-1].number += 1
+                friendsSections.append(Section(friend.name.first!, friend));
             }
         }
         
@@ -64,22 +65,22 @@ class UserFriendsController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return headers.count
+        return friendsSections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return headers[section].number
+        return friendsSections[section].friends.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserFriendCell", for: indexPath) as! UserFriendsCell
 
-        let friendName = userFriends[indexPath.row]
+        let friend = friendsSections[indexPath.section].friends[indexPath.row]
 
-        cell.userFriendName.text = friendName.name
-        cell.userFriendAvatar.image = friendName.image
+        cell.userFriendName.text = friend.name
+        cell.userFriendAvatar.image = friend.image
         
         return cell
     }
@@ -87,8 +88,12 @@ class UserFriendsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderID")  as! UserFriendsHeader
-        header.label.text = String(headers[section].letter)
+//        header.label.text = String(friendsSections[section].letter)
         return header
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return String(friendsSections[section].letter)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

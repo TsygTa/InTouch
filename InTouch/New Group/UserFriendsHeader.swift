@@ -9,7 +9,6 @@
 import UIKit
 
 class UserFriendsHeader: UITableViewHeaderFooterView {
-    @IBOutlet weak var label: UILabel!
     
     /*
     // Only override draw() if you perform custom drawing.
