@@ -13,4 +13,6 @@ class FriendCell: UICollectionViewCell {
     @IBOutlet weak var friendPhoto: UIImageView!
     @IBOutlet weak var friendLikes: LikeControl!
     
+    var returnValue: ((_ value: Int)->())?
+    
 }

@@ -55,7 +55,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     }
     
     @objc func hideKeyboard() {
-        searchBar?.endEditing(true)
+        tableView?.endEditing(true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -82,7 +82,8 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        searchBar?.addGestureRecognizer(hideKeyboardGesture)
+        hideKeyboardGesture.cancelsTouchesInView = false
+        tableView?.addGestureRecognizer(hideKeyboardGesture)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

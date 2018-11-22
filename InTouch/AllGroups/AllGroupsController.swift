@@ -32,6 +32,10 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
     var filteredGroups = [GroupModel]()
     
+    @objc func hideKeyboard() {
+        tableView?.endEditing(true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             filteredGroups = groups
@@ -45,6 +49,10 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        
+        let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        hideKeyboardGesture.cancelsTouchesInView = false
+        tableView?.addGestureRecognizer(hideKeyboardGesture)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
