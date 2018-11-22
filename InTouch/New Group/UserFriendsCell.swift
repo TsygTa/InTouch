@@ -11,6 +11,7 @@ import UIKit
 class UserFriendsCell: UITableViewCell {
 
     @IBOutlet weak var userFriendName: UILabel!
+
     @IBOutlet weak var userFriendAvatar: UIImageView!
     
     override func awakeFromNib() {

@@ -21,7 +21,7 @@ struct Section{
 
 class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
-    @IBOutlet var friendSearchBar: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var userFriends = [
         FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 25, liked: false),
@@ -43,6 +43,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     var filteredFriends = [FriendModel]()
     
     private func makeSections() {
+        friendsSections.removeAll()
         for friend in filteredFriends {
             guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
             if friendsSections.last?.letter == friend.name.first! {
@@ -53,7 +54,11 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func friendSearchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    @objc func hideKeyboard() {
+        searchBar?.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             filteredFriends = userFriends
         } else {
@@ -74,7 +79,10 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         
         makeSections()
         
-        friendSearchBar.delegate = self
+        searchBar.delegate = self
+        
+        let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        searchBar?.addGestureRecognizer(hideKeyboardGesture)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
