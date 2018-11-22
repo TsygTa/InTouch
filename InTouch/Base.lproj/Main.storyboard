@@ -146,6 +146,7 @@
                     <connections>
                         <segue destination="QN8-2p-vwH" kind="relationship" relationship="viewControllers" id="2gz-gc-YlS"/>
                         <segue destination="Ym4-Pj-5az" kind="relationship" relationship="viewControllers" id="obb-y3-BN4"/>
+                        <segue destination="yor-e1-KLg" kind="relationship" relationship="viewControllers" id="Nec-x3-rkR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="frt-gq-hTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,10 +180,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="uc1-Ob-WOg">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="NVz-FQ-9zs">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="S57-QW-1BK" id="RuQ-EQ-peX"/>
+                            </connections>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserFriendCell" id="xYu-Pk-ZAw" customClass="UserFriendsCell" customModule="InTouch" customModuleProvider="target">
@@ -237,12 +241,12 @@
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="S57-QW-1BK" id="G6b-DM-eQh"/>
-                            <outlet property="delegate" destination="S57-QW-1BK" id="LUg-l2-Dgg"/>
+                            <outlet property="delegate" destination="S57-QW-1BK" id="4Hz-Bx-aMx"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Друзья" id="AKD-C4-rxU"/>
                     <connections>
-                        <outlet property="friendSearchBar" destination="uc1-Ob-WOg" id="FJ9-pf-vM2"/>
+                        <outlet property="friendSearchBar" destination="NVz-FQ-9zs" id="DYx-cb-5LL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOj-qS-lBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -343,6 +347,91 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmG-NB-vdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8999" y="528"/>
+        </scene>
+        <!--Новости-->
+        <scene sceneID="73x-h3-fQU">
+            <objects>
+                <tableViewController id="yor-e1-KLg" customClass="NewsController" customModule="InTouch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dnm-B0-tFX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellID" editingAccessoryType="detailButton" focusStyle="custom" rowHeight="217" id="hOx-MQ-pXE" customClass="NewsCell" customModule="InTouch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="217"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hOx-MQ-pXE" id="WN9-rZ-BQz">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7v5-Gc-pjy">
+                                            <rect key="frame" x="21" y="16" width="42" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="O0M-PJ-FIu"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxT-xt-GzK">
+                                            <rect key="frame" x="0.0" y="51" width="375" height="110"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maj-D0-QbJ">
+                                            <rect key="frame" x="124" y="174" width="32" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="YWt-d8-1U3"/>
+                                                <constraint firstAttribute="height" constant="32" id="sDR-Rp-IXt"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="send"/>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="CKA-Q4-NKs">
+                                            <rect key="frame" x="281" y="176" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7x-3D-Mio">
+                                            <rect key="frame" x="327" y="183" width="32" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-v7-QOs" customClass="LikeControl" customModule="InTouch" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="176" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P7M-Zk-COJ">
+                                            <rect key="frame" x="73" y="174" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button" image="comment"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7v5-Gc-pjy" firstAttribute="leading" secondItem="WN9-rZ-BQz" secondAttribute="leadingMargin" constant="5" id="PWO-p5-Js6"/>
+                                        <constraint firstItem="7v5-Gc-pjy" firstAttribute="top" secondItem="WN9-rZ-BQz" secondAttribute="topMargin" constant="5" id="wwd-Mr-f5y"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="newsImage" destination="rxT-xt-GzK" id="ASp-DA-FQU"/>
+                                    <outlet property="newsLabel" destination="7v5-Gc-pjy" id="v0W-wB-iQ0"/>
+                                    <outlet property="newsLikes" destination="o6R-v7-QOs" id="cP4-tc-b6F"/>
+                                    <outlet property="newsViews" destination="A7x-3D-Mio" id="OOp-pU-hfe"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yor-e1-KLg" id="zRf-aJ-4hY"/>
+                            <outlet property="delegate" destination="yor-e1-KLg" id="P4e-9f-XcK"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Новости" id="zvb-Y7-h6P"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xU6-KL-274" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-9804" y="883.80809595202402"/>
         </scene>
         <!--Группы-->
         <scene sceneID="2u0-Qf-dCh">
@@ -478,4 +567,9 @@
             <point key="canvasLocation" x="-7543.1999999999998" y="525.78710644677665"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="comment" width="32" height="32"/>
+        <image name="send" width="30" height="30"/>
+        <image name="show" width="24" height="24"/>
+    </resources>
 </document>
