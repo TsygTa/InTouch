@@ -21,7 +21,7 @@ struct Section{
 
 class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
-    @IBOutlet weak var friendSearchBar: UISearchBar!
+    @IBOutlet var friendSearchBar: UITableView!
     
     var userFriends = [
         FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 25, liked: false),
@@ -41,6 +41,27 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     var friendsSections = [Section]()
     
     var filteredFriends = [FriendModel]()
+    
+    private func makeSections() {
+        for friend in filteredFriends {
+            guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
+            if friendsSections.last?.letter == friend.name.first! {
+                friendsSections[friendsSections.count-1].friends.append(friend)
+            } else {
+                friendsSections.append(Section(friend.name.first!, friend));
+            }
+        }
+    }
+    
+    func friendSearchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredFriends = userFriends
+        } else {
+            filteredFriends = userFriends.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+        makeSections()
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,26 +85,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
 
     // MARK: - Table view data source
     
-    private func makeSections() {
-        for friend in filteredFriends {
-            guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
-            if friendsSections.last?.letter == friend.name.first! {
-                friendsSections[friendsSections.count-1].friends.append(friend)
-            } else {
-                friendsSections.append(Section(friend.name.first!, friend));
-            }
-        }
-    }
     
-    func friendSearchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            filteredFriends = userFriends
-        } else {
-            filteredFriends = userFriends.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-        makeSections()
-        tableView.reloadData()
-    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -94,7 +96,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         // #warning Incomplete implementation, return the number of rows
         return friendsSections[section].friends.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserFriendCell", for: indexPath) as! UserFriendsCell
@@ -107,7 +108,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         return cell
     }
 
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderID")  as! UserFriendsHeader
 //        header.label.text = String(friendsSections[section].letter)
@@ -175,5 +175,4 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
