@@ -32,6 +32,7 @@ import UIKit
         return CAShapeLayer.self
     }
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -46,5 +47,4 @@ import UIKit
         layer.shadowRadius = shadowRadius
         layer.shadowOffset = shadowOffset
     }
-
 }

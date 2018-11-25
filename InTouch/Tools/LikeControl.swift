@@ -18,7 +18,7 @@ class LikeControl: UIControl {
         }
     }
     
-    public func setupView() {
+    private func setupView() {
         button = UIButton(type: .system)
         button.setImage(UIImage(named: "heart.png")!, for: .normal)
         button.setTitle(String(format:"%d", counter), for: .normal)
@@ -40,7 +40,7 @@ class LikeControl: UIControl {
             button.setTitleColor(UIColor.black, for: .normal)
             button.tintColor = UIColor.black
         }
-        button.setTitle(String(format:"%d", counter), for: .normal)
+        UIView.transition(with: button.titleLabel!, duration: 1, options: .transitionFlipFromLeft, animations: {self.button.setTitle(String(format:"%d", self.counter), for: .normal)})
         self.layoutSubviews()
     }
     

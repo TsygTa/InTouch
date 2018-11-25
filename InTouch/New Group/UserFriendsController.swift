@@ -131,7 +131,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         guard let friendController = segue.destination as? FriendController else { return }
         
         if let indexPath = tableView.indexPathForSelectedRow  {
-            let friend = userFriends[indexPath.row]
+            let friend = friendsSections[indexPath.section].friends[indexPath.row]
             
             friendController.photo = friend.image
             friendController.likes = friend.likes
