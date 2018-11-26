@@ -10,6 +10,12 @@ import UIKit
 
 class LoginFormController: UIViewController {
 
+    @IBOutlet weak var activityIndicator1: CircalView!
+    
+    @IBOutlet weak var activityIndicator2: CircalView!
+    
+    @IBOutlet weak var activityIndicator3: CircalView!
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loginInput: UITextField!
     @IBOutlet weak var passwordInput: UITextField!
