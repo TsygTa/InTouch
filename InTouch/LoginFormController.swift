@@ -11,9 +11,7 @@ import UIKit
 class LoginFormController: UIViewController {
 
     @IBOutlet weak var activityIndicator1: CircalView!
-    
     @IBOutlet weak var activityIndicator2: CircalView!
-    
     @IBOutlet weak var activityIndicator3: CircalView!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -25,18 +23,18 @@ class LoginFormController: UIViewController {
 
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
+        animateActivityIndicator()
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+//        let login = loginInput.text!
+//        let password = passwordInput.text!
         
-        let login = loginInput.text!
-        let password = passwordInput.text!
-        
-        if login == "admin" && password == "123456" {
-            print("успешная авторизация")
-        } else {
-            print("неуспешная авторизация")
-        }
+//        if login == "admin" && password == "123456" {
+//            print("успешная авторизация")
+//        } else {
+//            print("неуспешная авторизация")
+//        }
     }
     
     @objc func keyBoardWasShown(notification: Notification) {
@@ -80,8 +78,7 @@ class LoginFormController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-        let checkResult = checkUserData()
-        
+        let checkResult = self.checkUserData()
         if !checkResult {
             showLoginError()
         }
@@ -108,5 +105,18 @@ class LoginFormController: UIViewController {
         alter.addAction(action)
         
         present(alter, animated: true, completion: nil)
+    }
+    
+    private func animateActivityIndicator() {
+        
+        UIView.animate(withDuration: 1, delay: 0, options: [.autoreverse, .repeat], animations: {
+            self.activityIndicator1.layer.opacity = 1
+        })
+        UIView.animate(withDuration: 1, delay: 0.5, options: [.autoreverse, .repeat], animations: {
+            self.activityIndicator2.layer.opacity = 1
+        })
+        UIView.animate(withDuration: 1, delay: 1, options: [.autoreverse, .repeat], animations: {
+            self.activityIndicator3.layer.opacity = 1
+        })
     }
 }

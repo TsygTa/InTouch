@@ -24,18 +24,18 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var userFriends = [
-        FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 25, liked: false),
-        FriendModel(name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 30, liked: false),
-        FriendModel(name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 33, liked: false),
+        FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 255, liked: false),
+        FriendModel(name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 302, liked: false),
+        FriendModel(name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 333, liked: false),
         FriendModel(name: "Оксана", image: UIImage(named: "Oksana.png")!, likes: 777, liked: false),
-        FriendModel(name: "Анна", image: UIImage(named: "Anna.png")!, likes: 5, liked: false),
-        FriendModel(name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 3, liked: false),
-        FriendModel(name: "Борис", image: UIImage(named: "Boris.png")!, likes: 25, liked: false),
-        FriendModel(name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 30, liked: false),
-        FriendModel(name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 33, liked: false),
+        FriendModel(name: "Анна", image: UIImage(named: "Anna.png")!, likes: 555, liked: false),
+        FriendModel(name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 377, liked: false),
+        FriendModel(name: "Борис", image: UIImage(named: "Boris.png")!, likes: 254, liked: false),
+        FriendModel(name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 301, liked: false),
+        FriendModel(name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 335, liked: false),
         FriendModel(name: "Инга", image: UIImage(named: "Inga.png")!, likes: 777, liked: false),
-        FriendModel(name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 5, liked: false),
-        FriendModel(name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 3, liked: false)
+        FriendModel(name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 567, liked: false),
+        FriendModel(name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 398, liked: false)
     ]
     
     var friendsSections = [Section]()
