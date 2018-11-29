@@ -12,12 +12,29 @@ import UIKit
 
 class FriendController: UICollectionViewController {
     
-    var photo = UIImage(named: "cross.png")!
-    var likes = 0
-    var liked = false
+    var delegate: FriendDelegate?
+
+    var friend = FriendModel(name: " ", image: UIImage(named: "cross.png")!, likes: 0, liked: false)
+    
+    var currentDirection: Direction?
+    
+    @IBAction func onSwipe(direction: Any?) {
+        guard let userFriendsController = delegate else {return}
+    
+        self.friend = userFriendsController.onSwipeFriendsPhoto(direction: direction)!
+        collectionView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,6 +43,17 @@ class FriendController: UICollectionViewController {
         //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizer.Direction.right {
+            currentDirection = Direction.right
+            onSwipe(direction: Direction.right)
+        }
+        else if gesture.direction == UISwipeGestureRecognizer.Direction.left {
+            currentDirection = Direction.left
+            onSwipe(direction: Direction.left)
+        }
     }
 
     /*
@@ -53,11 +81,27 @@ class FriendController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
-    
+        
+        if currentDirection != nil {
+            let centerX = cell.friendPhoto.center.x
+            if (currentDirection == .left) {
+                cell.friendPhoto.center.x += 2000
+            } else {
+                cell.friendPhoto.center.x -= 2000
+            }
+            UIView.animateKeyframes(withDuration: 1, delay: 1, options: [], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+                    cell.friendPhoto.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                    cell.friendPhoto.center.x = centerX
+                }
+            }, completion: nil)
+        }
         // Configure the cell
-        cell.friendPhoto.image = photo
-        cell.friendLikes.setCounter(likes)
-        cell.friendLikes.setLiked(liked)
+        cell.friendPhoto.image = friend.image
+        cell.friendLikes.setCounter(friend.likes)
+        cell.friendLikes.setLiked(friend.liked)
     
         return cell
     }

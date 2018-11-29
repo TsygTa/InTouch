@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoView: RoundImageView {
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         

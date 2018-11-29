@@ -8,7 +8,16 @@
 
 import UIKit
 
-struct Section{
+protocol FriendDelegate {
+    func onSwipeFriendsPhoto (direction: Any?) -> FriendModel?
+}
+
+enum Direction {
+    case left
+    case right
+}
+
+struct Section {
     var letter: Character!
     var friends: [FriendModel]!
     
@@ -19,7 +28,7 @@ struct Section{
     }
 }
 
-class UserFriendsController: UITableViewController, UISearchBarDelegate {
+class UserFriendsController: UITableViewController, UISearchBarDelegate,  FriendDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -41,6 +50,32 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     var friendsSections = [Section]()
     
     var filteredFriends = [FriendModel]()
+    
+    var selectedSection = 0
+    var selectedRow = 0
+    
+    func onSwipeFriendsPhoto(direction: Any?) -> FriendModel? {
+        
+        guard let dir = direction as? Direction else {return nil}
+        
+        switch dir {
+        case .left:
+            if friendsSections[selectedSection].friends.count-1 > selectedRow {
+                selectedRow += 1
+            } else if friendsSections.count-1 > selectedSection {
+                selectedSection += 1
+                selectedRow = 0
+            }
+        case .right:
+            if selectedRow > 0 {
+                selectedRow -= 1
+            } else if selectedSection > 0 {
+                selectedSection -= 1
+                selectedRow = friendsSections[selectedSection].friends.count - 1
+            }
+        }
+        return friendsSections[selectedSection].friends[selectedRow]
+    }
     
     private func makeSections() {
         friendsSections.removeAll()
@@ -132,10 +167,10 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         
         if let indexPath = tableView.indexPathForSelectedRow  {
             let friend = friendsSections[indexPath.section].friends[indexPath.row]
-            
-            friendController.photo = friend.image
-            friendController.likes = friend.likes
-            friendController.liked = friend.liked
+            friendController.delegate = self
+            friendController.friend = friend
+            selectedSection = indexPath.section
+            selectedRow = indexPath.row
         }
     }
     
