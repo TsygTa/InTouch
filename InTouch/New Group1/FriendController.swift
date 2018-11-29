@@ -36,9 +36,9 @@ class FriendController: UICollectionViewController {
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
         
-        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        
-        self.collectionView.addGestureRecognizer(recognizer)
+//        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+//        
+//        self.collectionView.addGestureRecognizer(recognizer)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
