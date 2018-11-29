@@ -16,7 +16,7 @@ class FriendController: UICollectionViewController {
 
     var friend = FriendModel(name: " ", image: UIImage(named: "cross.png")!, likes: 0, liked: false)
     
-    var currentDirection: Direction?
+    var animator: UIViewPropertyAnimator!
     
     @IBAction func onSwipe(direction: Any?) {
         guard let userFriendsController = delegate else {return}
@@ -36,6 +36,10 @@ class FriendController: UICollectionViewController {
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
         
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        
+        self.collectionView.addGestureRecognizer(recognizer)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -47,12 +51,31 @@ class FriendController: UICollectionViewController {
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizer.Direction.right {
-            currentDirection = Direction.right
             onSwipe(direction: Direction.right)
         }
         else if gesture.direction == UISwipeGestureRecognizer.Direction.left {
-            currentDirection = Direction.left
             onSwipe(direction: Direction.left)
+        }
+    }
+    
+    @objc func onPan(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            animator?.startAnimation()
+            animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: {
+                self.collectionView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            })
+        case .changed:
+            let translation = recognizer.translation(in: self.view)
+            animator.fractionComplete = translation.y/100
+        case .ended:
+            animator.stopAnimation(true)
+            animator.addAnimations {
+                self.collectionView.transform = .identity
+            }
+            animator.startAnimation()
+        default:
+            return
         }
     }
 
@@ -82,22 +105,6 @@ class FriendController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
         
-        if currentDirection != nil {
-            let centerX = cell.friendPhoto.center.x
-            if (currentDirection == .left) {
-                cell.friendPhoto.center.x += 2000
-            } else {
-                cell.friendPhoto.center.x -= 2000
-            }
-            UIView.animateKeyframes(withDuration: 1, delay: 1, options: [], animations: {
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
-                    cell.friendPhoto.transform = CGAffineTransform(scaleX: 1, y: 1)
-                }
-                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
-                    cell.friendPhoto.center.x = centerX
-                }
-            }, completion: nil)
-        }
         // Configure the cell
         cell.friendPhoto.image = friend.image
         cell.friendLikes.setCounter(friend.likes)
