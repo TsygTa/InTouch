@@ -190,11 +190,10 @@
         <!--Друзья-->
         <scene sceneID="FVB-Qy-XQn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QN8-2p-vwH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QN8-2p-vwH" customClass="CustomNavigationController" customModule="InTouch" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" id="lah-RY-PmI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zw8-F1-R4t">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -357,7 +356,6 @@
                     <tabBarItem key="tabBarItem" title="Группы" id="2cE-TQ-lpA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mfu-VC-YBH">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
