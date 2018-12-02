@@ -21,22 +21,24 @@ final class CustomPopAnimator:NSObject, UIViewControllerAnimatedTransitioning {
         transitionContext.containerView.addSubview(destination.view)
         transitionContext.containerView.sendSubviewToBack(destination.view)
         
-        destination.view.frame = source.view.frame
-        let translation = CGAffineTransform(rotationAngle: CGFloat.pi/2)
-        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width, y: -source.view.frame.width))
+//        destination.view.frame = source.view.frame
+//        let translation = CGAffineTransform(rotationAngle: CGFloat.pi/2)
+//        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width, y: -source.view.frame.width))
         
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
                                 delay: 0, options: .calculationModePaced, animations: {
                                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.4) {
-                                        destination.view.transform = CGAffineTransform(rotationAngle: CGFloat.pi/4)
+                                        let translation = CGAffineTransform(rotationAngle: CGFloat.pi/4)
+                                        source.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width/2, y: -source.view.frame.width))
                                     }
                                     UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
-                                        destination.view.transform = CGAffineTransform(rotationAngle: CGFloat.pi/4)
+                                        let translation = CGAffineTransform(rotationAngle: CGFloat.pi/4)
+                                        source.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width, y: -source.view.frame.width))
                                     }
                                     
-                                    UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4) {
-                                        destination.view.transform = .identity
-                                    }
+//                                    UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4) {
+//                                        source.view.transform = .identity
+//                                    }
         }, completion: { finished in
             if finished && !transitionContext.transitionWasCancelled {
                 destination.view.transform = .identity

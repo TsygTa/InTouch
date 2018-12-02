@@ -26,13 +26,15 @@ final class CustomPushAnimator:NSObject, UIViewControllerAnimatedTransitioning {
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
                                 delay: 0, options: .calculationModePaced, animations: {
                                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.4) {
-                                        destination.view.transform = CGAffineTransform(rotationAngle: -CGFloat.pi/4)
+                                        let translation = CGAffineTransform(rotationAngle: -CGFloat.pi/8)
+                                        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width/2, y: -source.view.frame.width))
                                     }
-                                    UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
-                                        destination.view.transform = CGAffineTransform(rotationAngle: -CGFloat.pi/4)
-                                    }
+//                                    UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
+//                                        let translation = CGAffineTransform(rotationAngle: -CGFloat.pi/8)
+//                                        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: 0, y: 0))
+//                                    }
                                     
-                                    UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4) {
+                                    UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
                                         destination.view.transform = .identity
                                     }
         }, completion: { finished in
