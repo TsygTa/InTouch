@@ -190,7 +190,7 @@
         <!--Друзья-->
         <scene sceneID="FVB-Qy-XQn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QN8-2p-vwH" customClass="CustomNavigationController" customModule="InTouch" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QN8-2p-vwH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" id="lah-RY-PmI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zw8-F1-R4t">

@@ -11,7 +11,7 @@ import UIKit
 final class CustomPushAnimator:NSObject, UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 1
+        return 1.2
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -20,28 +20,34 @@ final class CustomPushAnimator:NSObject, UIViewControllerAnimatedTransitioning {
         
         transitionContext.containerView.addSubview(destination.view)
         destination.view.frame = source.view.frame
-        let translation = CGAffineTransform(rotationAngle: CGFloat.pi/2)
-        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width, y: -source.view.frame.width))
+        
+        let translation = CGAffineTransform(translationX: source.view.frame.width, y: -source.view.frame.width)
+        destination.view.transform = translation.concatenating(CGAffineTransform(rotationAngle: CGFloat.pi/2))
+        //destination.view.layer.anchorPoint = CGPoint(x: source.view.frame.width, y: 0)
         
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
-                                delay: 0, options: .calculationModePaced, animations: {
-                                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.4) {
-                                        let translation = CGAffineTransform(rotationAngle: -CGFloat.pi/8)
-                                        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: source.view.frame.width/2, y: -source.view.frame.width))
-                                    }
-//                                    UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
-//                                        let translation = CGAffineTransform(rotationAngle: -CGFloat.pi/8)
-//                                        destination.view.transform = translation.concatenating(CGAffineTransform(translationX: 0, y: 0))
-//                                    }
-                                    
-                                    UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4) {
-                                        destination.view.transform = .identity
-                                    }
+            delay: 0, options: .calculationModePaced, animations: {
+                
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.4, animations: {
+                
+                let translation = CGAffineTransform(translationX: source.view.frame.width/2, y: -source.view.frame.width/2)
+                destination.view.transform = translation.concatenating(CGAffineTransform(rotationAngle: -CGFloat.pi/4))
+            })
+                
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4, animations: {
+                let translation = CGAffineTransform(translationX: 0, y: 0)
+                destination.view.transform = translation.concatenating(CGAffineTransform(rotationAngle: -CGFloat.pi/4))
+            })
+
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4, animations: {
+                    destination.view.transform = .identity
+            })
         }, completion: { finished in
             if finished && !transitionContext.transitionWasCancelled {
                 source.view.transform = .identity
-            }
+            } 
             transitionContext.completeTransition(finished && !transitionContext.transitionWasCancelled)
-        })
+        }
+        )
     }
 }
