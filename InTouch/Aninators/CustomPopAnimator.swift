@@ -11,7 +11,7 @@ import UIKit
 final class CustomPopAnimator:NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 1.2
+        return 0.4
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -22,22 +22,12 @@ final class CustomPopAnimator:NSObject, UIViewControllerAnimatedTransitioning {
         transitionContext.containerView.sendSubviewToBack(destination.view)
         
         destination.view.frame = source.view.frame
-        //destination.view.layer.anchorPoint = CGPoint(x: source.view.frame.width, y: 0)
-        //destination.view.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
         
         UIView.animateKeyframes(withDuration: self.transitionDuration(using: transitionContext),
             delay: 0, options: .calculationModePaced, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.4, animations: {
-                    let translation = CGAffineTransform(translationX: source.view.frame.width/2, y: -source.view.frame.width/2)
-                    source.view.transform = translation.concatenating(CGAffineTransform(rotationAngle: CGFloat.pi/4))
-                })
-                UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.4, animations: {
-                    let translation = CGAffineTransform(translationX: 0, y: 0)
-                    source.view.transform = translation.concatenating(CGAffineTransform(rotationAngle: CGFloat.pi/4))
-                })
-                
-                UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.4, animations: {
-                    destination.view.transform = .identity
+                    source.view.layer.anchorPoint = CGPoint(x: 1, y: 0)
+                    source.view.transform = CGAffineTransform(rotationAngle: -CGFloat.pi/2)
                 })
         }, completion: { finished in
             if finished && !transitionContext.transitionWasCancelled {

@@ -59,7 +59,6 @@
                                         <state key="normal" title="Войти"/>
                                         <connections>
                                             <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UCU-MC-THy"/>
-                                            <segue destination="U2N-VL-2Hy" kind="show" id="O5L-D4-oBN"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ca4-pc-XmW">
@@ -162,6 +161,7 @@
                         <outlet property="loginInput" destination="ca4-pc-XmW" id="1lW-yU-cIN"/>
                         <outlet property="passwordInput" destination="dSS-RS-VRD" id="6wo-d9-8bR"/>
                         <outlet property="scrollView" destination="dKV-D2-IkO" id="Xie-ym-uFk"/>
+                        <segue destination="U2N-VL-2Hy" kind="show" identifier="loginSegue" id="42j-by-drf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -23,18 +23,14 @@ class LoginFormController: UIViewController {
 
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
-        animateActivityIndicator()
+//        animateActivityIndicator()
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-//        let login = loginInput.text!
-//        let password = passwordInput.text!
-        
-//        if login == "admin" && password == "123456" {
-//            print("успешная авторизация")
-//        } else {
-//            print("неуспешная авторизация")
-//        }
+        animateActivityIndicator()
+        DispatchQueue.main.asyncAfter(deadline: .now()+4) {
+            self.performSegue(withIdentifier: "loginSegue", sender: self)
+        }
     }
     
     @objc func keyBoardWasShown(notification: Notification) {
@@ -109,13 +105,13 @@ class LoginFormController: UIViewController {
     
     private func animateActivityIndicator() {
         
-        UIView.animate(withDuration: 1, delay: 0, options: [.autoreverse, .repeat], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.autoreverse, .repeat], animations: {
             self.activityIndicator1.layer.opacity = 1
         })
-        UIView.animate(withDuration: 1, delay: 0.5, options: [.autoreverse, .repeat], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.25, options: [.autoreverse, .repeat], animations: {
             self.activityIndicator2.layer.opacity = 1
         })
-        UIView.animate(withDuration: 1, delay: 1, options: [.autoreverse, .repeat], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.autoreverse, .repeat], animations: {
             self.activityIndicator3.layer.opacity = 1
         })
     }
