@@ -28,7 +28,7 @@ class LoginFormController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         animateActivityIndicator()
-        DispatchQueue.main.asyncAfter(deadline: .now()+4) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
             self.performSegue(withIdentifier: "loginSegue", sender: self)
         }
     }

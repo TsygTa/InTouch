@@ -13,18 +13,21 @@ struct FriendModel {
     var image: UIImage
     var likes: Int
     var liked: Bool
+    var id: Int
     
-    init (name str: String, image img: UIImage, likes lks: Int, liked lkd: Bool) {
+    init (id index: Int, name str: String, image img: UIImage, likes lks: Int, liked lkd: Bool) {
         self.name = str
         self.image = img
         self.likes = lks
         self.liked = lkd
+        self.id = index
     }
     
-    init (name str: String, image img: UIImage) {
-        self.name = str
-        self.image = img
-        self.likes = 0
-        self.liked = false
-    }
+//    init (name str: String, image img: UIImage) {
+//        self.name = str
+//        self.image = img
+//        self.likes = 0
+//        self.liked = false
+//        self.id += 1
+//    }
 }

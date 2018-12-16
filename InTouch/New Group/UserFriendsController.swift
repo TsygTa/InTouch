@@ -10,6 +10,7 @@ import UIKit
 
 protocol FriendDelegate {
     func onSwipeFriendsPhoto (direction: Any?) -> FriendModel?
+    func onLikedChange (_ likes: Int, _ liked: Bool)
 }
 
 enum Direction {
@@ -29,22 +30,21 @@ struct Section {
 }
 
 class UserFriendsController: UITableViewController, UISearchBarDelegate,  FriendDelegate {
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
     var userFriends = [
-        FriendModel(name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 255, liked: false),
-        FriendModel(name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 302, liked: false),
-        FriendModel(name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 333, liked: false),
-        FriendModel(name: "Оксана", image: UIImage(named: "Oksana.png")!, likes: 777, liked: false),
-        FriendModel(name: "Анна", image: UIImage(named: "Anna.png")!, likes: 555, liked: false),
-        FriendModel(name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 377, liked: false),
-        FriendModel(name: "Борис", image: UIImage(named: "Boris.png")!, likes: 254, liked: false),
-        FriendModel(name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 301, liked: false),
-        FriendModel(name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 335, liked: false),
-        FriendModel(name: "Инга", image: UIImage(named: "Inga.png")!, likes: 777, liked: false),
-        FriendModel(name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 567, liked: false),
-        FriendModel(name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 398, liked: false)
+        FriendModel(id: 0, name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 255, liked: false),
+        FriendModel(id: 1, name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 302, liked: false),
+        FriendModel(id: 2, name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 333, liked: false),
+        FriendModel(id: 3, name: "Оксана", image: UIImage(named: "Oksana.png")!, likes: 777, liked: false),
+        FriendModel(id: 4, name: "Анна", image: UIImage(named: "Anna.png")!, likes: 555, liked: false),
+        FriendModel(id: 5, name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 377, liked: false),
+        FriendModel(id: 6, name: "Борис", image: UIImage(named: "Boris.png")!, likes: 254, liked: false),
+        FriendModel(id: 7, name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 301, liked: false),
+        FriendModel(id: 8, name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 335, liked: false),
+        FriendModel(id: 9, name: "Инга", image: UIImage(named: "Inga.png")!, likes: 777, liked: false),
+        FriendModel(id: 10, name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 567, liked: false),
+        FriendModel(id: 11, name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 398, liked: false)
     ]
     
     var friendsSections = [Section]()
@@ -53,6 +53,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
     
     var selectedSection = 0
     var selectedRow = 0
+    var selectedFriendId = 0
     
     func onSwipeFriendsPhoto(direction: Any?) -> FriendModel? {
         
@@ -74,7 +75,30 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
                 selectedRow = friendsSections[selectedSection].friends.count - 1
             }
         }
+        selectedFriendId = friendsSections[selectedSection].friends[selectedRow].id
         return friendsSections[selectedSection].friends[selectedRow]
+    }
+    
+    func onLikedChange(_ likes: Int, _ liked: Bool) {
+        var index = 0
+        for friend in userFriends {
+            if friend.id == selectedFriendId {
+                userFriends[index].likes = likes
+                userFriends[index].liked = liked
+                break
+            }
+            index += 1
+        }
+        index = 0
+        for friend in filteredFriends {
+            if friend.id == selectedFriendId {
+                filteredFriends[index].likes = likes
+                filteredFriends[index].liked = liked
+                break
+            }
+            index += 1
+        }
+        makeSections()
     }
     
     private func makeSections() {
@@ -120,16 +144,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView?.addGestureRecognizer(hideKeyboardGesture)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    // MARK: - Table view data source
-    
-    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -171,52 +186,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
             friendController.friend = friend
             selectedSection = indexPath.section
             selectedRow = indexPath.row
+            selectedFriendId = friend.id
         }
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

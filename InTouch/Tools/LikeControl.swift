@@ -10,6 +10,8 @@ import UIKit
 
 class LikeControl: UIControl {
     
+    var delegate: FriendDelegate?
+    
     private var counter: Int = 25
     private var button: UIButton = UIButton()
     private var isLiked: Bool {
@@ -30,12 +32,10 @@ class LikeControl: UIControl {
     
     private func updateButton() {
         if isLiked {
-            counter += 1
             button.setImage(UIImage(named: "redheart.png")!, for: .normal)
             button.setTitleColor(UIColor.red, for: .normal)
             button.tintColor = UIColor.red
         } else {
-            counter -= 1
             button.setImage(UIImage(named: "heart.png")!, for: .normal)
             button.setTitleColor(UIColor.black, for: .normal)
             button.tintColor = UIColor.black
@@ -46,10 +46,14 @@ class LikeControl: UIControl {
     
     @objc private func addLike(_ sender: UIButton) {
         if isLiked {
+            counter -= 1
             isLiked = false
         } else {
+            counter += 1
             isLiked = true
         }
+        guard let userFriendsController = delegate else {return}
+        userFriendsController.onLikedChange(self.counter, self.isLiked)
     }
     
     override init(frame: CGRect) {
