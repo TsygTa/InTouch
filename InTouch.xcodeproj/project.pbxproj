@@ -30,6 +30,7 @@
 		07AF4DC52199996C00FF1B5D /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC42199996C00FF1B5D /* GroupModel.swift */; };
 		3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */; };
 		3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FAD321AC140100AE4AD1 /* CircalView.swift */; };
+		3F72EF8721C6F03400068F71 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72EF8621C6F03400068F71 /* Session.swift */; };
 		3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */; };
 		3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B2218A3CDC0035F2C0 /* Main.storyboard */; };
 		3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B5218A3CDD0035F2C0 /* Assets.xcassets */; };
@@ -80,6 +81,7 @@
 		07AF4DC42199996C00FF1B5D /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		3F37FAD321AC140100AE4AD1 /* CircalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircalView.swift; sourceTree = "<group>"; };
+		3F72EF8621C6F03400068F71 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3F8ED9AB218A3CDC0035F2C0 /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F8ED9B3218A3CDC0035F2C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */,
 				3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */,
 				3F37FAD321AC140100AE4AD1 /* CircalView.swift */,
+				3F72EF8621C6F03400068F71 /* Session.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */,
 				0335A4E221B48CDF0010626E /* CustomInteractiveTransition.swift in Sources */,
 				038909412198C94F00B2CD13 /* UserGroupsCell.swift in Sources */,
+				3F72EF8721C6F03400068F71 /* Session.swift in Sources */,
 				3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */,
 				3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */,
 				0389093F2198C91E00B2CD13 /* UserGroupsController.swift in Sources */,
