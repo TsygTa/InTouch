@@ -369,6 +369,42 @@
             </objects>
             <point key="canvasLocation" x="-8999" y="528"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="3vl-jG-3ja">
+            <objects>
+                <viewController id="F8O-WB-cOP" customClass="VKLoginViewController" customModule="InTouch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KQx-eh-cWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJU-6b-UDB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="d0i-mo-a9W" firstAttribute="bottom" secondItem="JJU-6b-UDB" secondAttribute="bottom" id="3zV-FU-8eO"/>
+                            <constraint firstItem="JJU-6b-UDB" firstAttribute="leading" secondItem="KQx-eh-cWZ" secondAttribute="leading" id="AEP-zP-g2S"/>
+                            <constraint firstItem="JJU-6b-UDB" firstAttribute="top" secondItem="d0i-mo-a9W" secondAttribute="top" id="Kfx-Z9-GTG"/>
+                            <constraint firstItem="d0i-mo-a9W" firstAttribute="trailing" secondItem="JJU-6b-UDB" secondAttribute="trailing" id="MoV-Bt-bWN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="d0i-mo-a9W"/>
+                    </view>
+                    <connections>
+                        <outlet property="view" destination="JJU-6b-UDB" id="Fxj-3r-9ff"/>
+                        <outlet property="webView" destination="JJU-6b-UDB" id="ZuR-uB-B42"/>
+                        <segue destination="U2N-VL-2Hy" kind="show" identifier="VKLogin" id="50J-W9-RFa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qTX-KS-WNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-10538" y="884"/>
+        </scene>
         <!--Новости-->
         <scene sceneID="73x-h3-fQU">
             <objects>
@@ -621,4 +657,7 @@
         <image name="send" width="30" height="30"/>
         <image name="show" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="50J-W9-RFa"/>
+    </inferredMetricsTieBreakers>
 </document>
