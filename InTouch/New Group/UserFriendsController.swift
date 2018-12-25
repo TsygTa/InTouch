@@ -145,6 +145,10 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
         tableView?.addGestureRecognizer(hideKeyboardGesture)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NetworkingService().loadUserFriends()
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

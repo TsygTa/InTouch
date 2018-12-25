@@ -41,6 +41,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
             filteredGroups = groups
         } else {
             filteredGroups = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            NetworkingService().loadGroups(searchText.lowercased())
         }
         tableView.reloadData()
     }
@@ -58,6 +59,10 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NetworkingService().loadGroups("физика")
     }
 
     // MARK: - Table view data source

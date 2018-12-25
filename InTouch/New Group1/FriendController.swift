@@ -50,6 +50,8 @@ class FriendController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NetworkingService().loadFriendPhoto(Session.instance.userId)
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
