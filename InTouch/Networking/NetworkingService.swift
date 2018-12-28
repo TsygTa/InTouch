@@ -8,10 +8,15 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class NetworkingService {
     
     let baseUrl = "https://api.vk.com"
+    
+    static func urlForIcon(_ icon: String) -> URL? {
+        return URL(string: icon)
+    }
     
     public func authorizeRequest() -> URLRequest {
         
@@ -45,30 +50,31 @@ class NetworkingService {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let value):
+                print(Session.instance.token)
+                print(Session.instance.userId)
                 print(value)
             }
         }
     }
     
-    public func loadUserFriends(offset of: Int = 0, count c: Int = 20) {
+    public func loadUserFriends(completionHandler: (([User]?, Error?) -> Void)? = nil) {
         let path = "/method/friends.get"
         
         let params: Parameters = [
             "user_id": Session.instance.userId,
-            "order": "name",
-            "offset": of,
-            "count": c,
             "access_token": Session.instance.token,
-            "fields": "nickname,photo_50",
+            "fields": "nickname,status,photo_50",
             "version": "5.92"
         ]
         Alamofire.request(baseUrl+path, method: .get, parameters: params).responseJSON {
-            (response) in
+            response in
             switch response.result {
             case .failure(let error):
-                print(error.localizedDescription)
+                completionHandler?(nil, error)
             case .success(let value):
-                print(value)
+                let json = JSON(value)
+                let users = json["response"].arrayValue.map { User(json: $0) }
+                completionHandler?(users, nil)
             }
         }
     }
@@ -95,15 +101,13 @@ class NetworkingService {
         }
     }
     
-    public func loadGroups(_ quiry: String, offset of: Int = 0, count c: Int = 20) {
+    public func loadGroups(_ quiry: String, completionHandler: (([Group]?, Error?) -> Void)? = nil) {
         let path = "/method/groups.search"
         
         let params: Parameters = [
             "q": quiry,
             "type": "group",
             "access_token": Session.instance.token,
-            "offset": of,
-            "count": c,
             "version": "5.92"
         ]
         
@@ -113,7 +117,9 @@ class NetworkingService {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let value):
-                print(value)
+                let json = JSON(value)
+                let groups = json["response"].arrayValue.map { Group(json: $0) }
+                completionHandler?(groups, nil)
             }
         }
     }

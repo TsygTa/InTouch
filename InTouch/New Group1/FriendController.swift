@@ -14,7 +14,7 @@ class FriendController: UICollectionViewController {
     
     var delegate: FriendDelegate?
 
-    var friend = FriendModel(id: 0, name:" ", image: UIImage(named: "Tatiana.png")!, likes: 0, liked: false)
+    var friend = User()
     
     var animator: UIViewPropertyAnimator!
     
@@ -84,7 +84,8 @@ class FriendController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
         
         // Configure the cell
-        cell.friendPhoto.image = friend.image
+
+        cell.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(friend.image))        
         cell.friendLikes.delegate = self.delegate
         cell.friendLikes.setCounter(friend.likes)
         cell.friendLikes.setLiked(friend.liked)

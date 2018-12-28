@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol FriendDelegate {
-    func onSwipeFriendsPhoto (direction: Any?) -> FriendModel?
+    func onSwipeFriendsPhoto (direction: Any?) -> User?
     func onLikedChange (_ likes: Int, _ liked: Bool)
 }
 
@@ -20,11 +21,11 @@ enum Direction {
 
 struct Section {
     var letter: Character!
-    var friends: [FriendModel]!
+    var friends: [User]!
     
-    init(_ letter: Character, _ friend: FriendModel) {
+    init(_ letter: Character, _ friend: User) {
         self.letter = letter
-        self.friends = [FriendModel]()
+        self.friends = [User]()
         self.friends.append(friend)
     }
 }
@@ -32,30 +33,17 @@ struct Section {
 class UserFriendsController: UITableViewController, UISearchBarDelegate,  FriendDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var userFriends = [
-        FriendModel(id: 0, name: "Татьяна", image: UIImage(named: "Tatiana.png")!, likes: 255, liked: false),
-        FriendModel(id: 1, name: "Ирина", image: UIImage(named: "Irina.png")!, likes: 302, liked: false),
-        FriendModel(id: 2, name: "Ольга", image: UIImage(named: "Olga.png")!, likes: 333, liked: false),
-        FriendModel(id: 3, name: "Оксана", image: UIImage(named: "Oksana.png")!, likes: 777, liked: false),
-        FriendModel(id: 4, name: "Анна", image: UIImage(named: "Anna.png")!, likes: 555, liked: false),
-        FriendModel(id: 5, name: "Иван", image: UIImage(named: "Ivan.png")!, likes: 377, liked: false),
-        FriendModel(id: 6, name: "Борис", image: UIImage(named: "Boris.png")!, likes: 254, liked: false),
-        FriendModel(id: 7, name: "Мария", image: UIImage(named: "Mariya.png")!, likes: 301, liked: false),
-        FriendModel(id: 8, name: "Кирилл", image: UIImage(named: "Kirill.png")!, likes: 335, liked: false),
-        FriendModel(id: 9, name: "Инга", image: UIImage(named: "Inga.png")!, likes: 777, liked: false),
-        FriendModel(id: 10, name: "Олег", image: UIImage(named: "Oleg.png")!, likes: 567, liked: false),
-        FriendModel(id: 11, name: "Игорь", image: UIImage(named: "Igor.png")!, likes: 398, liked: false)
-    ]
+    var userFriends = [User]()
     
     var friendsSections = [Section]()
     
-    var filteredFriends = [FriendModel]()
+    var filteredFriends = [User]()
     
     var selectedSection = 0
     var selectedRow = 0
     var selectedFriendId = 0
     
-    func onSwipeFriendsPhoto(direction: Any?) -> FriendModel? {
+    func onSwipeFriendsPhoto(direction: Any?) -> User? {
         
         guard let dir = direction as? Direction else {return nil}
         
@@ -129,14 +117,28 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkingService().loadUserFriends(completionHandler: { [weak self]
+            friends, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let users = friends, let self = self else { return }
+            
+            self.userFriends = users
+            
+            DispatchQueue.main.async {
+                self.userFriends = self.userFriends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
+                self.filteredFriends = self.userFriends
+                self.makeSections()
+                self.tableView.reloadData()
+            }
+            
+        })
 
         tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
-        
-        userFriends = userFriends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
-        
-        filteredFriends = userFriends
-        
-        makeSections()
         
         searchBar.delegate = self
         
@@ -146,10 +148,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        NetworkingService().loadUserFriends()
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return friendsSections.count
@@ -166,7 +164,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
         let friend = friendsSections[indexPath.section].friends[indexPath.row]
 
         cell.userFriendName.text = friend.name
-        cell.userFriendAvatar.image = friend.image
+        cell.userFriendAvatar.kf.setImage(with: NetworkingService.urlForIcon(friend.image))
         
         return cell
     }
