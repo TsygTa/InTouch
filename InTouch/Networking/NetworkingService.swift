@@ -36,10 +36,11 @@ class NetworkingService {
         return URLRequest(url: urlComponents.url!)
     }
     
-    public func loadUserGroups() {
+    public func loadUserGroups(_ user_id: Int, completionHandler: (([Group]?, Error?) -> Void)? = nil) {
         let path = "/method/groups.get"
         
         let params: Parameters = [
+            "user_id": user_id,
             "access_token": Session.instance.token,
             "extended": "1",
             "version": "5.92"
@@ -50,9 +51,42 @@ class NetworkingService {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let value):
-                print(Session.instance.token)
-                print(Session.instance.userId)
-                print(value)
+                let json = JSON(value)
+                var groups = json["response"].arrayValue.map { Group(json: $0) }
+                if let first = groups.first {
+                    if first.id == 0 {
+                        groups.remove(at: 0)
+                    }
+                }
+                completionHandler?(groups, nil)
+            }
+        }
+    }
+    
+    public func loadGroups(_ quiry: String, completionHandler: (([Group]?, Error?) -> Void)? = nil) {
+        let path = "/method/groups.search"
+        
+        let params: Parameters = [
+            "q": quiry,
+            "type": "group",
+            "access_token": Session.instance.token,
+            "version": "5.92"
+        ]
+        
+        Alamofire.request(baseUrl+path, method: .get, parameters: params).responseJSON {
+            (response) in
+            switch response.result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let value):
+                let json = JSON(value)
+                var groups = json["response"].arrayValue.map { Group(json: $0) }
+                if let first = groups.first {
+                    if first.id == 0 {
+                        groups.remove(at: 0)
+                    }
+                }
+                completionHandler?(groups, nil)
             }
         }
     }
@@ -79,13 +113,12 @@ class NetworkingService {
         }
     }
     
-    public func loadFriendPhoto(_ id: Int, offset of: Int = 0, count c: Int = 20) {
-        let path = "/method/photos.getUserPhotos"
+    public func loadFriendPhoto(_ id: Int, completionHandler: (([Photo]?, Error?) -> Void)? = nil) {
+        let path = "/method/photos.get"
         
         let params: Parameters = [
-            "user_id": id,
-            "offset": of,
-            "count": c,
+            "owner_id": id,
+            "album_id": "profile",
             "access_token": Session.instance.token,
             "extended": "1",
             "version": "5.92"
@@ -96,30 +129,9 @@ class NetworkingService {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let value):
-                print(value)
-            }
-        }
-    }
-    
-    public func loadGroups(_ quiry: String, completionHandler: (([Group]?, Error?) -> Void)? = nil) {
-        let path = "/method/groups.search"
-        
-        let params: Parameters = [
-            "q": quiry,
-            "type": "group",
-            "access_token": Session.instance.token,
-            "version": "5.92"
-        ]
-        
-        Alamofire.request(baseUrl+path, method: .get, parameters: params).responseJSON {
-            (response) in
-            switch response.result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let value):
                 let json = JSON(value)
-                let groups = json["response"].arrayValue.map { Group(json: $0) }
-                completionHandler?(groups, nil)
+                let photos = json["response"].arrayValue.map { Photo(json: $0) }
+                completionHandler?(photos, nil)
             }
         }
     }

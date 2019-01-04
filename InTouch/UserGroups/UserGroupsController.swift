@@ -42,10 +42,25 @@ class UserGroupsController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NetworkingService().loadUserGroups(Session.instance.userId, completionHandler: { [weak self]
+            groups, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let list = groups, let self = self else { return }
+            
+            self.userGroups = list
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        NetworkingService().loadUserGroups()
+        
     }
 
     // MARK: - Table view data source

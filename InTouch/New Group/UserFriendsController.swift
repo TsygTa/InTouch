@@ -9,11 +9,6 @@
 import UIKit
 import Kingfisher
 
-protocol FriendDelegate {
-    func onSwipeFriendsPhoto (direction: Any?) -> User?
-    func onLikedChange (_ likes: Int, _ liked: Bool)
-}
-
 enum Direction {
     case left
     case right
@@ -30,7 +25,7 @@ struct Section {
     }
 }
 
-class UserFriendsController: UITableViewController, UISearchBarDelegate,  FriendDelegate {
+class UserFriendsController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var userFriends = [User]()
@@ -38,56 +33,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
     var friendsSections = [Section]()
     
     var filteredFriends = [User]()
-    
-    var selectedSection = 0
-    var selectedRow = 0
-    var selectedFriendId = 0
-    
-    func onSwipeFriendsPhoto(direction: Any?) -> User? {
-        
-        guard let dir = direction as? Direction else {return nil}
-        
-        switch dir {
-        case .left:
-            if friendsSections[selectedSection].friends.count-1 > selectedRow {
-                selectedRow += 1
-            } else if friendsSections.count-1 > selectedSection {
-                selectedSection += 1
-                selectedRow = 0
-            }
-        case .right:
-            if selectedRow > 0 {
-                selectedRow -= 1
-            } else if selectedSection > 0 {
-                selectedSection -= 1
-                selectedRow = friendsSections[selectedSection].friends.count - 1
-            }
-        }
-        selectedFriendId = friendsSections[selectedSection].friends[selectedRow].id
-        return friendsSections[selectedSection].friends[selectedRow]
-    }
-    
-    func onLikedChange(_ likes: Int, _ liked: Bool) {
-        var index = 0
-        for friend in userFriends {
-            if friend.id == selectedFriendId {
-                userFriends[index].likes = likes
-                userFriends[index].liked = liked
-                break
-            }
-            index += 1
-        }
-        index = 0
-        for friend in filteredFriends {
-            if friend.id == selectedFriendId {
-                filteredFriends[index].likes = likes
-                filteredFriends[index].liked = liked
-                break
-            }
-            index += 1
-        }
-        makeSections()
-    }
     
     private func makeSections() {
         friendsSections.removeAll()
@@ -184,11 +129,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate,  Friend
         
         if let indexPath = tableView.indexPathForSelectedRow  {
             let friend = friendsSections[indexPath.section].friends[indexPath.row]
-            friendController.delegate = self
             friendController.friend = friend
-            selectedSection = indexPath.section
-            selectedRow = indexPath.row
-            selectedFriendId = friend.id
         }
     }
 }

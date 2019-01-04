@@ -8,32 +8,54 @@
 
 import UIKit
 
-//private let reuseIdentifier = "Cell"
+protocol FriendDelegate {
+    func onLikedChange (_ likes: Int, _ liked: Bool)
+}
 
-class FriendController: UICollectionViewController {
+class FriendController: UICollectionViewController,  FriendDelegate {
     
-    var delegate: FriendDelegate?
-
     var friend = User()
+    var userPhotos = [Photo]()
+    var photoIndex = -1
     
     var animator: UIViewPropertyAnimator!
     
     @IBAction func onSwipe(direction: Any?) {
-        guard let userFriendsController = delegate else {return}
         guard let dir = direction as? Direction else {return}
-    
-        let oldFriend = self.friend
-        self.friend = userFriendsController.onSwipeFriendsPhoto(direction: direction)!
         
-        if oldFriend.id != self.friend.id {
-            switch dir {
-            case .left:
-                collectionView.layer.add(swipeTransitionToLeftSide(true), forKey: nil)
-            case .right:
-                collectionView.layer.add(swipeTransitionToLeftSide(false), forKey: nil)
-            }
-            collectionView.reloadData()
+        setUserPhotoIndex(dir)
+        
+        switch dir {
+        case .left:
+            collectionView.layer.add(swipeTransitionToLeftSide(true), forKey: nil)
+        case .right:
+            collectionView.layer.add(swipeTransitionToLeftSide(false), forKey: nil)
         }
+        collectionView.reloadData()
+    }
+    
+    private func setUserPhotoIndex(_ direction: Direction) {
+        guard userPhotos.count > 0 else {return}
+        
+        switch direction {
+        case .left:
+            if photoIndex == 0 {
+                photoIndex = userPhotos.count-1
+            } else {
+                photoIndex -= 1
+            }
+        case .right:
+            if photoIndex == userPhotos.count-1 {
+                photoIndex = 0
+            } else {
+                photoIndex += 1
+            }
+        }
+    }
+    
+    func onLikedChange(_ likes: Int, _ liked: Bool) {
+        self.userPhotos[photoIndex].likes = likes
+        self.userPhotos[photoIndex].liked = liked
     }
     
     func swipeTransitionToLeftSide(_ leftSide: Bool) -> CATransition {
@@ -50,7 +72,21 @@ class FriendController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkingService().loadFriendPhoto(Session.instance.userId)
+        NetworkingService().loadFriendPhoto(friend.id, completionHandler: { [weak self]
+            photos, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let list = photos, let self = self else { return }
+            
+            self.userPhotos = list
+            self.photoIndex = 0
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
+        })
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
@@ -82,13 +118,13 @@ class FriendController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
-        
-        // Configure the cell
 
-        cell.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(friend.image))        
-        cell.friendLikes.delegate = self.delegate
-        cell.friendLikes.setCounter(friend.likes)
-        cell.friendLikes.setLiked(friend.liked)
+        if photoIndex >= 0 {
+            cell.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(self.userPhotos[photoIndex].image))
+            cell.friendLikes.delegate = self
+            cell.friendLikes.setCounter(self.userPhotos[photoIndex].likes)
+            cell.friendLikes.setLiked(self.userPhotos[photoIndex].liked)
+        }
     
         return cell
     }
