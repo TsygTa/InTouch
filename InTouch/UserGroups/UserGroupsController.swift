@@ -42,13 +42,20 @@ class UserGroupsController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkingService().loadUserGroups(Session.instance.userId, completionHandler: { [weak self]
-            groups, error in
+        Group.forUser = true
+        NetworkingService().fetch(completion: { [weak self]
+            (groups: [Group]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
-            guard let list = groups, let self = self else { return }
+            guard var list = groups, let self = self else { return }
+            
+            if let first = list.first {
+                if first.id == 0 {
+                    list.remove(at: 0)
+                }
+            }
             
             self.userGroups = list
             
@@ -57,10 +64,6 @@ class UserGroupsController: UITableViewController {
             }
             
         })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
 
     // MARK: - Table view data source

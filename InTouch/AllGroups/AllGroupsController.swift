@@ -28,27 +28,33 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         } else {
             loadGroups(searchText)
             filteredGroups = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-            NetworkingService().loadGroups(searchText.lowercased())
         }
         tableView.reloadData()
     }
     
     func loadGroups(_ query: String = "математика") {
         
-        NetworkingService().loadGroups(query, completionHandler: { [weak self]
-            groups, error in
+        Group.forUser = false
+        Group.query = query
+        NetworkingService().fetch(completion: { [weak self]
+            (groups: [Group]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
-            guard let list = groups, let self = self else { return }
+            guard var list = groups, let self = self else { return }
+            
+            if let first = list.first {
+                if first.id == 0 {
+                    list.remove(at: 0)
+                }
+            }
             
             self.groups = list
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         })
     }
     

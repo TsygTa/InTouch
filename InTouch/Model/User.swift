@@ -9,12 +9,36 @@
 import Foundation
 import SwiftyJSON
 import RealmSwift
+import Alamofire
 
-class User: Object, Codable {
+final class User: Object, Codable, VKFetchable {
+    
+    @objc dynamic static var path: String {
+        get {
+            return "/method/friends.get"
+        }
+    }
+    
+    @objc dynamic static var parameters: Parameters {
+        get {
+            return [
+                "user_id": Session.instance.userId,
+                "access_token": Session.instance.token,
+                "fields": "nickname,status,photo_50",
+                "version": "5.92"
+            ]
+        }
+    }
+    
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
     @objc dynamic var status: String = ""
+    
+    static func parseJSON(json: JSON) -> User {
+        let user = User(json: json)
+        return user
+    }
     
     convenience init(json: JSON) {
         self.init()

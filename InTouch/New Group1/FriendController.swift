@@ -71,9 +71,9 @@ class FriendController: UICollectionViewController,  FriendDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NetworkingService().loadFriendPhoto(friend.id, completionHandler: { [weak self]
-            photos, error in
+        Photo.userIdParameter = self.friend.id
+        NetworkingService().fetch(completion: { [weak self]
+            (photos: [Photo]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 return

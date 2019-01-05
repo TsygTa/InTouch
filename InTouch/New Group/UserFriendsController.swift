@@ -63,8 +63,8 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkingService().loadUserFriends(completionHandler: { [weak self]
-            friends, error in
+        NetworkingService().fetch(completion: { [weak self]
+            (friends: [User]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 return

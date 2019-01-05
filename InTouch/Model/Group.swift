@@ -7,15 +7,50 @@
 //
 
 import Foundation
-import UIKit
+import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-class Group: Object, Codable {
+final class Group: Object, Codable, VKFetchable {
+    @objc dynamic static var forUser: Bool = false
+    @objc dynamic static var query: String = ""
+    
+    @objc dynamic static var path: String {
+        get {
+            if forUser {
+                return "/method/groups.get"
+            }
+            return "/method/groups.search"
+        }
+    }
+    
+    @objc dynamic static var parameters: Parameters {
+        get {
+            if forUser {
+                return [
+                    "user_id": Session.instance.userId,
+                    "access_token": Session.instance.token,
+                    "extended": "1",
+                    "version": "5.92"
+                ]
+            }
+            return [
+                "q": self.query,
+                "type": "group",
+                "access_token": Session.instance.token,
+                "version": "5.92"
+            ]
+        }
+    }
+    
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
     
+    static func parseJSON(json: JSON) -> Group {
+        let group = Group(json: json)
+        return group
+    }
     
     convenience init (id ind: Int, name str: String, image img: String) {
         self.init()
