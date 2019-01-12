@@ -13,13 +13,13 @@ import Alamofire
 
 final class User: Object, Codable, VKFetchable {
     
-    @objc dynamic static var path: String {
+    static var path: String {
         get {
             return "/method/friends.get"
         }
     }
     
-    @objc dynamic static var parameters: Parameters {
+    static var parameters: Parameters {
         get {
             return [
                 "user_id": Session.instance.userId,

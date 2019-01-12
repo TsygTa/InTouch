@@ -20,7 +20,7 @@
 		038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038909452198C9C700B2CD13 /* AllGroupsCell.swift */; };
 		03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B78A9721A4A1FB00D5FBD2 /* UserFriendsHeader.swift */; };
 		03B78A9A21A4A2AD00D5FBD2 /* UserFriendsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B78A9921A4A2AD00D5FBD2 /* UserFriendsHeader.xib */; };
-		03F4C7AC219CA6E500D900E8 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F4C7AB219CA6E500D900E8 /* RoundImageView.swift */; };
+		03F4C7AC219CA6E500D900E8 /* PlainImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F4C7AB219CA6E500D900E8 /* PlainImageView.swift */; };
 		03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */; };
 		07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DBB2199630A00FF1B5D /* UserFriendsController.swift */; };
 		07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */; };
@@ -34,6 +34,7 @@
 		3F551AC921CFD61D004E51A7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC821CFD61D004E51A7 /* Group.swift */; };
 		3F551ACB21CFD645004E51A7 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551ACA21CFD645004E51A7 /* Photo.swift */; };
 		3F55E7E021DFD1630026F518 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F55E7DF21DFD1630026F518 /* Fetchable.swift */; };
+		3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72C37421EAAD43004719AA /* RoundImageView.swift */; };
 		3F72EF8721C6F03400068F71 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72EF8621C6F03400068F71 /* Session.swift */; };
 		3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */; };
 		3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B2218A3CDC0035F2C0 /* Main.storyboard */; };
@@ -78,7 +79,7 @@
 		038909452198C9C700B2CD13 /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
 		03B78A9721A4A1FB00D5FBD2 /* UserFriendsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsHeader.swift; sourceTree = "<group>"; };
 		03B78A9921A4A2AD00D5FBD2 /* UserFriendsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserFriendsHeader.xib; sourceTree = "<group>"; };
-		03F4C7AB219CA6E500D900E8 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		03F4C7AB219CA6E500D900E8 /* PlainImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainImageView.swift; sourceTree = "<group>"; };
 		03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		07AF4DBB2199630A00FF1B5D /* UserFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsController.swift; sourceTree = "<group>"; };
 		07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsCell.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		3F551AC821CFD61D004E51A7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		3F551ACA21CFD645004E51A7 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3F55E7DF21DFD1630026F518 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		3F72C37421EAAD43004719AA /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		3F72EF8621C6F03400068F71 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3F8ED9AB218A3CDC0035F2C0 /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -198,11 +200,12 @@
 		03F4C7AA219CA58B00D900E8 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				03F4C7AB219CA6E500D900E8 /* RoundImageView.swift */,
+				03F4C7AB219CA6E500D900E8 /* PlainImageView.swift */,
 				03F4C7AD219CCDDB00D900E8 /* LikeControl.swift */,
 				3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */,
 				3F37FAD321AC140100AE4AD1 /* CircalView.swift */,
 				3F72EF8621C6F03400068F71 /* Session.swift */,
+				3F72C37421EAAD43004719AA /* RoundImageView.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */,
 				0335A4DE21B4854F0010626E /* CustomPopAnimator.swift in Sources */,
 				0335A4E021B4884F0010626E /* CustomNavigationController.swift in Sources */,
+				3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */,
 				07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */,
 				07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */,
 				0335A4E221B48CDF0010626E /* CustomInteractiveTransition.swift in Sources */,
@@ -571,7 +575,7 @@
 				3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */,
 				3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */,
 				0389093F2198C91E00B2CD13 /* UserGroupsController.swift in Sources */,
-				03F4C7AC219CA6E500D900E8 /* RoundImageView.swift in Sources */,
+				03F4C7AC219CA6E500D900E8 /* PlainImageView.swift in Sources */,
 				0335A4DC21B45F540010626E /* CustomPushAnimator.swift in Sources */,
 				03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */,
 				3F55E7E021DFD1630026F518 /* Fetchable.swift in Sources */,

@@ -35,7 +35,10 @@ class FriendController: UICollectionViewController,  FriendDelegate {
     }
     
     private func setUserPhotoIndex(_ direction: Direction) {
-        guard userPhotos.count > 0 else {return}
+        guard userPhotos.count > 0 else {
+            photoIndex = -1
+            return
+        }
         
         switch direction {
         case .left:
@@ -113,10 +116,14 @@ class FriendController: UICollectionViewController,  FriendDelegate {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
+        if self.userPhotos.count == 0 {
+            return 0
+        }
         return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
 
         if photoIndex >= 0 {
@@ -125,7 +132,7 @@ class FriendController: UICollectionViewController,  FriendDelegate {
             cell.friendLikes.setCounter(self.userPhotos[photoIndex].likes)
             cell.friendLikes.setLiked(self.userPhotos[photoIndex].liked)
         }
-    
+        
         return cell
     }
 

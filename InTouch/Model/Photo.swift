@@ -12,20 +12,21 @@ import RealmSwift
 import Alamofire
 
 final class Photo: Object, Codable, VKFetchable {
-    @objc dynamic static var userIdParameter: Int = 0
-    @objc dynamic static var path: String {
+    static var userIdParameter: Int = 0
+    static var path: String {
         get {
             return "/method/photos.get"
         }
     }
     
-    @objc dynamic static var parameters: Parameters {
+    static var parameters: Parameters {
         get {
             return [
                 "owner_id": self.userIdParameter,
                 "album_id": "profile",
                 "access_token": Session.instance.token,
                 "extended": "1",
+                "photo_sizes": "1",
                 "version": "5.92"
             ]
         }
@@ -47,9 +48,16 @@ final class Photo: Object, Codable, VKFetchable {
         self.init()
         self.id = json["pid"].intValue
         self.userId = json["owner_id"].intValue
-        self.image = json["src"].stringValue
         self.likes = json["likes"]["count"].intValue
         self.liked = false
+        
+        for var size in json["sizes"].arrayValue {
+            self.image = size["src"].stringValue
+            if size["type"] == "q" {
+                self.image = size["src"].stringValue
+                break
+            }
+        }
     }
 
 }

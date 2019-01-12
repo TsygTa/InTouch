@@ -22,17 +22,16 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            loadGroups()
-            filteredGroups = groups
-        } else {
+        if !searchText.isEmpty {
             loadGroups(searchText)
             filteredGroups = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
     
-    func loadGroups(_ query: String = "математика") {
+    func loadGroups(_ query: String = "") {
+        
+        guard !query.isEmpty else {return}
         
         Group.forUser = false
         Group.query = query
@@ -86,7 +85,6 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsCell
         

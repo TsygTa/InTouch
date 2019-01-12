@@ -12,10 +12,10 @@ import SwiftyJSON
 import RealmSwift
 
 final class Group: Object, Codable, VKFetchable {
-    @objc dynamic static var forUser: Bool = false
-    @objc dynamic static var query: String = ""
+    static var forUser: Bool = false
+    static var query: String = ""
     
-    @objc dynamic static var path: String {
+    static var path: String {
         get {
             if forUser {
                 return "/method/groups.get"
@@ -24,7 +24,7 @@ final class Group: Object, Codable, VKFetchable {
         }
     }
     
-    @objc dynamic static var parameters: Parameters {
+    static var parameters: Parameters {
         get {
             if forUser {
                 return [
