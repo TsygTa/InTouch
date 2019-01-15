@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol FriendDelegate {
     func onLikedChange (_ likes: Int, _ liked: Bool)
@@ -59,6 +60,27 @@ class FriendController: UICollectionViewController,  FriendDelegate {
     func onLikedChange(_ likes: Int, _ liked: Bool) {
         self.userPhotos[photoIndex].likes = likes
         self.userPhotos[photoIndex].liked = liked
+        NetworkingService().pushLikeRequest(action: liked ? .add : .delete, ownerId: friend.id, itemId: userPhotos[photoIndex].id, itemType: "photo", completion: { [weak self] (counter: Int?, error: Error?) -> Void in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let number = counter, let self = self else { return }
+                self.userPhotos[self.photoIndex].likes = number
+        })
+    }
+    
+    func checkIsLiked() {
+        guard userPhotos.count > 0 else { return }
+        NetworkingService().isLikeRequest(ownerId: friend.id, itemId: userPhotos[photoIndex].id, itemType: "photo", completion:
+            { [weak self] (isLiked: Bool?, error: Error?) -> Void in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let liked = isLiked, let self = self else { return }
+                self.userPhotos[self.photoIndex].liked = liked
+        })
     }
     
     func swipeTransitionToLeftSide(_ leftSide: Bool) -> CATransition {
@@ -83,6 +105,8 @@ class FriendController: UICollectionViewController,  FriendDelegate {
             }
             guard let list = photos, let self = self else { return }
             
+//            DatabaseService().saveData(data: list)
+            
             self.userPhotos = list
             self.photoIndex = 0
             DispatchQueue.main.async {
@@ -90,7 +114,6 @@ class FriendController: UICollectionViewController,  FriendDelegate {
             }
             
         })
-        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
@@ -99,6 +122,11 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//    }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizer.Direction.right {
@@ -127,6 +155,7 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
 
         if photoIndex >= 0 {
+            self.checkIsLiked()
             cell.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(self.userPhotos[photoIndex].image))
             cell.friendLikes.delegate = self
             cell.friendLikes.setCounter(self.userPhotos[photoIndex].likes)

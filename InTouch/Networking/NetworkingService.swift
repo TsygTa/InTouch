@@ -43,11 +43,70 @@ class NetworkingService {
             URLQueryItem(name: "client_id", value: "6794724"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "270342"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.92"),
             URLQueryItem(name: "state", value: "123456")
         ]
         return URLRequest(url: urlComponents.url!)
+    }
+    
+    enum likeAction {
+        case add
+        case delete
+    }
+    
+    func pushLikeRequest(action: likeAction, ownerId: Int, itemId: Int, itemType: String, completion: ((Int?, Error?) -> Void)? = nil) {
+        
+        let path: String
+        switch action {
+            case .add:
+                path = baseUrl + "/method/likes.add"
+            case .delete:
+                path = baseUrl + "/method/likes.delete"
+        }
+        let parameters: Parameters = [
+            "type": itemType,
+            "owner_id": ownerId,
+            "item_id": itemId,
+            "access_token": Session.instance.token,
+            "version": "5.92"
+        ]
+        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+            response in
+            switch response.result {
+                case .failure(let error):
+                    completion?(nil, error)
+                case .success(let value):
+                    let json = JSON(value)
+                    let likes = json["response"]["likes"].intValue
+                    completion?(likes, nil)
+            }
+        }
+    }
+    
+    func isLikeRequest(ownerId: Int, itemId: Int, itemType: String, completion: ((Bool?, Error?) -> Void)? = nil) {
+        
+        let path = baseUrl + "/method/likes.isLiked"
+        
+        let parameters: Parameters = [
+            "type": itemType,
+            "owner_id": ownerId,
+            "item_id": itemId,
+            "user_id": Session.instance.userId,
+            "access_token": Session.instance.token,
+            "version": "5.92"
+        ]
+        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+            response in
+            switch response.result {
+            case .failure(let error):
+                completion?(nil, error)
+            case .success(let value):
+                let json = JSON(value)
+                let liked = json["response"].intValue
+                completion?((liked == 1), nil)
+            }
+        }
     }
 }

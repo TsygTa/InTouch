@@ -8,15 +8,15 @@
 
 import UIKit
 
-class LikeControl: UIControl {
+class LikeControl: UIControl{
     
     var delegate: FriendDelegate?
     
-    private var counter: Int = 25
+    private var counter: Int = 0
     private var button: UIButton = UIButton()
-    private var isLiked: Bool {
+    private var isLiked: Bool = false {
         didSet {
-            updateButton()
+//            updateButton(false)
         }
     }
     
@@ -30,7 +30,7 @@ class LikeControl: UIControl {
         self.addSubview(button)
     }
     
-    private func updateButton() {
+    private func updateButton(_ animate: Bool) {
         if isLiked {
             button.setImage(UIImage(named: "redheart.png")!, for: .normal)
             button.setTitleColor(UIColor.red, for: .normal)
@@ -40,7 +40,9 @@ class LikeControl: UIControl {
             button.setTitleColor(UIColor.black, for: .normal)
             button.tintColor = UIColor.black
         }
-        UIView.transition(with: button.titleLabel!, duration: 1, options: .transitionFlipFromLeft, animations: {self.button.setTitle(String(format:"%d", self.counter), for: .normal)})
+        if animate {
+            UIView.transition(with: button.titleLabel!, duration: 1, options: .transitionFlipFromLeft, animations: {self.button.setTitle(String(format:"%d", self.counter), for: .normal)})
+        }
         self.layoutSubviews()
     }
     
@@ -52,18 +54,17 @@ class LikeControl: UIControl {
             counter += 1
             isLiked = true
         }
+        updateButton(true)
         guard let userFriendsController = delegate else {return}
         userFriendsController.onLikedChange(self.counter, self.isLiked)
     }
     
     override init(frame: CGRect) {
-        isLiked = false
         super.init(frame: frame)
         self.setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        isLiked = false
         super.init(coder: aDecoder)
         self.setupView()
     }
@@ -84,6 +85,6 @@ class LikeControl: UIControl {
     
     public func setLiked(_ liked: Bool) {
         self.isLiked = liked
+        updateButton(false)
     }
-    
 }

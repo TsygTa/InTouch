@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 enum Direction {
     case left
@@ -26,6 +27,7 @@ struct Section {
 }
 
 class UserFriendsController: UITableViewController, UISearchBarDelegate {
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     var userFriends = [User]()
@@ -51,13 +53,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            filteredFriends = userFriends
-        } else {
-            filteredFriends = userFriends.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-        }
-        makeSections()
-        tableView.reloadData()
+        loadData(searchText)
     }
     
     override func viewDidLoad() {
@@ -69,18 +65,13 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
                 print(error.localizedDescription)
                 return
             }
-            
-            guard let users = friends, let self = self else { return }
-            
-            self.userFriends = users
+
+            guard let friends = friends, let self = self else { return }
+            DatabaseService().saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
             
             DispatchQueue.main.async {
-                self.userFriends = self.userFriends.sorted{ $0.name.lowercased() < $1.name.lowercased() }
-                self.filteredFriends = self.userFriends
-                self.makeSections()
-                self.tableView.reloadData()
+                self.loadData()
             }
-            
         })
 
         tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
@@ -90,7 +81,22 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView?.addGestureRecognizer(hideKeyboardGesture)
+    }
+    
+    func loadData(_ query: String = "") {
+        let userFriendsRealm: Results<User>? = try? Realm().objects(User.self).sorted(byKeyPath: "name")
+        guard let users = userFriendsRealm else {return}
         
+        self.userFriends = Array(users)
+        
+        if query.isEmpty {
+            filteredFriends = self.userFriends
+        } else {
+            filteredFriends = self.userFriends.filter { $0.name.lowercased().contains(query.lowercased()) }
+        }
+        
+        self.makeSections()
+        self.tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -116,7 +122,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderID")  as! UserFriendsHeader
-//        header.label.text = String(friendsSections[section].letter)
         return header
     }
     

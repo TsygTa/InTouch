@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
@@ -48,7 +49,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
                     list.remove(at: 0)
                 }
             }
-            
+//            DatabaseService().saveData(data: list)
             self.groups = list
             
             DispatchQueue.main.async {
@@ -68,6 +69,11 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView?.addGestureRecognizer(hideKeyboardGesture)
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//    
+//    }
 
     // MARK: - Table view data source
 

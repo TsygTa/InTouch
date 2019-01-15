@@ -29,7 +29,7 @@ final class User: Object, Codable, VKFetchable {
             ]
         }
     }
-    
+    @objc dynamic var uuid: String = UUID().uuidString
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
@@ -43,9 +43,13 @@ final class User: Object, Codable, VKFetchable {
     convenience init(json: JSON) {
         self.init()
         self.id = json["uid"].intValue
-        self.name = json["first_name"].stringValue
+        self.name = json["first_name"].stringValue + " " + json["last_name"].stringValue
         self.image = json["photo_50"].stringValue
         self.status = json["status"].stringValue
+    }
+    
+    override static func primaryKey() -> String? {
+        return "uuid"
     }
 }
 

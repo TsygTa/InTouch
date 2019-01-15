@@ -31,7 +31,7 @@ final class Photo: Object, Codable, VKFetchable {
             ]
         }
     }
-    
+    @objc dynamic var uuid: String = UUID().uuidString
     @objc dynamic var id: Int = 0
     @objc dynamic var userId: Int = 0
     @objc dynamic var image: String = ""
@@ -49,7 +49,6 @@ final class Photo: Object, Codable, VKFetchable {
         self.id = json["pid"].intValue
         self.userId = json["owner_id"].intValue
         self.likes = json["likes"]["count"].intValue
-        self.liked = false
         
         for var size in json["sizes"].arrayValue {
             self.image = size["src"].stringValue
@@ -60,4 +59,7 @@ final class Photo: Object, Codable, VKFetchable {
         }
     }
 
+    override static func primaryKey() -> String? {
+        return "uuid"
+    }
 }

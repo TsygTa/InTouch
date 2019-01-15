@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class UserGroupsController: UITableViewController {
     
@@ -57,6 +58,8 @@ class UserGroupsController: UITableViewController {
                 }
             }
             
+//            DatabaseService().saveData(data: list)
+            
             self.userGroups = list
             
             DispatchQueue.main.async {
@@ -65,6 +68,11 @@ class UserGroupsController: UITableViewController {
             
         })
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//    }
 
     // MARK: - Table view data source
 

@@ -35,6 +35,7 @@
 		3F551ACB21CFD645004E51A7 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551ACA21CFD645004E51A7 /* Photo.swift */; };
 		3F55E7E021DFD1630026F518 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F55E7DF21DFD1630026F518 /* Fetchable.swift */; };
 		3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72C37421EAAD43004719AA /* RoundImageView.swift */; };
+		3F72C37A21EE5AD6004719AA /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72C37921EE5AD6004719AA /* DatabaseService.swift */; };
 		3F72EF8721C6F03400068F71 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72EF8621C6F03400068F71 /* Session.swift */; };
 		3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */; };
 		3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B2218A3CDC0035F2C0 /* Main.storyboard */; };
@@ -95,6 +96,7 @@
 		3F551ACA21CFD645004E51A7 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3F55E7DF21DFD1630026F518 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		3F72C37421EAAD43004719AA /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		3F72C37921EE5AD6004719AA /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		3F72EF8621C6F03400068F71 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3F8ED9AB218A3CDC0035F2C0 /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +234,14 @@
 			path = "New Group1";
 			sourceTree = "<group>";
 		};
+		3F72C37821EE5A6A004719AA /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				3F72C37921EE5AD6004719AA /* DatabaseService.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		3F8ED9A2218A3CDB0035F2C0 = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +267,7 @@
 		3F8ED9AD218A3CDC0035F2C0 /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
+				3F72C37821EE5A6A004719AA /* Database */,
 				3F99F0D421CBCA6600CF16CA /* Networking */,
 				0335A4DA21B45F140010626E /* Aninators */,
 				0335A4D321A5FF6F0010626E /* News */,
@@ -564,6 +575,7 @@
 				0335A4D521A600D80010626E /* NewsController.swift in Sources */,
 				038909442198C9AE00B2CD13 /* AllGroupsController.swift in Sources */,
 				3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */,
+				3F72C37A21EE5AD6004719AA /* DatabaseService.swift in Sources */,
 				0335A4DE21B4854F0010626E /* CustomPopAnimator.swift in Sources */,
 				0335A4E021B4884F0010626E /* CustomNavigationController.swift in Sources */,
 				3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */,
@@ -766,7 +778,9 @@
 			baseConfigurationReference = 2ED75DA78B8FC66395570A63 /* Pods-InTouch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EC97Q5FY82;
 				INFOPLIST_FILE = InTouch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -774,6 +788,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -784,7 +799,9 @@
 			baseConfigurationReference = A77E979BAFA4D419CE1D6BD4 /* Pods-InTouch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EC97Q5FY82;
 				INFOPLIST_FILE = InTouch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -792,6 +809,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
