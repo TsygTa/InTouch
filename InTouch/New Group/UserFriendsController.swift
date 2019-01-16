@@ -34,11 +34,9 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
     var friendsSections = [Section]()
     
-    var filteredFriends = [User]()
-    
     private func makeSections() {
         friendsSections.removeAll()
-        for friend in filteredFriends {
+        for friend in userFriends {
             guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
             if friendsSections.last?.letter == friend.name.first! {
                 friendsSections[friendsSections.count-1].friends.append(friend)
@@ -46,6 +44,20 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
                 friendsSections.append(Section(friend.name.first!, friend));
             }
         }
+    }
+    
+    private func loadData(_ query: String = "") {
+        let userFriendsRealm: Results<User>? = try? Realm().objects(User.self).sorted(byKeyPath: "name")
+        guard let users = userFriendsRealm else {return}
+        
+        if query.isEmpty {
+            userFriends = Array(users)
+        } else {
+            userFriends = Array(users).filter { $0.name.lowercased().contains(query.lowercased()) }
+        }
+        
+        self.makeSections()
+        self.tableView.reloadData()
     }
     
     @objc func hideKeyboard() {
@@ -81,22 +93,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView?.addGestureRecognizer(hideKeyboardGesture)
-    }
-    
-    func loadData(_ query: String = "") {
-        let userFriendsRealm: Results<User>? = try? Realm().objects(User.self).sorted(byKeyPath: "name")
-        guard let users = userFriendsRealm else {return}
-        
-        self.userFriends = Array(users)
-        
-        if query.isEmpty {
-            filteredFriends = self.userFriends
-        } else {
-            filteredFriends = self.userFriends.filter { $0.name.lowercased().contains(query.lowercased()) }
-        }
-        
-        self.makeSections()
-        self.tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

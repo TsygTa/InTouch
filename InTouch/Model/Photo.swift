@@ -31,7 +31,7 @@ final class Photo: Object, Codable, VKFetchable {
             ]
         }
     }
-    @objc dynamic var uuid: String = UUID().uuidString
+
     @objc dynamic var id: Int = 0
     @objc dynamic var userId: Int = 0
     @objc dynamic var image: String = ""
@@ -60,6 +60,6 @@ final class Photo: Object, Codable, VKFetchable {
     }
 
     override static func primaryKey() -> String? {
-        return "uuid"
+        return "id"
     }
 }

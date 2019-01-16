@@ -57,6 +57,15 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         }
     }
     
+    private func loadData(_ query: String = "") {
+        let userPhotosRealm: Results<Photo>? = try? Realm().objects(Photo.self).filter("userId = \(friend.id)")
+        guard let photos = userPhotosRealm else {return}
+        
+        self.userPhotos = Array(photos)
+        self.photoIndex = 0
+        self.collectionView.reloadData()
+    }
+    
     func onLikedChange(_ likes: Int, _ liked: Bool) {
         self.userPhotos[photoIndex].likes = likes
         self.userPhotos[photoIndex].liked = liked
@@ -105,11 +114,13 @@ class FriendController: UICollectionViewController,  FriendDelegate {
             }
             guard let list = photos, let self = self else { return }
             
-//            DatabaseService().saveData(data: list)
-            
             self.userPhotos = list
             self.photoIndex = 0
+            
+//            DatabaseService().saveData(data: list)
+            
             DispatchQueue.main.async {
+//                self.loadData()
                 self.collectionView.reloadData()
             }
             
