@@ -16,4 +16,12 @@ class FriendCell: UICollectionViewCell {
     var direction: Direction?
     
     var returnValue: ((_ value: Int)->())?
+    
+    public func configure(with photo: Photo, delegate vc: FriendDelegate) {
+        
+        self.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(photo.image))
+        self.friendLikes.delegate = vc
+        self.friendLikes.setCounter(photo.likes)
+        self.friendLikes.setLiked(photo.liked)
+    }
 }

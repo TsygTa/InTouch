@@ -16,7 +16,9 @@ protocol FriendDelegate {
 class FriendController: UICollectionViewController,  FriendDelegate {
     
     var friend = User()
-    var userPhotos = [Photo]()
+    var userPhotos: Results<Photo>?
+    var notificationToken: NotificationToken?
+    
     var photoIndex = -1
     
     var animator: UIViewPropertyAnimator!
@@ -36,11 +38,12 @@ class FriendController: UICollectionViewController,  FriendDelegate {
     }
     
     private func setUserPhotoIndex(_ direction: Direction) {
+        
+        guard let userPhotos = self.userPhotos else {return}
         guard userPhotos.count > 0 else {
             photoIndex = -1
             return
         }
-        
         switch direction {
         case .left:
             if photoIndex == 0 {
@@ -57,38 +60,18 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         }
     }
     
-    private func loadData(_ query: String = "") {
-        let userPhotosRealm: Results<Photo>? = try? Realm().objects(Photo.self).filter("userId = \(friend.id)")
-        guard let photos = userPhotosRealm else {return}
-        
-        self.userPhotos = Array(photos)
-        self.photoIndex = 0
-        self.collectionView.reloadData()
-    }
-    
     func onLikedChange(_ likes: Int, _ liked: Bool) {
-        self.userPhotos[photoIndex].likes = likes
-        self.userPhotos[photoIndex].liked = liked
-        NetworkingService().pushLikeRequest(action: liked ? .add : .delete, ownerId: friend.id, itemId: userPhotos[photoIndex].id, itemType: "photo", completion: { [weak self] (counter: Int?, error: Error?) -> Void in
+        guard let photo = self.userPhotos?[photoIndex] else {return}
+        
+        let newPhoto = Photo(id: photo.id, userId: photo.userId, image: photo.image, likes: likes, liked: liked)
+        
+        DatabaseService.saveData(data: [newPhoto])
+        
+        NetworkingService().pushLikeRequest(action: liked ? .add : .delete, ownerId: friend.id, itemId: photo.id, itemType: "photo", completion: { [weak self] (counter: Int?, error: Error?) -> Void in
                 if let error = error {
                     print(error.localizedDescription)
                     return
                 }
-                guard let number = counter, let self = self else { return }
-                self.userPhotos[self.photoIndex].likes = number
-        })
-    }
-    
-    func checkIsLiked() {
-        guard userPhotos.count > 0 else { return }
-        NetworkingService().isLikeRequest(ownerId: friend.id, itemId: userPhotos[photoIndex].id, itemType: "photo", completion:
-            { [weak self] (isLiked: Bool?, error: Error?) -> Void in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                guard let liked = isLiked, let self = self else { return }
-                self.userPhotos[self.photoIndex].liked = liked
         })
     }
     
@@ -105,6 +88,8 @@ class FriendController: UICollectionViewController,  FriendDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard self.friend.id > 0 else {return}
+        
         Photo.userIdParameter = self.friend.id
         NetworkingService().fetch(completion: { [weak self]
             (photos: [Photo]?, error: Error?) in
@@ -113,17 +98,11 @@ class FriendController: UICollectionViewController,  FriendDelegate {
                 return
             }
             guard let list = photos, let self = self else { return }
-            
-            self.userPhotos = list
-            self.photoIndex = 0
-            
-//            DatabaseService().saveData(data: list)
-            
-            DispatchQueue.main.async {
-//                self.loadData()
-                self.collectionView.reloadData()
+            if list.count > 0 {
+                self.photoIndex = 0
             }
             
+            DatabaseService.saveData(data: list)
         })
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
@@ -134,10 +113,26 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         self.view.addGestureRecognizer(swipeRight)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.userPhotos = DatabaseService.getData(type: Photo.self)?.filter("userId = %@", self.friend.id)
+        
+        if self.userPhotos!.count > 0 {
+            self.photoIndex = 0
+        }
+
+        self.notificationToken = userPhotos?.observe{ [weak self] changes in
+            guard let self = self else {return}
+
+            switch changes {
+            case .initial(_), .update(_, _, _, _):
+                self.collectionView.reloadData()
+            case .error(let error):
+                self.showAlert(error: error)
+            }
+        }
+    }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizer.Direction.right {
@@ -154,25 +149,19 @@ class FriendController: UICollectionViewController,  FriendDelegate {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        if self.userPhotos.count == 0 {
-            return 0
-        }
-        return 1
+        
+        return self.userPhotos?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCellID", for: indexPath) as! FriendCell
-
-        if photoIndex >= 0 {
-            self.checkIsLiked()
-            cell.friendPhoto.kf.setImage(with: NetworkingService.urlForIcon(self.userPhotos[photoIndex].image))
-            cell.friendLikes.delegate = self
-            cell.friendLikes.setCounter(self.userPhotos[photoIndex].likes)
-            cell.friendLikes.setLiked(self.userPhotos[photoIndex].liked)
-        }
         
+        if self.photoIndex >= 0,
+            let photo = userPhotos?[self.photoIndex]  {
+                cell.configure(with: photo, delegate: self)
+        }
+
         return cell
     }
 

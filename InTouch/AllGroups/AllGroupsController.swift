@@ -14,28 +14,23 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups = [Group]()
+    var groups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 0")
     
-    var filteredGroups = [Group]()
+    var notificationToken: NotificationToken?
     
     @objc func hideKeyboard() {
         tableView?.endEditing(true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty {
-            loadGroups(searchText)
-            filteredGroups = groups.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-            tableView.reloadData()
-        }
-    }
-    
-    func loadGroups(_ query: String = "") {
         
-        guard !query.isEmpty else {return}
+        guard !searchText.isEmpty, let list = self.groups else {
+            return
+        }
         
         Group.forUser = false
-        Group.query = query
+        Group.query = searchText
+        
         NetworkingService().fetch(completion: { [weak self]
             (groups: [Group]?, error: Error?) in
             if let error = error {
@@ -49,19 +44,26 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
                     list.remove(at: 0)
                 }
             }
-//            DatabaseService().saveData(data: list)
-            self.groups = list
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            DatabaseService.deleteData(type: Group.self)
+            DatabaseService.saveData(data: list.filter{!$0.name.lowercased().contains("deleted")})
         })
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadGroups();
+        notificationToken = groups?.observe{ [weak self] changes in
+            guard let self = self else {return}
+            
+            switch changes {
+            case .initial(_):
+                self.tableView.reloadData()
+            case .update(_, let dels, let ins, let mods):
+                self.tableView.applyChanges(deletions: dels, insertions: ins, updates: mods)
+            case .error(let error):
+                self.showAlert(error: error)
+            }
+        }
         
         searchBar.delegate = self
         
@@ -69,11 +71,6 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView?.addGestureRecognizer(hideKeyboardGesture)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//    
-//    }
 
     // MARK: - Table view data source
 
@@ -84,24 +81,14 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if filteredGroups.count > 0 {
-            return filteredGroups.count
-        } else {
-            return groups.count
-        }
+        return groups?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsCell
         
-        let group: Group
-        
-        if filteredGroups.count > 0 {
-            group = filteredGroups[indexPath.row]
-        } else {
-             group = groups[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? AllGroupsCell, let group = groups?[indexPath.row] else {
+            return UITableViewCell()
         }
-        
         cell.groupName.text = group.name
         cell.groupAvatar.kf.setImage(with: NetworkingService.urlForIcon(group.image))
         return cell

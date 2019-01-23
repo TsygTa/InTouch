@@ -44,11 +44,21 @@ final class Photo: Object, Codable, VKFetchable {
         return photo
     }
     
+    convenience init (id ind: Int, userId uid: Int, image img: String, likes lks: Int, liked flg: Bool) {
+        self.init()
+        self.id = ind
+        self.userId = uid
+        self.image = img
+        self.likes = lks
+        self.liked = flg
+    }
+    
     convenience init(json: JSON) {
         self.init()
         self.id = json["pid"].intValue
         self.userId = json["owner_id"].intValue
         self.likes = json["likes"]["count"].intValue
+        self.liked = json["likes"]["user_likes"].intValue == 0 ? false : true
         
         for var size in json["sizes"].arrayValue {
             self.image = size["src"].stringValue

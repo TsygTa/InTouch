@@ -85,15 +85,12 @@ class NetworkingService {
         }
     }
     
-    func isLikeRequest(ownerId: Int, itemId: Int, itemType: String, completion: ((Bool?, Error?) -> Void)? = nil) {
+    func groupJoinRequest(groupId: Int, completion: ((Int?, Error?) -> Void)? = nil) {
         
-        let path = baseUrl + "/method/likes.isLiked"
+        let path = baseUrl + "/method/groups.join"
         
         let parameters: Parameters = [
-            "type": itemType,
-            "owner_id": ownerId,
-            "item_id": itemId,
-            "user_id": Session.instance.userId,
+            "group_id": groupId,
             "access_token": Session.instance.token,
             "version": "5.92"
         ]
@@ -104,8 +101,8 @@ class NetworkingService {
                 completion?(nil, error)
             case .success(let value):
                 let json = JSON(value)
-                let liked = json["response"].intValue
-                completion?((liked == 1), nil)
+                let result = json["response"].intValue
+                completion?(result, nil)
             }
         }
     }

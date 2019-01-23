@@ -46,17 +46,19 @@ final class Group: Object, Codable, VKFetchable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
+    @objc dynamic var isMember: Int = 0
     
     static func parseJSON(json: JSON) -> Group {
         let group = Group(json: json)
         return group
     }
     
-    convenience init (id ind: Int, name str: String, image img: String) {
+    convenience init (id ind: Int, name str: String, image img: String, is_member is_m: Int) {
         self.init()
         self.id = ind
         self.name = str
         self.image = img
+        self.isMember = is_m
     }
     
     convenience init(json: JSON) {
@@ -64,6 +66,7 @@ final class Group: Object, Codable, VKFetchable {
         self.id = json["gid"].intValue
         self.name = json["name"].stringValue
         self.image = json["photo"].stringValue
+        self.isMember = json["is_member"].intValue
     }
     
     override static func primaryKey() -> String? {

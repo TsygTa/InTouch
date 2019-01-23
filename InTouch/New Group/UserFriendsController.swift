@@ -30,13 +30,21 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var userFriends = [User]()
+    var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
+    var notificationToken: NotificationToken?
     
     var friendsSections = [Section]()
     
-    private func makeSections() {
+    private func makeSections(_ query: String = "") {
+        guard let users = userFriends else {return}
+        var friends = [User()]
         friendsSections.removeAll()
-        for friend in userFriends {
+        if !query.isEmpty {
+            friends = Array(users).filter({ $0.name.lowercased().contains(query.lowercased()) })
+        } else {
+            friends = Array(users)
+        }
+        for friend in friends {
             guard !friendsSections.isEmpty  else { friendsSections.append(Section(friend.name.first!, friend)); continue}
             if friendsSections.last?.letter == friend.name.first! {
                 friendsSections[friendsSections.count-1].friends.append(friend)
@@ -46,53 +54,47 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    private func loadData(_ query: String = "") {
-        let userFriendsRealm: Results<User>? = try? Realm().objects(User.self).sorted(byKeyPath: "name")
-        guard let users = userFriendsRealm else {return}
-        
-        if query.isEmpty {
-            userFriends = Array(users)
-        } else {
-            userFriends = Array(users).filter { $0.name.lowercased().contains(query.lowercased()) }
-        }
-        
-        self.makeSections()
-        self.tableView.reloadData()
-    }
-    
     @objc func hideKeyboard() {
         tableView?.endEditing(true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        loadData(searchText)
+        self.makeSections(searchText)
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NetworkingService().fetch(completion: { [weak self]
+        notificationToken = userFriends?.observe{ [weak self] changes in
+            guard let self = self else {return}
+            
+            switch changes {
+            case .initial(_):
+                self.tableView.reloadData()
+            case .update(_):
+                self.makeSections()
+                self.tableView.reloadData()
+            case .error(let error):
+                self.showAlert(error: error)
+            }
+        }        
+        NetworkingService().fetch(completion: {[weak self]
             (friends: [User]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
-
-            guard let friends = friends, let self = self else { return }
-            DatabaseService().saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
-            
-            DispatchQueue.main.async {
-                self.loadData()
-            }
+            guard let friends = friends else { return }
+            DatabaseService.deleteData(type: User.self)
+            DatabaseService.saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
         })
-
         tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
         
         searchBar.delegate = self
         
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardGesture.cancelsTouchesInView = false
-        tableView?.addGestureRecognizer(hideKeyboardGesture)
+        tableView.addGestureRecognizer(hideKeyboardGesture)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
