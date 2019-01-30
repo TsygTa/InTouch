@@ -10,7 +10,7 @@ import RealmSwift
 
 class DatabaseService {
     
-    static func saveData<Element: Object>(data: [Element], config: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+    static func saveData<Element: Object>(data: [Element], config: Realm.Configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)) {
         do {
             print(config.fileURL ?? "")
             let realm = try Realm(configuration: config)
@@ -22,7 +22,7 @@ class DatabaseService {
         }
     }
     
-    static func deleteData<Element: Object>(type: Element.Type, config: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+    static func deleteData<Element: Object>(type: Element.Type, config: Realm.Configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)) {
         do {
             print(config.fileURL ?? "")
             let realm = try Realm(configuration: config)
@@ -36,13 +36,13 @@ class DatabaseService {
         }
     }
     
-    static func getData<Element: Object>(type: Element.Type, config: Realm.Configuration = Realm.Configuration.defaultConfiguration) -> Results<Element>? {
+    static func getData<Element: Object>(type: Element.Type, config: Realm.Configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)) -> Results<Element>? {
         
         let realm = try? Realm(configuration: config)
         return realm?.objects(type)
     }
     
-    static func delete<T: Object>(_ items: [T], config: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+    static func delete<T: Object>(_ items: [T], config: Realm.Configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)) {
         do {
             print(config.fileURL ?? "")
             let realm = try Realm(configuration: config)

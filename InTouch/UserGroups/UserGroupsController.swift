@@ -8,12 +8,15 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class UserGroupsController: UITableViewController {
     
-    var userGroups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 1")
+    private var userGroups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 1")
     
-    var notificationToken: NotificationToken?
+    private let ref = Database.database().reference(withPath: "users/\(Session.instance.userId)")
+    
+    private var notificationToken: NotificationToken?
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         guard segue.identifier == "addGroup" else { return }
@@ -28,11 +31,7 @@ class UserGroupsController: UITableViewController {
             
             let newGroup = Group(id: group.id, name: group.name, image: group.image, is_member: 1)
             
-            do {
-                try DatabaseService.saveData(data: [newGroup])
-            } catch {
-                self.showAlert(error: error)
-            }
+            DatabaseService.saveData(data: [newGroup])
             
             NetworkingService().groupJoinRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
                 if let error = error {
@@ -40,6 +39,17 @@ class UserGroupsController: UITableViewController {
                     return
                 }
             })
+            
+            var list = [Int]()
+            if let items = self.userGroups {
+                for item in items {
+                    list.append(item.id)
+                }
+            }
+            list.append(group.id)
+           
+            let user = FirebaseUser(id: Session.instance.userId, groups: list)
+            self.ref.setValue(user.toAnyObject())
         }
     }
 
@@ -92,7 +102,6 @@ class UserGroupsController: UITableViewController {
         return userGroups?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserGroupCell", for: indexPath) as? UserGroupsCell, let group = userGroups?[indexPath.row] else {
@@ -110,7 +119,13 @@ class UserGroupsController: UITableViewController {
         
         if editingStyle == .delete {
             guard let group = userGroups?[indexPath.row] else { return }
-            try? DatabaseService.delete([group])
+            NetworkingService().groupLeaveRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+            })
+            DatabaseService.delete([group])
         }
     }
 }

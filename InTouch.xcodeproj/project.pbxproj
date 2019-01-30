@@ -29,6 +29,7 @@
 		378C33C6D849DE3EBFD4B7D7 /* Pods_InTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17BA7FD3D06B43C5C9AD8D2 /* Pods_InTouch.framework */; };
 		3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */; };
 		3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FAD321AC140100AE4AD1 /* CircalView.swift */; };
+		3F38B9552200FBBD001B39D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F38B9542200FBBD001B39D8 /* GoogleService-Info.plist */; };
 		3F4641FC21F7C5E3007730DB /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */; };
 		3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */; };
 		3F551AC721CFD5FA004E51A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC621CFD5FA004E51A7 /* User.swift */; };
@@ -46,6 +47,7 @@
 		3F8ED9CF218A3CDD0035F2C0 /* InTouchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9CE218A3CDD0035F2C0 /* InTouchUITests.swift */; };
 		3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */; };
 		3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */; };
+		3FC363F721FDC0930075E4E7 /* FirebaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC363F621FDC0930075E4E7 /* FirebaseUser.swift */; };
 		3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */; };
 		B12585542B3DC08AB5B95623 /* Pods_InTouchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5DBF73918410ABF83D85F5 /* Pods_InTouchUITests.framework */; };
 		BD3CFE674D125CFFF2C87FC1 /* Pods_InTouchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EC7AF05DE4010A9BC52EE5 /* Pods_InTouchTests.framework */; };
@@ -92,6 +94,7 @@
 		2ED75DA78B8FC66395570A63 /* Pods-InTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InTouch/Pods-InTouch.debug.xcconfig"; sourceTree = "<group>"; };
 		3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		3F37FAD321AC140100AE4AD1 /* CircalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircalView.swift; sourceTree = "<group>"; };
+		3F38B9542200FBBD001B39D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoginViewController.swift; sourceTree = "<group>"; };
 		3F551AC621CFD5FA004E51A7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		3F8ED9D0218A3CDD0035F2C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		3FC363F621FDC0930075E4E7 /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
 		3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
 		4F7A608D3240132EF683FD2B /* Pods-InTouchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouchUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InTouchUITests/Pods-InTouchUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6C5DBF73918410ABF83D85F5 /* Pods_InTouchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +203,7 @@
 				3F551AC821CFD61D004E51A7 /* Group.swift */,
 				3F551ACA21CFD645004E51A7 /* Photo.swift */,
 				3F55E7DF21DFD1630026F518 /* Fetchable.swift */,
+				3FC363F621FDC0930075E4E7 /* FirebaseUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 				3F8ED9B7218A3CDD0035F2C0 /* LaunchScreen.storyboard */,
 				3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */,
 				3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */,
+				3F38B9542200FBBD001B39D8 /* GoogleService-Info.plist */,
 				3F8ED9BA218A3CDD0035F2C0 /* Info.plist */,
 			);
 			path = InTouch;
@@ -453,6 +459,7 @@
 			files = (
 				3F8ED9B9218A3CDD0035F2C0 /* LaunchScreen.storyboard in Resources */,
 				03B78A9A21A4A2AD00D5FBD2 /* UserFriendsHeader.xib in Resources */,
+				3F38B9552200FBBD001B39D8 /* GoogleService-Info.plist in Resources */,
 				3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */,
 				3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */,
 			);
@@ -480,15 +487,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-InTouchUITests-checkManifestLockResult.txt",
 			);
@@ -502,15 +505,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-InTouchTests-checkManifestLockResult.txt",
 			);
@@ -524,25 +523,29 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-InTouch/Pods-InTouch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -554,15 +557,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-InTouch-checkManifestLockResult.txt",
 			);
@@ -579,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0335A4D521A600D80010626E /* NewsController.swift in Sources */,
+				3FC363F721FDC0930075E4E7 /* FirebaseUser.swift in Sources */,
 				038909442198C9AE00B2CD13 /* AllGroupsController.swift in Sources */,
 				3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */,
 				3F72C37A21EE5AD6004719AA /* DatabaseService.swift in Sources */,
@@ -794,7 +794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.Weather;
+				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.InTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -815,7 +815,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.Weather;
+				PRODUCT_BUNDLE_IDENTIFIER = TsygTa.InTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

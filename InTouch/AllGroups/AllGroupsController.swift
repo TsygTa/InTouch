@@ -14,9 +14,9 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 0")
+    private(set) var groups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 0")
     
-    var notificationToken: NotificationToken?
+    private var notificationToken: NotificationToken?
     
     @objc func hideKeyboard() {
         tableView?.endEditing(true)

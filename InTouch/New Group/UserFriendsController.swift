@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import RealmSwift
+import Firebase
 
 enum Direction {
     case left
@@ -30,10 +31,12 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
-    var notificationToken: NotificationToken?
+    private let ref = Database.database().reference(withPath: "users")
     
-    var friendsSections = [Section]()
+    private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
+    private var notificationToken: NotificationToken?
+    
+    private var friendsSections = [Section]()
     
     private func makeSections(_ query: String = "") {
         guard let users = userFriends else {return}
@@ -95,6 +98,10 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(hideKeyboardGesture)
+        
+        let user = FirebaseUser(id: Session.instance.userId)
+        let userRef = self.ref.child(String(Session.instance.userId))
+        userRef.setValue(user.toAnyObject())
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -24,7 +24,6 @@ class VKLoginViewController: UIViewController {
         print(request)
         webView.load(request)
     }
-
 }
 
 extension VKLoginViewController: WKNavigationDelegate {

@@ -106,4 +106,26 @@ class NetworkingService {
             }
         }
     }
+    
+    func groupLeaveRequest(groupId: Int, completion: ((Int?, Error?) -> Void)? = nil) {
+        
+        let path = baseUrl + "/method/groups.leave"
+        
+        let parameters: Parameters = [
+            "group_id": groupId,
+            "access_token": Session.instance.token,
+            "version": "5.92"
+        ]
+        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+            response in
+            switch response.result {
+            case .failure(let error):
+                completion?(nil, error)
+            case .success(let value):
+                let json = JSON(value)
+                let result = json["response"].intValue
+                completion?(result, nil)
+            }
+        }
+    }
 }
