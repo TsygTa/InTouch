@@ -3,25 +3,14 @@
 
 target 'InTouch' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+
   use_frameworks!
 
   # Pods for InTouch
+
   pod 'RealmSwift'
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'Kingfisher'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
-  pod 'Firebase/Auth'
-
-  target 'InTouchTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'InTouchUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end

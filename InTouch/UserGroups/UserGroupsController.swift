@@ -8,13 +8,10 @@
 
 import UIKit
 import RealmSwift
-import FirebaseDatabase
 
 class UserGroupsController: UITableViewController {
     
     private var userGroups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 1")
-    
-    private let ref = Database.database().reference(withPath: "users/\(Session.instance.userId)")
     
     private var notificationToken: NotificationToken?
     
@@ -39,17 +36,6 @@ class UserGroupsController: UITableViewController {
                     return
                 }
             })
-            
-            var list = [Int]()
-            if let items = self.userGroups {
-                for item in items {
-                    list.append(item.id)
-                }
-            }
-            list.append(group.id)
-           
-            let user = FirebaseUser(id: Session.instance.userId, groups: list)
-            self.ref.setValue(user.toAnyObject())
         }
     }
 
