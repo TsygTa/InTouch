@@ -46,10 +46,7 @@ class NewsController: UITableViewController {
 
         let item = news[indexPath.row]
 
-        cell.newsLabel.text = item.text
-        cell.newsImage.image = item.image
-        cell.newsLikes.setCounter(item.likes)
-        cell.newsViews.text = String(format:"%d", item.views)
+        cell.configure(with: item)
         
         return cell
     }
