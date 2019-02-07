@@ -33,6 +33,22 @@ class NetworkingService {
         }
     }
     
+    func fetch(completion: (([Post]?, [Group]?, [User]?, Error?) -> Void)? = nil) {
+        Alamofire.request(baseUrl + Post.path, method: .get, parameters: Post.parameters).responseJSON {
+            response in
+            switch response.result {
+            case .failure(let error):
+                completion?(nil,nil, nil, error)
+            case .success(let value):
+                let json = JSON(value)
+                let posts: [Post] = json["response"]["items"].arrayValue.map { Post.parseJSON(json: $0) }
+                let groups: [Group] = json["response"]["groups"].arrayValue.map { Group.parseJSON(json: $0) }
+                let users: [User] = json["response"]["profiles"].arrayValue.map { User.parseJSON(json: $0) }
+                completion?(posts, groups, users, nil)
+            }
+        }
+    }
+    
     public func authorizeRequest() -> URLRequest {
         
         var urlComponents = URLComponents()

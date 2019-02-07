@@ -43,6 +43,7 @@
 		3F8ED9B9218A3CDD0035F2C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B7218A3CDD0035F2C0 /* LaunchScreen.storyboard */; };
 		3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */; };
 		3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */; };
+		3FC51E54220A07230030FD16 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC51E53220A07230030FD16 /* Post.swift */; };
 		3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */; };
 		5707D809644CED9F4B9D8D87 /* Pods_InTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E4887F29F2C67935EE7C8C /* Pods_InTouch.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,7 @@
 		3F8ED9D0218A3CDD0035F2C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		3FC51E53220A07230030FD16 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
 		5AE0CBACB89F94A3D9360EE0 /* Pods-InTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.release.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.release.xcconfig"; sourceTree = "<group>"; };
 		C62040D4300812FD623FCB37 /* Pods-InTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.debug.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				3F551AC821CFD61D004E51A7 /* Group.swift */,
 				3F551ACA21CFD645004E51A7 /* Photo.swift */,
 				3F55E7DF21DFD1630026F518 /* Fetchable.swift */,
+				3FC51E53220A07230030FD16 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */,
 				3F55E7E021DFD1630026F518 /* Fetchable.swift in Sources */,
 				0335A4D921A607D00010626E /* NewsModel.swift in Sources */,
+				3FC51E54220A07230030FD16 /* Post.swift in Sources */,
 				3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */,
 				3F551AC721CFD5FA004E51A7 /* User.swift in Sources */,
 				3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */,

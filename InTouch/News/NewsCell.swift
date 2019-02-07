@@ -41,15 +41,26 @@ class NewsCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    public func configure(with item: NewsModel) {
+    public func configure(with item: Post) {
         
-        self.postText.text = item.text
-        self.postPhoto.image = item.image
+        self.postText.text = item.post
+        self.postPhoto.kf.setImage(with: NetworkingService.urlForIcon(item.photo))
         self.likesControl.setCounter(item.likes)
         self.viewsLabel.text = String(format:"%d", item.views)
-        self.authorImage.image = UIImage(named: "emptyImage.png")!
-        self.authorLabel.text = "Author"
-        self.dateLabel.text = "01.01.1970"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        self.dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: item.date))
+        
+        if item.authorId < 0, let group = item.group {
+            self.authorLabel.text = group.name
+            self.authorImage.kf.setImage(with: NetworkingService.urlForIcon(group.image))
+        } else if item.authorId > 0, let user = item.user {
+            self.authorLabel.text = user.name
+            self.authorImage.kf.setImage(with: NetworkingService.urlForIcon(user.image))
+        } else {
+            self.authorLabel.text = ""
+            self.authorImage.image = UIImage(contentsOfFile: "emptyImage.png")
+        }
     }
 
 }

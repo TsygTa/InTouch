@@ -11,6 +11,7 @@ import RealmSwift
 
 class UserGroupsController: UITableViewController {
     
+    private let networkingService = NetworkingService()
     private var userGroups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 1")
     
     private var notificationToken: NotificationToken?
@@ -30,7 +31,7 @@ class UserGroupsController: UITableViewController {
             
             DatabaseService.saveData(data: [newGroup])
             
-            NetworkingService().groupJoinRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
+            networkingService.groupJoinRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
                 if let error = error {
                     print(error.localizedDescription)
                     return
@@ -58,7 +59,7 @@ class UserGroupsController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Group.forUser = true
-        NetworkingService().fetch(completion: { [weak self]
+        networkingService.fetch(completion: { [weak self]
             (groups: [Group]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
@@ -105,7 +106,7 @@ class UserGroupsController: UITableViewController {
         
         if editingStyle == .delete {
             guard let group = userGroups?[indexPath.row] else { return }
-            NetworkingService().groupLeaveRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
+            networkingService.groupLeaveRequest(groupId: group.id, completion: { [weak self] (result: Int?, error: Error?) -> Void in
                 if let error = error {
                     print(error.localizedDescription)
                     return

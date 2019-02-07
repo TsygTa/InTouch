@@ -30,6 +30,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private let networkingService = NetworkingService()
     private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
     private var notificationToken: NotificationToken?
     
@@ -78,7 +79,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
                 self.showAlert(error: error)
             }
         }        
-        NetworkingService().fetch(completion: {[weak self]
+        networkingService.fetch(completion: {[weak self]
             (friends: [User]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
