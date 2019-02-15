@@ -8,9 +8,9 @@ target 'InTouch' do
 
   # Pods for InTouch
 
-  pod 'RealmSwift'
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
-  pod 'Kingfisher'
+  pod 'RealmSwift', '3.9.0'
+  pod 'Alamofire', '4.8.1'
+  pod 'SwiftyJSON', '4.2.0'
+  pod 'Kingfisher', '5.1.0'
 
 end

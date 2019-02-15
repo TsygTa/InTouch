@@ -31,7 +31,7 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private let networkingService = NetworkingService()
-    private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
+    private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.filter("isFriend == 1 ").sorted(byKeyPath: "name")
     private var notificationToken: NotificationToken?
     
     private var friendsSections = [Section]()
@@ -68,26 +68,26 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         notificationToken = userFriends?.observe{ [weak self] changes in
             guard let self = self else {return}
-            
-            switch changes {
-            case .initial(_):
-                self.tableView.reloadData()
-            case .update(_):
-                self.makeSections()
-                self.tableView.reloadData()
-            case .error(let error):
-                self.showAlert(error: error)
-            }
+                switch changes {
+                case .initial(_):
+                    self.tableView.reloadData()
+                case .update(_):
+                    self.makeSections()
+                    self.tableView.reloadData()
+                case .error(let error):
+                    self.showAlert(error: error)
+                }
         }        
         networkingService.fetch(completion: {[weak self]
             (friends: [User]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let friends = friends else { return }
-            DatabaseService.deleteData(type: User.self)
-            DatabaseService.saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
+            
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let friends = friends else { return }
+                DatabaseService.deleteData(type: User.self)
+                DatabaseService.saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
         })
         tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
         

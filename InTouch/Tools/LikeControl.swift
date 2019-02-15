@@ -13,7 +13,7 @@ class LikeControl: UIControl{
     var delegate: FriendDelegate?
     
     private var counter: Int = 0
-    private var button: UIButton = UIButton()
+    private var button: UIButton = UIButton(type: .custom)
     private var isLiked: Bool = false {
         didSet {
 //            updateButton(false)
@@ -21,9 +21,10 @@ class LikeControl: UIControl{
     }
     
     private func setupView() {
-        button = UIButton(type: .system)
         button.setImage(UIImage(named: "heart.png")!, for: .normal)
-        button.setTitle(String(format:"%d", counter), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        let str = self.counter > 0 ? String(format:"%d", self.counter) : ""
+        button.setTitle(str, for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(addLike(_:)), for: .touchUpInside)
@@ -41,7 +42,9 @@ class LikeControl: UIControl{
             button.tintColor = UIColor.black
         }
         if animate {
-            UIView.transition(with: button.titleLabel!, duration: 1, options: .transitionFlipFromLeft, animations: {self.button.setTitle(String(format:"%d", self.counter), for: .normal)})
+            let str = self.counter > 0 ? String(format:"%d", self.counter) : ""
+            UIView.transition(with: button.titleLabel!, duration: 1, options: .transitionFlipFromLeft, animations:
+                {self.button.setTitle(str, for: .normal)})
         }
         self.layoutSubviews()
     }
@@ -80,7 +83,8 @@ class LikeControl: UIControl{
     
     public func setCounter(_ counter: Int) {
         self.counter = counter
-        button.setTitle(String(format:"%d", counter), for: .normal)
+        let str = counter > 0 ? String(format:"%d", counter) : ""
+        button.setTitle(str, for: .normal)
     }
     
     public func setLiked(_ liked: Bool) {

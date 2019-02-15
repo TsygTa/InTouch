@@ -15,40 +15,26 @@ class NewsController: UITableViewController {
     private var groups = [Group]()
     private var users = [User]()
     
-    private var posts: Results<Post>? = DatabaseService.getData(type: Post.self)
-    private var notificationToken: NotificationToken?
+    private var posts = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        notificationToken = posts?.observe{ [weak self] changes in
-            guard let self = self else {return}
-            
-            switch changes {
-            case .initial(_):
-                self.tableView.reloadData()
-            case .update(_, let dels, let ins, let mods):
-                self.tableView.applyChanges(deletions: dels, insertions: ins, updates: mods)
-            case .error(let error):
-                self.showAlert(error: error)
-            }
-        }
+        networkingService.fetch(completion: { [weak self] (posts: [Post]?, groups: [Group]?, users: [User]?, error: Error?) in
         
-        networkingService.fetch(completion: { (posts: [Post]?, groups: [Group]?, users: [User]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let listP = posts, let listG = groups, let listU = users, let self = self else { return }
+
+                DatabaseService.saveData(data: listG)
+                DatabaseService.saveData(data: listU)
+
+                self.posts = listP
+                self.tableView.reloadData()
             }
-            guard let listP = posts, let listG = groups, let listU = users else { return }
-            
-            DatabaseService.deleteData(type: Post.self)
-            DatabaseService.saveData(data: listG)
-            DatabaseService.saveData(data: listU)
-            DatabaseService.saveData(data: listP)
-            
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
         })
     }
 
@@ -61,17 +47,18 @@ class NewsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.posts?.count ?? 0
+        return self.posts.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsCellID", for: indexPath) as? NewsCell, let post = posts?[indexPath.row] else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsCellID", for: indexPath) as? NewsCell else {
             return UITableViewCell()
         }
-        cell.configure(with: post)
         
+        let post = posts[indexPath.row]
+        cell.configure(with: post)
         return cell
     }
 }
