@@ -49,7 +49,6 @@ class NewsController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return self.posts.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

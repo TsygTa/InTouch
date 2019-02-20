@@ -16,26 +16,32 @@ class NewsCell: UITableViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
     
-    @IBOutlet weak var postText: UITextView!
+    @IBOutlet weak var postText: UILabel!
+    
     
     @IBOutlet weak var postPhoto: UIImageView!
     
     @IBOutlet weak var likesControl: LikeControl!
     
-    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var commentsControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var commentLable: UILabel!
     
-    @IBOutlet weak var repostButton: UIButton!
+    @IBOutlet weak var repostControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var repostLable: UILabel!
+    @IBOutlet weak var viewsControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var viewsLabel: UILabel!
+    @IBOutlet weak var topPhotoConstraint: NSLayoutConstraint!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
+        self.commentsControl.setImage("comment.png")
+        self.repostControl.setImage("send.png")
+        self.viewsControl.setImage("show.png")
+        self.viewsControl.setButtonDisabled(true)
+        
         // Initialization code
     }
 
@@ -49,7 +55,7 @@ class NewsCell: UITableViewCell {
         self.postText.text = item.post
         self.postPhoto.kf.setImage(with: NetworkingService.urlForIcon(item.photo))
         self.likesControl.setCounter(item.likes)
-        self.viewsLabel.text = item.views == 0 ? "" : String(format:"%d", item.views)
+        self.viewsControl.setCounter(item.views)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
         self.dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: item.date))
@@ -64,7 +70,18 @@ class NewsCell: UITableViewCell {
             self.authorLabel.text = ""
             self.authorImage.image = UIImage(contentsOfFile: "emptyImage.png")
         }
-        self.commentLable.text = item.comments == 0 ? "" : String(format: "%d", item.comments)
-        self.repostLable.text = item.reposts == 0 ? "" : String(format: "%d", item.reposts)
+        
+        self.commentsControl.setCounter(item.comments)
+        self.repostControl.setCounter(item.reposts)
+        
+        if item.type == "photo" {
+            self.postText.isHidden = true
+            self.viewsControl.isHidden = true
+            self.topPhotoConstraint.constant = 10
+        } else {
+            self.postText.isHidden = false
+            self.viewsControl.isHidden = false
+            self.topPhotoConstraint.constant = 120
+        }
     }
 }
