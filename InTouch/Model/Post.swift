@@ -29,12 +29,11 @@ final class Post: Codable, VKFetchable {
             ]
         }
     }
+    var id: Int = 0
     var type: String = "post"
     var date: Double = 0
     var post: String = ""
     var photo: String = ""
-    var photoWidth: Int = 1
-    var photoHeight: Int = 1
     
     var authorId: Int = 0
     var user: User?
@@ -78,18 +77,10 @@ final class Post: Codable, VKFetchable {
         
         if self.type == "post" {
             
+            self.id = json["post_id"].intValue
             self.post = json["text"].stringValue
             
-            if !json["attachment"]["photo"]["src_xbig"].stringValue.isEmpty {
-                self.photo = json["attachment"]["photo"]["src_xbig"].stringValue
-            } else if !json["attachment"]["photo"]["src_big"].stringValue.isEmpty {
-                self.photo = json["attachment"]["photo"]["src_big"].stringValue
-            } else {
-                self.photo = json["attachment"]["photo"]["src"].stringValue
-            }
-            
-            self.photoWidth = json["attachment"]["photo"]["width"].intValue
-            self.photoHeight = json["attachment"]["photo"]["height"].intValue
+            self.photo = json["attachment"]["photo"]["src_big"].stringValue
             
             self.likes = json["likes"]["count"].intValue
             self.canLike = json["likes"]["can_like"].intValue  == 1 ? true : false
@@ -105,12 +96,11 @@ final class Post: Codable, VKFetchable {
             self.views = json["views"]["count"].intValue
             
         } else if self.type == "photo" {
-            
             for photo in json["photos"].arrayValue {
                 if photo["pid"].intValue > 0 {
+                    
+                    self.id = photo["pid"].intValue
                     self.photo = photo["src_big"].stringValue
-                    self.photoWidth = photo["width"].intValue
-                    self.photoHeight = photo["height"].intValue
                     
                     self.likes = photo["likes"]["count"].intValue
                     self.canLike = true
@@ -126,6 +116,5 @@ final class Post: Codable, VKFetchable {
                 }
             }
         }
-        
     }
 }

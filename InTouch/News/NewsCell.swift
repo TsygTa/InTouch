@@ -18,19 +18,17 @@ class NewsCell: UITableViewCell {
     
     @IBOutlet weak var postText: UILabel!
     
-    
     @IBOutlet weak var postPhoto: UIImageView!
-    
+
     @IBOutlet weak var likesControl: LikeControl!
-    
+
     @IBOutlet weak var commentsControl: ImgBtnLabelControl!
     
-    
     @IBOutlet weak var repostControl: ImgBtnLabelControl!
-    
+
     @IBOutlet weak var viewsControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var topPhotoConstraint: NSLayoutConstraint!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     
     
     override func awakeFromNib() {
@@ -52,8 +50,10 @@ class NewsCell: UITableViewCell {
     }
     
     public func configure(with item: Post) {
-        self.postText.text = item.post
-        self.postPhoto.kf.setImage(with: NetworkingService.urlForIcon(item.photo))
+        
+        let attrStr = try! NSAttributedString(data: (item.post.data(using: String.Encoding.unicode, allowLossyConversion: true)!), options: [.documentType: NSAttributedString.DocumentType.html],  documentAttributes: nil)
+        self.postText.attributedText = attrStr
+        
         self.likesControl.setCounter(item.likes)
         self.viewsControl.setCounter(item.views)
         let dateFormatter = DateFormatter()
@@ -75,13 +75,44 @@ class NewsCell: UITableViewCell {
         self.repostControl.setCounter(item.reposts)
         
         if item.type == "photo" {
-            self.postText.isHidden = true
             self.viewsControl.isHidden = true
-            self.topPhotoConstraint.constant = 10
         } else {
-            self.postText.isHidden = false
             self.viewsControl.isHidden = false
-            self.topPhotoConstraint.constant = 120
+        }
+        
+        self.postPhoto.image = nil
+        self.photoHeightConstraint.constant = 0
+        
+        setImage(withUrlString: item.photo)
+        
+    }
+    
+    private func setImage(withUrlString urlString: String) {
+        
+        self.postPhoto.image = nil
+        self.photoHeightConstraint.constant = 0
+        
+        guard let url = URL(string: urlString) else { return }
+       
+        self.postPhoto.kf.setImage(with: url) { result in
+            switch result {
+            case .success(let value):
+                self.adjustHeightToFitImage(image: value.image)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func adjustHeightToFitImage(image: UIImage?) {
+        
+        guard let image = image else {return}
+
+        let aspectRatio = image.size.height / image.size.width
+        let photoHeightToFit = self.frame.size.width * aspectRatio
+
+        if self.photoHeightConstraint.constant != photoHeightToFit {
+            self.photoHeightConstraint.constant = photoHeightToFit
         }
     }
 }

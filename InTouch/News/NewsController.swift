@@ -20,6 +20,10 @@ class NewsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 338
+        //self.tableView.contentInsetAdjustmentBehavior = .never
+        
         networkingService.fetch(completion: { [weak self] (posts: [Post]?, groups: [Group]?, users: [User]?, error: Error?) in
         
             DispatchQueue.main.async {
