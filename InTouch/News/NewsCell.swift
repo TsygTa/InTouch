@@ -16,26 +16,30 @@ class NewsCell: UITableViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
     
-    @IBOutlet weak var postText: UITextView!
+    @IBOutlet weak var postText: UILabel!
     
     @IBOutlet weak var postPhoto: UIImageView!
-    
+
     @IBOutlet weak var likesControl: LikeControl!
+
+    @IBOutlet weak var commentsControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var repostControl: ImgBtnLabelControl!
+
+    @IBOutlet weak var viewsControl: ImgBtnLabelControl!
     
-    @IBOutlet weak var commentLable: UILabel!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var repostButton: UIButton!
-    
-    @IBOutlet weak var repostLable: UILabel!
-    
-    @IBOutlet weak var viewsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
+        self.commentsControl.setImage("comment.png")
+        self.repostControl.setImage("send.png")
+        self.viewsControl.setImage("show.png")
+        self.viewsControl.setButtonDisabled(true)
+        
         // Initialization code
     }
 
@@ -46,10 +50,12 @@ class NewsCell: UITableViewCell {
     }
     
     public func configure(with item: Post) {
-        self.postText.text = item.post
-        self.postPhoto.kf.setImage(with: NetworkingService.urlForIcon(item.photo))
+        
+        let attrStr = try! NSAttributedString(data: (item.post.data(using: String.Encoding.unicode, allowLossyConversion: true)!), options: [.documentType: NSAttributedString.DocumentType.html],  documentAttributes: nil)
+        self.postText.attributedText = attrStr
+        
         self.likesControl.setCounter(item.likes)
-        self.viewsLabel.text = item.views == 0 ? "" : String(format:"%d", item.views)
+        self.viewsControl.setCounter(item.views)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
         self.dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: item.date))
@@ -64,7 +70,49 @@ class NewsCell: UITableViewCell {
             self.authorLabel.text = ""
             self.authorImage.image = UIImage(contentsOfFile: "emptyImage.png")
         }
-        self.commentLable.text = item.comments == 0 ? "" : String(format: "%d", item.comments)
-        self.repostLable.text = item.reposts == 0 ? "" : String(format: "%d", item.reposts)
+        
+        self.commentsControl.setCounter(item.comments)
+        self.repostControl.setCounter(item.reposts)
+        
+        if item.type == "photo" {
+            self.viewsControl.isHidden = true
+        } else {
+            self.viewsControl.isHidden = false
+        }
+        
+        self.postPhoto.image = nil
+        self.photoHeightConstraint.constant = 0
+        
+        setImage(withUrlString: item.photo)
+        
+    }
+    
+    private func setImage(withUrlString urlString: String) {
+        
+        self.postPhoto.image = nil
+        self.photoHeightConstraint.constant = 0
+        
+        guard let url = URL(string: urlString) else { return }
+       
+        self.postPhoto.kf.setImage(with: url) { result in
+            switch result {
+            case .success(let value):
+                self.adjustHeightToFitImage(image: value.image)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func adjustHeightToFitImage(image: UIImage?) {
+        
+        guard let image = image else {return}
+
+        let aspectRatio = image.size.height / image.size.width
+        let photoHeightToFit = self.frame.size.width * aspectRatio
+
+        if self.photoHeightConstraint.constant != photoHeightToFit {
+            self.photoHeightConstraint.constant = photoHeightToFit
+        }
     }
 }

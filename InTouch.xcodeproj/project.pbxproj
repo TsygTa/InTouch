@@ -28,6 +28,7 @@
 		07AF4DC3219963D900FF1B5D /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC2219963D900FF1B5D /* FriendCell.swift */; };
 		3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */; };
 		3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FAD321AC140100AE4AD1 /* CircalView.swift */; };
+		3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */; };
 		3F4641FC21F7C5E3007730DB /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */; };
 		3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */; };
 		3F551AC721CFD5FA004E51A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC621CFD5FA004E51A7 /* User.swift */; };
@@ -71,6 +72,7 @@
 		07AF4DC2219963D900FF1B5D /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		3F37FAD321AC140100AE4AD1 /* CircalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircalView.swift; sourceTree = "<group>"; };
+		3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgBtnLabelControl.swift; sourceTree = "<group>"; };
 		3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoginViewController.swift; sourceTree = "<group>"; };
 		3F551AC621CFD5FA004E51A7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				3F72EF8621C6F03400068F71 /* Session.swift */,
 				3F72C37421EAAD43004719AA /* RoundImageView.swift */,
 				3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */,
+				3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				0335A4D921A607D00010626E /* NewsModel.swift in Sources */,
 				3FC51E54220A07230030FD16 /* Post.swift in Sources */,
 				3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */,
+				3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */,
 				3F551AC721CFD5FA004E51A7 /* User.swift in Sources */,
 				3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */,
 				3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */,

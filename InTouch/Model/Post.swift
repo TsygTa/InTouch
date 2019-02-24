@@ -20,7 +20,7 @@ final class Post: Codable, VKFetchable {
     static var parameters: Parameters {
         get {
             return [
-                "filters": "post",
+                "filters": "post,photo",
                 "access_token": Session.instance.token,
                 "return_banned": "0",
                 "start_time": String(format:"%d", NSDate().timeIntervalSince1970 - 30*24*60*60),
@@ -59,26 +59,9 @@ final class Post: Codable, VKFetchable {
     
     convenience init(json: JSON) {
         self.init()
-        self.id = json["post_id"].intValue
+
         self.type = json["type"].stringValue
         self.date = json["date"].doubleValue
-        self.post = json["text"].stringValue
-        
-        if !json["attachment"]["photo"]["src_xbig"].stringValue.isEmpty {
-            self.photo = json["attachment"]["photo"]["src_xbig"].stringValue
-        } else if !json["attachment"]["photo"]["src_big"].stringValue.isEmpty {
-            self.photo = json["attachment"]["photo"]["src_big"].stringValue
-        } else {
-            self.photo = json["attachment"]["photo"]["src"].stringValue
-        }
-        let attachments = json["attachments"].arrayValue
-        for attachment in attachments {
-            if attachment["type"] == "video" {
-                self.views = attachment["video"]["views"].intValue
-                break
-            }
-        }
-        
         self.authorId = json["source_id"].intValue
         DispatchQueue.main.async {
             if self.authorId < 0, let item = DatabaseService.getData(type: Group.self)?.filter("id = %d",-self.authorId) {
@@ -91,15 +74,47 @@ final class Post: Codable, VKFetchable {
                 }
             }
         }
-        self.likes = json["likes"]["count"].intValue
-        self.canLike = json["likes"]["can_like"].intValue  == 1 ? true : false
-        self.liked = json["likes"]["user_likes"].intValue  == 1 ? true : false
         
-        self.canRepost = json["likes"]["can_publish"].intValue  == 1 ? true : false
-        self.reposts = json["reposts"]["count"].intValue
-        self.reposted = json["reposts"]["user_reposted"].intValue  == 1 ? true : false
-        
-        self.canComment = json["comments"]["can_post"].intValue  == 1 ? true : false
-        self.comments = json["comments"]["count"].intValue
+        if self.type == "post" {
+            
+            self.id = json["post_id"].intValue
+            self.post = json["text"].stringValue
+            
+            self.photo = json["attachment"]["photo"]["src_big"].stringValue
+            
+            self.likes = json["likes"]["count"].intValue
+            self.canLike = json["likes"]["can_like"].intValue  == 1 ? true : false
+            self.liked = json["likes"]["user_likes"].intValue  == 1 ? true : false
+            
+            self.canRepost = json["likes"]["can_publish"].intValue  == 1 ? true : false
+            self.reposts = json["reposts"]["count"].intValue
+            self.reposted = json["reposts"]["user_reposted"].intValue  == 1 ? true : false
+            
+            self.canComment = json["comments"]["can_post"].intValue  == 1 ? true : false
+            self.comments = json["comments"]["count"].intValue
+            
+            self.views = json["views"]["count"].intValue
+            
+        } else if self.type == "photo" {
+            for photo in json["photos"].arrayValue {
+                if photo["pid"].intValue > 0 {
+                    
+                    self.id = photo["pid"].intValue
+                    self.photo = photo["src_big"].stringValue
+                    
+                    self.likes = photo["likes"]["count"].intValue
+                    self.canLike = true
+                    self.liked = photo["likes"]["user_likes"].intValue  == 1 ? true : false
+                    
+                    self.canRepost = photo["can_repost"].intValue  == 1 ? true : false
+                    self.reposts = photo["reposts"]["count"].intValue
+                    self.reposted = photo["reposts"]["user_reposted"].intValue  == 1 ? true : false
+                    
+                    self.canComment = photo["can_comment"].intValue  == 1 ? true : false
+                    self.comments = photo["comments"]["count"].intValue
+                    break
+                }
+            }
+        }
     }
 }
