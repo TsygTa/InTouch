@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class NetworkingService {
     
+    let queueNetworking = DispatchQueue(label: "ru.intouch.networkingservice", qos: .utility, attributes: [.concurrent])
+    
     let baseUrl = "https://api.vk.com"
     
     static func urlForIcon(_ icon: String) -> URL? {
@@ -20,7 +22,7 @@ class NetworkingService {
     
     func fetch<Element: VKFetchable>(completion: (([Element]?, Error?) -> Void)? = nil) {
         Alamofire.request(baseUrl + Element.path, method: .get,
-                          parameters: Element.parameters).responseJSON {
+                          parameters: Element.parameters).responseJSON(queue: queueNetworking, completionHandler: {
             response in
             switch response.result {
             case .failure(let error):
@@ -30,7 +32,24 @@ class NetworkingService {
                 let elements: [Element] = json["response"].arrayValue.map { Element.parseJSON(json: $0) }
                 completion?(elements, nil)
             }
-        }
+        })
+    }
+    
+    func fetch(completion: (([Post]?, [Group]?, [User]?, Error?) -> Void)? = nil) {
+
+        Alamofire.request(baseUrl + Post.path, method: .get, parameters: Post.parameters).responseJSON(queue: queueNetworking, completionHandler: {
+            response in
+            switch response.result {
+            case .failure(let error):
+                completion?(nil,nil, nil, error)
+            case .success(let value):
+                let json = JSON(value)
+                let posts: [Post] = json["response"]["items"].arrayValue.map { Post.parseJSON(json: $0) }
+                let groups: [Group] = json["response"]["groups"].arrayValue.map { Group.parseJSON(json: $0) }
+                let users: [User] = json["response"]["profiles"].arrayValue.map { User.parseJSON(json: $0) }
+                completion?(posts, groups, users, nil)
+            }
+        })
     }
     
     public func authorizeRequest() -> URLRequest {
@@ -72,7 +91,8 @@ class NetworkingService {
             "access_token": Session.instance.token,
             "version": "5.92"
         ]
-        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+        Alamofire.request(path, method: .get, parameters:
+            parameters).responseJSON(queue: queueNetworking, completionHandler: {
             response in
             switch response.result {
                 case .failure(let error):
@@ -82,7 +102,7 @@ class NetworkingService {
                     let likes = json["response"]["likes"].intValue
                     completion?(likes, nil)
             }
-        }
+        })
     }
     
     func groupJoinRequest(groupId: Int, completion: ((Int?, Error?) -> Void)? = nil) {
@@ -94,7 +114,8 @@ class NetworkingService {
             "access_token": Session.instance.token,
             "version": "5.92"
         ]
-        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+        Alamofire.request(path, method: .get, parameters:
+            parameters).responseJSON(queue: queueNetworking, completionHandler: {
             response in
             switch response.result {
             case .failure(let error):
@@ -104,7 +125,7 @@ class NetworkingService {
                 let result = json["response"].intValue
                 completion?(result, nil)
             }
-        }
+        })
     }
     
     func groupLeaveRequest(groupId: Int, completion: ((Int?, Error?) -> Void)? = nil) {
@@ -116,7 +137,8 @@ class NetworkingService {
             "access_token": Session.instance.token,
             "version": "5.92"
         ]
-        Alamofire.request(path, method: .get, parameters: parameters).responseJSON {
+        Alamofire.request(path, method: .get, parameters:
+            parameters).responseJSON(queue: queueNetworking, completionHandler: {
             response in
             switch response.result {
             case .failure(let error):
@@ -126,6 +148,6 @@ class NetworkingService {
                 let result = json["response"].intValue
                 completion?(result, nil)
             }
-        }
+        })
     }
 }

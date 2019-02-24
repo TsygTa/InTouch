@@ -16,12 +16,13 @@ protocol FriendDelegate {
 class FriendController: UICollectionViewController,  FriendDelegate {
     
     var friend = User()
-    var userPhotos: Results<Photo>?
-    var notificationToken: NotificationToken?
+    private var userPhotos: Results<Photo>?
+    private var notificationToken: NotificationToken?
+    private let networkingService = NetworkingService()
     
-    var photoIndex = -1
+    private var photoIndex = -1
     
-    var animator: UIViewPropertyAnimator!
+    private var animator: UIViewPropertyAnimator!
     
     @IBAction func onSwipe(direction: Any?) {
         guard let dir = direction as? Direction else {return}
@@ -67,7 +68,7 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         
         DatabaseService.saveData(data: [newPhoto])
         
-        NetworkingService().pushLikeRequest(action: liked ? .add : .delete, ownerId: friend.id, itemId: photo.id, itemType: "photo", completion: { [weak self] (counter: Int?, error: Error?) -> Void in
+        networkingService.pushLikeRequest(action: liked ? .add : .delete, ownerId: friend.id, itemId: photo.id, itemType: "photo", completion: { [weak self] (counter: Int?, error: Error?) -> Void in
                 if let error = error {
                     print(error.localizedDescription)
                     return
@@ -91,7 +92,7 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         guard self.friend.id > 0 else {return}
         
         Photo.userIdParameter = self.friend.id
-        NetworkingService().fetch(completion: { [weak self]
+        networkingService.fetch(completion: { [weak self]
             (photos: [Photo]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)

@@ -14,6 +14,8 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private let networkingService = NetworkingService()
+    
     private(set) var groups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 0")
     
     private var notificationToken: NotificationToken?
@@ -31,7 +33,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         Group.forUser = false
         Group.query = searchText
         
-        NetworkingService().fetch(completion: { [weak self]
+        networkingService.fetch(completion: { [weak self]
             (groups: [Group]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)

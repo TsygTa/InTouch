@@ -24,7 +24,7 @@ final class User: Object, Codable, VKFetchable {
             return [
                 "user_id": Session.instance.userId,
                 "access_token": Session.instance.token,
-                "fields": "nickname,status,photo_50",
+                "fields": "nickname,status,photo_50,is_friend",
                 "version": "5.92"
             ]
         }
@@ -33,6 +33,7 @@ final class User: Object, Codable, VKFetchable {
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
     @objc dynamic var status: String = ""
+    @objc dynamic var isFriend: Int = 0
     
     static func parseJSON(json: JSON) -> User {
         let user = User(json: json)
@@ -43,8 +44,18 @@ final class User: Object, Codable, VKFetchable {
         self.init()
         self.id = json["uid"].intValue
         self.name = json["first_name"].stringValue + " " + json["last_name"].stringValue
-        self.image = json["photo_50"].stringValue
+        if !json["photo_50"].stringValue.isEmpty {
+            self.image = json["photo_50"].stringValue
+        } else if !json["photo_medium_rec"].stringValue.isEmpty {
+            self.image = json["photo_medium_rec"].stringValue
+        } else if !json["photo"].stringValue.isEmpty {
+            self.image = json["photo"].stringValue
+        } else {
+            self.image = "emptyImage.png"
+        }
+        
         self.status = json["status"].stringValue
+        self.isFriend = json["is_friend"].intValue
     }
     
     override static func primaryKey() -> String? {

@@ -9,7 +9,6 @@
 import UIKit
 import Kingfisher
 import RealmSwift
-import Firebase
 
 enum Direction {
     case left
@@ -31,9 +30,8 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private let ref = Database.database().reference(withPath: "users")
-    
-    private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.sorted(byKeyPath: "name")
+    private let networkingService = NetworkingService()
+    private var userFriends: Results<User>? = DatabaseService.getData(type: User.self)?.filter("isFriend == 1 ").sorted(byKeyPath: "name")
     private var notificationToken: NotificationToken?
     
     private var friendsSections = [Section]()
@@ -70,26 +68,26 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         notificationToken = userFriends?.observe{ [weak self] changes in
             guard let self = self else {return}
-            
-            switch changes {
-            case .initial(_):
-                self.tableView.reloadData()
-            case .update(_):
-                self.makeSections()
-                self.tableView.reloadData()
-            case .error(let error):
-                self.showAlert(error: error)
-            }
+                switch changes {
+                case .initial(_):
+                    self.tableView.reloadData()
+                case .update(_):
+                    self.makeSections()
+                    self.tableView.reloadData()
+                case .error(let error):
+                    self.showAlert(error: error)
+                }
         }        
-        NetworkingService().fetch(completion: {[weak self]
+        networkingService.fetch(completion: {[weak self]
             (friends: [User]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let friends = friends else { return }
-            DatabaseService.deleteData(type: User.self)
-            DatabaseService.saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
+            
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let friends = friends else { return }
+                DatabaseService.deleteData(type: User.self)
+                DatabaseService.saveData(data: friends.filter{!$0.name.lowercased().contains("deleted")})
         })
         tableView.register(UINib(nibName: "UserFriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderID")
         
@@ -98,10 +96,6 @@ class UserFriendsController: UITableViewController, UISearchBarDelegate {
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(hideKeyboardGesture)
-        
-        let user = FirebaseUser(id: Session.instance.userId)
-        let userRef = self.ref.child(String(Session.instance.userId))
-        userRef.setValue(user.toAnyObject())
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
