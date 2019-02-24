@@ -26,7 +26,6 @@
 		07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */; };
 		07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC0219963C500FF1B5D /* FriendController.swift */; };
 		07AF4DC3219963D900FF1B5D /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF4DC2219963D900FF1B5D /* FriendCell.swift */; };
-		18F1FA2F15E781DE39E989D9 /* Pods_InTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B147F7CA742D56AE9E83F48D /* Pods_InTouch.framework */; };
 		3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */; };
 		3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FAD321AC140100AE4AD1 /* CircalView.swift */; };
 		3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */; };
@@ -44,12 +43,17 @@
 		3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B5218A3CDD0035F2C0 /* Assets.xcassets */; };
 		3F8ED9B9218A3CDD0035F2C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B7218A3CDD0035F2C0 /* LaunchScreen.storyboard */; };
 		3F8ED9DD218A3D3A0035F2C0 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */; };
+		3F8F67462223275100E5D809 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F67452223275100E5D809 /* AsyncOperation.swift */; };
+		3F8F674822232E6F00E5D809 /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674722232E6F00E5D809 /* GetDataOperation.swift */; };
+		3F8F674A222331D100E5D809 /* ParseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F6749222331D100E5D809 /* ParseData.swift */; };
 		3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */; };
 		3FC51E54220A07230030FD16 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC51E53220A07230030FD16 /* Post.swift */; };
 		3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */; };
+		A7538E0D6B936A54F31284AE /* Pods_InTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65DCCEEA2F6CDA49685C066 /* Pods_InTouch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0193770E01EFCB1D70737A22 /* Pods-InTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.release.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.release.xcconfig"; sourceTree = "<group>"; };
 		0335A4D421A600D80010626E /* NewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
 		0335A4D621A600F00010626E /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		0335A4D821A607D00010626E /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
@@ -69,7 +73,6 @@
 		07AF4DBD2199637B00FF1B5D /* UserFriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsCell.swift; sourceTree = "<group>"; };
 		07AF4DC0219963C500FF1B5D /* FriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
 		07AF4DC2219963D900FF1B5D /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
-		28FAB92F0BA1DCDFDC2FBD26 /* Pods-InTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.debug.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.debug.xcconfig"; sourceTree = "<group>"; };
 		3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		3F37FAD321AC140100AE4AD1 /* CircalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircalView.swift; sourceTree = "<group>"; };
 		3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgBtnLabelControl.swift; sourceTree = "<group>"; };
@@ -93,11 +96,14 @@
 		3F8ED9CE218A3CDD0035F2C0 /* InTouchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTouchUITests.swift; sourceTree = "<group>"; };
 		3F8ED9D0218A3CDD0035F2C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F8ED9DC218A3D3A0035F2C0 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
+		3F8F67452223275100E5D809 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		3F8F674722232E6F00E5D809 /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
+		3F8F6749222331D100E5D809 /* ParseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseData.swift; sourceTree = "<group>"; };
 		3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		3FC51E53220A07230030FD16 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
-		5C2E9AA9C9BF238CC4839CD4 /* Pods-InTouch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.release.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.release.xcconfig"; sourceTree = "<group>"; };
-		B147F7CA742D56AE9E83F48D /* Pods_InTouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F36F7B24A7A4758A1B4A02 /* Pods-InTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InTouch.debug.xcconfig"; path = "Target Support Files/Pods-InTouch/Pods-InTouch.debug.xcconfig"; sourceTree = "<group>"; };
+		E65DCCEEA2F6CDA49685C066 /* Pods_InTouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InTouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18F1FA2F15E781DE39E989D9 /* Pods_InTouch.framework in Frameworks */,
+				A7538E0D6B936A54F31284AE /* Pods_InTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,14 +207,6 @@
 			path = "New Group1";
 			sourceTree = "<group>";
 		};
-		35E1B7ED7C907979C1F888E3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B147F7CA742D56AE9E83F48D /* Pods_InTouch.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3F72C37821EE5A6A004719AA /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +223,7 @@
 				3F8ED9CD218A3CDD0035F2C0 /* InTouchUITests */,
 				3F8ED9AC218A3CDC0035F2C0 /* Products */,
 				EC463C478C1AFB44BBE8DC34 /* Pods */,
-				35E1B7ED7C907979C1F888E3 /* Frameworks */,
+				E9B79BC3892E8047BE1C081A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -240,6 +238,7 @@
 		3F8ED9AD218A3CDC0035F2C0 /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
+				3F8F6744222326C200E5D809 /* Operation */,
 				3F72C37821EE5A6A004719AA /* Database */,
 				3F99F0D421CBCA6600CF16CA /* Networking */,
 				0335A4DA21B45F140010626E /* Aninators */,
@@ -279,6 +278,16 @@
 			path = InTouchUITests;
 			sourceTree = "<group>";
 		};
+		3F8F6744222326C200E5D809 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				3F8F67452223275100E5D809 /* AsyncOperation.swift */,
+				3F8F674722232E6F00E5D809 /* GetDataOperation.swift */,
+				3F8F6749222331D100E5D809 /* ParseData.swift */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
 		3F99F0D421CBCA6600CF16CA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,11 +296,19 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		E9B79BC3892E8047BE1C081A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E65DCCEEA2F6CDA49685C066 /* Pods_InTouch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EC463C478C1AFB44BBE8DC34 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				28FAB92F0BA1DCDFDC2FBD26 /* Pods-InTouch.debug.xcconfig */,
-				5C2E9AA9C9BF238CC4839CD4 /* Pods-InTouch.release.xcconfig */,
+				69F36F7B24A7A4758A1B4A02 /* Pods-InTouch.debug.xcconfig */,
+				0193770E01EFCB1D70737A22 /* Pods-InTouch.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -303,11 +320,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F8ED9D3218A3CDD0035F2C0 /* Build configuration list for PBXNativeTarget "InTouch" */;
 			buildPhases = (
-				7C4682F5955A9DE31BEE0CAA /* [CP] Check Pods Manifest.lock */,
+				31C29D893CF1F1C082CE4D98 /* [CP] Check Pods Manifest.lock */,
 				3F8ED9A7218A3CDC0035F2C0 /* Sources */,
 				3F8ED9A8218A3CDC0035F2C0 /* Frameworks */,
 				3F8ED9A9218A3CDC0035F2C0 /* Resources */,
-				FE677959132495BF61BD94B5 /* [CP] Embed Pods Frameworks */,
+				3CDAEA22CDBC637E826EDC31 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -366,7 +383,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7C4682F5955A9DE31BEE0CAA /* [CP] Check Pods Manifest.lock */ = {
+		31C29D893CF1F1C082CE4D98 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -388,7 +405,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FE677959132495BF61BD94B5 /* [CP] Embed Pods Frameworks */ = {
+		3CDAEA22CDBC637E826EDC31 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,6 +465,7 @@
 				0335A4D921A607D00010626E /* NewsModel.swift in Sources */,
 				3FC51E54220A07230030FD16 /* Post.swift in Sources */,
 				3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */,
+				3F8F674A222331D100E5D809 /* ParseData.swift in Sources */,
 				3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */,
 				3F551AC721CFD5FA004E51A7 /* User.swift in Sources */,
 				3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */,
@@ -458,7 +476,9 @@
 				0335A4D721A600F00010626E /* NewsCell.swift in Sources */,
 				07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */,
 				038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */,
+				3F8F674822232E6F00E5D809 /* GetDataOperation.swift in Sources */,
 				3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */,
+				3F8F67462223275100E5D809 /* AsyncOperation.swift in Sources */,
 				07AF4DC3219963D900FF1B5D /* FriendCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,7 +623,7 @@
 		};
 		3F8ED9D4218A3CDD0035F2C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28FAB92F0BA1DCDFDC2FBD26 /* Pods-InTouch.debug.xcconfig */;
+			baseConfigurationReference = 69F36F7B24A7A4758A1B4A02 /* Pods-InTouch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -624,7 +644,7 @@
 		};
 		3F8ED9D5218A3CDD0035F2C0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C2E9AA9C9BF238CC4839CD4 /* Pods-InTouch.release.xcconfig */;
+			baseConfigurationReference = 0193770E01EFCB1D70737A22 /* Pods-InTouch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
