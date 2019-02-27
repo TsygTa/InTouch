@@ -59,21 +59,31 @@ class UserGroupsController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Group.forUser = true
-        networkingService.fetch(completion: { [weak self]
-            (groups: [Group]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard var list = groups, let self = self else { return }
-            
-            if let first = list.first {
+//        networkingService.fetch(completion: { [weak self]
+//            (groups: [Group]?, error: Error?) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//            guard var list = groups, let self = self else { return }
+//
+//            if let first = list.first {
+//                if first.id == 0 {
+//                    list.remove(at: 0)
+//                }
+//            }
+//            DatabaseService.saveData(data: list)
+//        })
+        
+        GetParseSaveOperation<Group>.getParseSave(completion: { [weak self]
+            (parseData: ParseData?, saveData: SaveDataToRealm?) in
+            guard let parse = parseData, let save = saveData else {return}
+            if let first = parse.outputData.first {
                 if first.id == 0 {
-                    list.remove(at: 0)
+                    parse.outputData.remove(at: 0)
                 }
             }
-//            DatabaseService.deleteData(type: Group.self)
-            DatabaseService.saveData(data: list)
+            save.parseData = parse.outputData
         })
     }
 

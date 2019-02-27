@@ -11,7 +11,7 @@ import SwiftyJSON
 import RealmSwift
 import Alamofire
 
-final class Post: Codable, VKFetchable {
+final class Post: Object, Codable, VKFetchable {
     static var path: String {
         get {
             return "/method/newsfeed.get"
