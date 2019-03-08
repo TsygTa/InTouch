@@ -16,18 +16,38 @@ class NewsController: UITableViewController {
     private var users = [User]()
     
     private var posts = [Post]()
+    private var lastRow: Int = 0
     
     private var operationQueue = OperationQueue()
+    private var photoService: PhotoService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 338
+        
+        photoService = PhotoService(container: self.tableView)
+        configureRefreshControl()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func configureRefreshControl() {
+        
+        let rC = UIRefreshControl()
+        rC.tintColor = UIColor.green
+        rC.attributedTitle = NSAttributedString(string: "Загрузка новостей...")
+        rC.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+        
+        tableView.refreshControl = rC
+    }
+    
+    @objc func refreshNews() {
+        guard let rC = refreshControl else { return }
+        rC.beginRefreshing()
+        self.loadNews()
+    }
+    
+    private func loadNews(completion: (() -> Void)? = nil) {
 //        networkingService.fetch(completion: { [weak self] (posts: [Post]?, groups: [Group]?, users: [User]?, error: Error?) in
 //
 //            DispatchQueue.main.async {
@@ -53,14 +73,15 @@ class NewsController: UITableViewController {
         
         let saveUserToRealm = SaveDataToRealm<User>()
         let saveGrouptToRealm = SaveDataToRealm<Group>()
-        let reloadPostController = ReloadTableController(controller: self)
+        let reloadPostController = ReloadTableController(controller: self, refreshController: tableView.refreshControl, completion: completion)
         
         parseUserData.addDependency(getDataOperation)
         parseGroupData.addDependency(getDataOperation)
         parsePostData.addDependency(getDataOperation)
         
         parsePostData.completionBlock = { [unowned parsePostData, unowned reloadPostController] in
-            self.posts = parsePostData.outputData
+            self.posts = parsePostData.outputData        
+//            self.tableView.insertRows(at: [NSIndexPath(row: self.lastRow, section: 0) as IndexPath], with: .automatic)
         }
         
         saveUserToRealm.addDependency(parseUserData)
@@ -70,6 +91,11 @@ class NewsController: UITableViewController {
         operationQueue.addOperations([getDataOperation,parseUserData, parseGroupData, parsePostData], waitUntilFinished: true)
         OperationQueue.main.addOperations([saveUserToRealm,saveGrouptToRealm], waitUntilFinished: false)
         OperationQueue.main.addOperation(reloadPostController)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadNews()
     }
 
     // MARK: - Table view data source
@@ -91,11 +117,23 @@ class NewsController: UITableViewController {
         }
         
         let post = posts[indexPath.row]
-        cell.configure(with: post) { [weak self] in
+        cell.configure(with: post, at: indexPath, by: photoService) { [weak self] in
             guard let self = self else { return }
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
         }
+        
+//        if indexPath.row == self.posts.count - 1 {
+//            Session.instance.newsDumpCounter += 1
+//            self.lastRow = indexPath.row
+//            if let rC = self.tableView.refreshControl {
+//                rC.beginRefreshing()
+//            }
+//            self.loadNews() { [weak self] in
+//                guard let self = self else { return }
+//                self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+//            }
+//        }
         return cell
     }
 }

@@ -19,6 +19,7 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var commentsControl: ImgBtnLabelControl!
     @IBOutlet weak var repostControl: ImgBtnLabelControl!
     @IBOutlet weak var viewsControl: ImgBtnLabelControl!
+    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +33,7 @@ class NewsCell: UITableViewCell {
         // Initialization code
     }
     
-    public func configure(with item: Post, completion: @escaping () -> Void) {
+    public func configure(with item: Post, at indexPath: IndexPath,  by photoService: PhotoService?, completion: @escaping () -> Void) {
         
         let attrStr = try! NSAttributedString(data: (item.post.data(using: String.Encoding.unicode, allowLossyConversion: true)!), options: [.documentType: NSAttributedString.DocumentType.html],  documentAttributes: nil)
         self.postText.attributedText = attrStr
@@ -62,14 +63,23 @@ class NewsCell: UITableViewCell {
         } else {
             self.viewsControl.isHidden = false
         }
-        postPhoto.kf.setImage(with: URL(string:item.photo)) { _ in
-            completion()
+
+        if CGFloat(item.photoHeight) > 0 {
+            photoHeightConstraint.constant = (self.frame.size.width * CGFloat(item.photoHeight)) / CGFloat(item.photoHeight)
+        } else {
+            photoHeightConstraint.constant = 0
         }
+
+//        postPhoto.kf.setImage(with: URL(string:item.photo)) { _ in
+//            completion()
+//        }
+        postPhoto.image = photoService?.photo(at: indexPath, by: item.photo)
+        
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        postPhoto.kf.cancelDownloadTask()
-        postPhoto.image = nil
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        postPhoto.kf.cancelDownloadTask()
+//        postPhoto.image = nil
+//    }
 }

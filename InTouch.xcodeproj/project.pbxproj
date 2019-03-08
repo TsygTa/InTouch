@@ -50,6 +50,8 @@
 		3F8F674E2223381C00E5D809 /* ReloadTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674D2223381C00E5D809 /* ReloadTableController.swift */; };
 		3F8F675022255FFC00E5D809 /* ScaleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */; };
 		3F8F67522225DA9400E5D809 /* GetParseSaveOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */; };
+		3F973BB0222D438000425961 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F973BAF222D438000425961 /* PhotoService.swift */; };
+		3F973BB2222D4EB800425961 /* DataReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F973BB1222D4EB800425961 /* DataReloadable.swift */; };
 		3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */; };
 		3FC51E54220A07230030FD16 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC51E53220A07230030FD16 /* Post.swift */; };
 		3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */; };
@@ -107,6 +109,8 @@
 		3F8F674D2223381C00E5D809 /* ReloadTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableController.swift; sourceTree = "<group>"; };
 		3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImageView.swift; sourceTree = "<group>"; };
 		3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetParseSaveOperation.swift; sourceTree = "<group>"; };
+		3F973BAF222D438000425961 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		3F973BB1222D4EB800425961 /* DataReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReloadable.swift; sourceTree = "<group>"; };
 		3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		3FC51E53220A07230030FD16 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
@@ -247,13 +251,10 @@
 		3F8ED9AD218A3CDC0035F2C0 /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
-				3F8F6744222326C200E5D809 /* Operation */,
-				3F72C37821EE5A6A004719AA /* Database */,
-				3F99F0D421CBCA6600CF16CA /* Networking */,
-				0335A4DA21B45F140010626E /* Aninators */,
-				0335A4D321A5FF6F0010626E /* News */,
+				3F973BAE222D411C00425961 /* Services */,
 				03B78A9421A4990700D5FBD2 /* Model */,
 				03F4C7AA219CA58B00D900E8 /* Tools */,
+				0335A4D321A5FF6F0010626E /* News */,
 				07AF4DBF2199638800FF1B5D /* Friend */,
 				07AF4DBA219962AD00FF1B5D /* UserFriends */,
 				038909422198C96000B2CD13 /* AllGroups */,
@@ -298,6 +299,19 @@
 				3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */,
 			);
 			path = Operation;
+			sourceTree = "<group>";
+		};
+		3F973BAE222D411C00425961 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0335A4DA21B45F140010626E /* Aninators */,
+				3F72C37821EE5A6A004719AA /* Database */,
+				3F99F0D421CBCA6600CF16CA /* Networking */,
+				3F8F6744222326C200E5D809 /* Operation */,
+				3F973BAF222D438000425961 /* PhotoService.swift */,
+				3F973BB1222D4EB800425961 /* DataReloadable.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3F99F0D421CBCA6600CF16CA /* Networking */ = {
@@ -489,6 +503,8 @@
 				03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */,
 				3F551ACB21CFD645004E51A7 /* Photo.swift in Sources */,
 				0335A4D721A600F00010626E /* NewsCell.swift in Sources */,
+				3F973BB0222D438000425961 /* PhotoService.swift in Sources */,
+				3F973BB2222D4EB800425961 /* DataReloadable.swift in Sources */,
 				07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */,
 				3F8F675022255FFC00E5D809 /* ScaleImageView.swift in Sources */,
 				038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */,

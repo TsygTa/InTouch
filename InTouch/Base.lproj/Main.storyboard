@@ -459,14 +459,17 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AxN-Yb-nWs">
-                                            <rect key="frame" x="0.0" y="92" width="375" height="183.5"/>
+                                            <rect key="frame" x="0.0" y="92" width="375" height="218"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="rxT-xt-GzK" customClass="ScaledImageView" customModule="InTouch" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="283.5" width="375" height="134.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="rxT-xt-GzK">
+                                            <rect key="frame" x="0.0" y="318" width="375" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="Xu1-JH-E4G"/>
+                                            </constraints>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Edz-31-hgv">
                                             <rect key="frame" x="0.0" y="426" width="375" height="47"/>
@@ -540,6 +543,7 @@
                                     <outlet property="commentsControl" destination="of8-D6-4Pw" id="pt7-zH-Xim"/>
                                     <outlet property="dateLabel" destination="egp-js-JzH" id="t2e-xX-Ooi"/>
                                     <outlet property="likesControl" destination="o6R-v7-QOs" id="TPx-FW-r40"/>
+                                    <outlet property="photoHeightConstraint" destination="Xu1-JH-E4G" id="NxM-cg-44l"/>
                                     <outlet property="postPhoto" destination="rxT-xt-GzK" id="stZ-n2-iMd"/>
                                     <outlet property="postText" destination="AxN-Yb-nWs" id="nTQ-zE-wJ4"/>
                                     <outlet property="repostControl" destination="AP4-I9-E6g" id="55P-wd-Wsj"/>
