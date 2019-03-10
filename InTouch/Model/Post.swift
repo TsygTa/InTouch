@@ -11,19 +11,22 @@ import SwiftyJSON
 import RealmSwift
 import Alamofire
 
-final class Post: Codable, VKFetchable {
+final class Post: Object, Codable, VKFetchable {
     static var path: String {
         get {
             return "/method/newsfeed.get"
         }
     }
+    static var periodStart = 30*24*60*60
+    static var periodEnd = 31*24*60*60
     static var parameters: Parameters {
         get {
             return [
                 "filters": "post,photo",
                 "access_token": Session.instance.token,
                 "return_banned": "0",
-                "start_time": String(format:"%d", NSDate().timeIntervalSince1970 - 30*24*60*60),
+                "start_time": String(format:"%d", NSDate().timeIntervalSince1970 - TimeInterval(self.periodStart * (Session.instance.newsDumpCounter+1))),
+                "end_time": String(format:"%d", NSDate().timeIntervalSince1970 - TimeInterval(self.periodEnd * Session.instance.newsDumpCounter)),
                 "fields": "first_name,last_name,name,deactivated,is_closed,is_friend",
                 "version": "5.92"
             ]
@@ -34,6 +37,8 @@ final class Post: Codable, VKFetchable {
     var date: Double = 0
     var post: String = ""
     var photo: String = ""
+    var photoWidth: Int = 1
+    var photoHeight: Int = 1
     
     var authorId: Int = 0
     var user: User?
@@ -81,6 +86,8 @@ final class Post: Codable, VKFetchable {
             self.post = json["text"].stringValue
             
             self.photo = json["attachment"]["photo"]["src_big"].stringValue
+            self.photoWidth = json["attachment"]["photo"]["width"].intValue
+            self.photoHeight = json["attachment"]["photo"]["height"].intValue
             
             self.likes = json["likes"]["count"].intValue
             self.canLike = json["likes"]["can_like"].intValue  == 1 ? true : false
@@ -101,6 +108,8 @@ final class Post: Codable, VKFetchable {
                     
                     self.id = photo["pid"].intValue
                     self.photo = photo["src_big"].stringValue
+                    self.photoWidth = photo["width"].intValue
+                    self.photoHeight = photo["height"].intValue
                     
                     self.likes = photo["likes"]["count"].intValue
                     self.canLike = true

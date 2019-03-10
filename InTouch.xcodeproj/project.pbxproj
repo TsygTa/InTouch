@@ -46,6 +46,12 @@
 		3F8F67462223275100E5D809 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F67452223275100E5D809 /* AsyncOperation.swift */; };
 		3F8F674822232E6F00E5D809 /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674722232E6F00E5D809 /* GetDataOperation.swift */; };
 		3F8F674A222331D100E5D809 /* ParseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F6749222331D100E5D809 /* ParseData.swift */; };
+		3F8F674C222335F200E5D809 /* SaveDataToRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674B222335F200E5D809 /* SaveDataToRealm.swift */; };
+		3F8F674E2223381C00E5D809 /* ReloadTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674D2223381C00E5D809 /* ReloadTableController.swift */; };
+		3F8F675022255FFC00E5D809 /* ScaleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */; };
+		3F8F67522225DA9400E5D809 /* GetParseSaveOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */; };
+		3F973BB0222D438000425961 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F973BAF222D438000425961 /* PhotoService.swift */; };
+		3F973BB2222D4EB800425961 /* DataReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F973BB1222D4EB800425961 /* DataReloadable.swift */; };
 		3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */; };
 		3FC51E54220A07230030FD16 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC51E53220A07230030FD16 /* Post.swift */; };
 		3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */; };
@@ -99,6 +105,12 @@
 		3F8F67452223275100E5D809 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		3F8F674722232E6F00E5D809 /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
 		3F8F6749222331D100E5D809 /* ParseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseData.swift; sourceTree = "<group>"; };
+		3F8F674B222335F200E5D809 /* SaveDataToRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataToRealm.swift; sourceTree = "<group>"; };
+		3F8F674D2223381C00E5D809 /* ReloadTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadTableController.swift; sourceTree = "<group>"; };
+		3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImageView.swift; sourceTree = "<group>"; };
+		3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetParseSaveOperation.swift; sourceTree = "<group>"; };
+		3F973BAF222D438000425961 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		3F973BB1222D4EB800425961 /* DataReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReloadable.swift; sourceTree = "<group>"; };
 		3F99F0D521CBCBF200CF16CA /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		3FC51E53220A07230030FD16 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		3FD50A1321F25C6300CE5DC3 /* RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
@@ -123,6 +135,7 @@
 			children = (
 				0335A4D421A600D80010626E /* NewsController.swift */,
 				0335A4D621A600F00010626E /* NewsCell.swift */,
+				3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -238,13 +251,10 @@
 		3F8ED9AD218A3CDC0035F2C0 /* InTouch */ = {
 			isa = PBXGroup;
 			children = (
-				3F8F6744222326C200E5D809 /* Operation */,
-				3F72C37821EE5A6A004719AA /* Database */,
-				3F99F0D421CBCA6600CF16CA /* Networking */,
-				0335A4DA21B45F140010626E /* Aninators */,
-				0335A4D321A5FF6F0010626E /* News */,
+				3F973BAE222D411C00425961 /* Services */,
 				03B78A9421A4990700D5FBD2 /* Model */,
 				03F4C7AA219CA58B00D900E8 /* Tools */,
+				0335A4D321A5FF6F0010626E /* News */,
 				07AF4DBF2199638800FF1B5D /* Friend */,
 				07AF4DBA219962AD00FF1B5D /* UserFriends */,
 				038909422198C96000B2CD13 /* AllGroups */,
@@ -284,8 +294,24 @@
 				3F8F67452223275100E5D809 /* AsyncOperation.swift */,
 				3F8F674722232E6F00E5D809 /* GetDataOperation.swift */,
 				3F8F6749222331D100E5D809 /* ParseData.swift */,
+				3F8F674B222335F200E5D809 /* SaveDataToRealm.swift */,
+				3F8F674D2223381C00E5D809 /* ReloadTableController.swift */,
+				3F8F67512225DA9400E5D809 /* GetParseSaveOperation.swift */,
 			);
 			path = Operation;
+			sourceTree = "<group>";
+		};
+		3F973BAE222D411C00425961 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0335A4DA21B45F140010626E /* Aninators */,
+				3F72C37821EE5A6A004719AA /* Database */,
+				3F99F0D421CBCA6600CF16CA /* Networking */,
+				3F8F6744222326C200E5D809 /* Operation */,
+				3F973BAF222D438000425961 /* PhotoService.swift */,
+				3F973BB1222D4EB800425961 /* DataReloadable.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3F99F0D421CBCA6600CF16CA /* Networking */ = {
@@ -449,6 +475,7 @@
 				0335A4DE21B4854F0010626E /* CustomPopAnimator.swift in Sources */,
 				0335A4E021B4884F0010626E /* CustomNavigationController.swift in Sources */,
 				3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */,
+				3F8F67522225DA9400E5D809 /* GetParseSaveOperation.swift in Sources */,
 				07AF4DBE2199637B00FF1B5D /* UserFriendsCell.swift in Sources */,
 				07AF4DBC2199630A00FF1B5D /* UserFriendsController.swift in Sources */,
 				0335A4E221B48CDF0010626E /* CustomInteractiveTransition.swift in Sources */,
@@ -467,6 +494,8 @@
 				3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */,
 				3F8F674A222331D100E5D809 /* ParseData.swift in Sources */,
 				3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */,
+				3F8F674E2223381C00E5D809 /* ReloadTableController.swift in Sources */,
+				3F8F674C222335F200E5D809 /* SaveDataToRealm.swift in Sources */,
 				3F551AC721CFD5FA004E51A7 /* User.swift in Sources */,
 				3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */,
 				3FD50A1421F25C6300CE5DC3 /* RealmChanges.swift in Sources */,
@@ -474,7 +503,10 @@
 				03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */,
 				3F551ACB21CFD645004E51A7 /* Photo.swift in Sources */,
 				0335A4D721A600F00010626E /* NewsCell.swift in Sources */,
+				3F973BB0222D438000425961 /* PhotoService.swift in Sources */,
+				3F973BB2222D4EB800425961 /* DataReloadable.swift in Sources */,
 				07AF4DC1219963C500FF1B5D /* FriendController.swift in Sources */,
+				3F8F675022255FFC00E5D809 /* ScaleImageView.swift in Sources */,
 				038909462198C9C700B2CD13 /* AllGroupsCell.swift in Sources */,
 				3F8F674822232E6F00E5D809 /* GetDataOperation.swift in Sources */,
 				3F99F0D621CBCBF200CF16CA /* NetworkingService.swift in Sources */,

@@ -14,8 +14,7 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private let networkingService = NetworkingService()
-    
+    //private let networkingService = NetworkingService()
     private(set) var groups: Results<Group>? = DatabaseService.getData(type: Group.self)?.filter("isMember = 0")
     
     private var notificationToken: NotificationToken?
@@ -33,21 +32,32 @@ class AllGroupsController: UITableViewController, UISearchBarDelegate {
         Group.forUser = false
         Group.query = searchText
         
-        networkingService.fetch(completion: { [weak self]
-            (groups: [Group]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard var list = groups, let self = self else { return }
-            
-            if let first = list.first {
+//        networkingService.fetch(completion: { [weak self]
+//            (groups: [Group]?, error: Error?) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//            guard var list = groups, let self = self else { return }
+//
+//            if let first = list.first {
+//                if first.id == 0 {
+//                    list.remove(at: 0)
+//                }
+//            }
+//            DatabaseService.deleteData(type: Group.self)
+//            DatabaseService.saveData(data: list.filter{!$0.name.lowercased().contains("deleted")})
+//        })
+        
+        GetParseSaveOperation<Group>.getParseSave(deleteSaved: true, completion: { [weak self]
+            (parseData: ParseData?, saveData: SaveDataToRealm?) in
+            guard let parse = parseData, let save = saveData else {return}
+            if let first = parse.outputData.first {
                 if first.id == 0 {
-                    list.remove(at: 0)
+                    parse.outputData.remove(at: 0)
                 }
             }
-            DatabaseService.deleteData(type: Group.self)
-            DatabaseService.saveData(data: list.filter{!$0.name.lowercased().contains("deleted")})
+            save.parseData = parse.outputData.filter{!$0.name.lowercased().contains("deleted")}
         })
     }
     

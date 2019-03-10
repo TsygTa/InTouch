@@ -12,9 +12,9 @@ import SwiftyJSON
 
 class NetworkingService {
     
-    let queueNetworking = DispatchQueue(label: "ru.intouch.networkingservice", qos: .utility, attributes: [.concurrent])
+    private let queueNetworking = DispatchQueue(label: "ru.intouch.networkingservice", qos: .utility, attributes: [.concurrent])
     
-    let baseUrl = "https://api.vk.com"
+    private let baseUrl = "https://api.vk.com"
     
     static func urlForIcon(_ icon: String) -> URL? {
         return URL(string: icon)

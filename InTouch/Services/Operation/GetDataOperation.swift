@@ -8,17 +8,20 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class GetDataOperation: AsyncOperation {
     private var request: DataRequest
-    private var data: Data?
+    private let baseUrl = "https://api.vk.com"
+    var data: Data?
     
-    init(_ request: DataRequest) {
-        self.request = request
+    init<Element: Object & VKFetchable>(type: Element.Type) {
+        self.request = Alamofire.request(baseUrl + Element.path, method: .get,
+             parameters: Element.parameters)
     }
     
     override func main() {
-        request.responseData(queue: DispatchQueue.global()) { [weak self]
+        request.responseJSON(queue: DispatchQueue.global()) { [weak self]
             response in
             
             guard let self = self else {return}

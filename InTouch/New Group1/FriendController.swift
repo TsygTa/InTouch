@@ -92,19 +92,29 @@ class FriendController: UICollectionViewController,  FriendDelegate {
         guard self.friend.id > 0 else {return}
         
         Photo.userIdParameter = self.friend.id
-        networkingService.fetch(completion: { [weak self]
-            (photos: [Photo]?, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+//        networkingService.fetch(completion: { [weak self]
+//            (photos: [Photo]?, error: Error?) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//            guard let list = photos, let self = self else { return }
+//            if list.count > 0 {
+//                self.photoIndex = 0
+//            }
+//
+//            DatabaseService.saveData(data: list)
+//        })
+        
+        GetParseSaveOperation<Photo>.getParseSave(completion: { [weak self]
+            (parseData: ParseData?, saveData: SaveDataToRealm?) in
+            guard let parse = parseData, let save = saveData else {return}
+            if parse.outputData.count > 0 {
+                self?.photoIndex = 0
             }
-            guard let list = photos, let self = self else { return }
-            if list.count > 0 {
-                self.photoIndex = 0
-            }
-            
-            DatabaseService.saveData(data: list)
+            save.parseData = parse.outputData
         })
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
