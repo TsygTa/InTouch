@@ -13,13 +13,15 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var authorImage: UIImageView!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var postText: UITextView!
-    @IBOutlet weak var postPhoto: ScaledImageView!
+    
     @IBOutlet weak var likesControl: LikeControl!
     @IBOutlet weak var commentsControl: ImgBtnLabelControl!
     @IBOutlet weak var repostControl: ImgBtnLabelControl!
     @IBOutlet weak var viewsControl: ImgBtnLabelControl!
-    @IBOutlet weak var photoHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var postView: NewsCellBody!
+    
+    @IBOutlet weak var postViewHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,10 +35,7 @@ class NewsCell: UITableViewCell {
         // Initialization code
     }
     
-    public func configure(with item: Post, at indexPath: IndexPath,  by photoService: PhotoService?, completion: @escaping () -> Void) {
-        
-        let attrStr = try! NSAttributedString(data: (item.post.data(using: String.Encoding.unicode, allowLossyConversion: true)!), options: [.documentType: NSAttributedString.DocumentType.html],  documentAttributes: nil)
-        self.postText.attributedText = attrStr
+    public func configure(with item: Post, at indexPath: IndexPath,  by photoService: PhotoService?, completion: (() -> Void)?) {
         
         self.likesControl.setCounter(item.likes)
         self.viewsControl.setCounter(item.views)
@@ -63,18 +62,10 @@ class NewsCell: UITableViewCell {
         } else {
             self.viewsControl.isHidden = false
         }
-
-        if CGFloat(item.photoHeight) > 0 {
-            photoHeightConstraint.constant = (self.frame.size.width * CGFloat(item.photoHeight)) / CGFloat(item.photoHeight)
-        } else {
-            photoHeightConstraint.constant = 0
-        }
-
-//        postPhoto.kf.setImage(with: URL(string:item.photo)) { _ in
-//            completion()
-//        }
-        postPhoto.image = photoService?.photo(at: indexPath, by: item.photo)
         
+        postView.configure(with: item, at: indexPath, by: photoService)
+        self.postViewHeightConstraint.constant = postView.postViewHeight
+        completion?()
     }
     
 //    override func prepareForReuse() {

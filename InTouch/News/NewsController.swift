@@ -29,6 +29,7 @@ class NewsController: UITableViewController {
         
         photoService = PhotoService(container: self.tableView)
         configureRefreshControl()
+        self.loadNews()
     }
     
     private func configureRefreshControl() {
@@ -80,7 +81,10 @@ class NewsController: UITableViewController {
         parsePostData.addDependency(getDataOperation)
         
         parsePostData.completionBlock = { [unowned parsePostData, unowned reloadPostController] in
-            self.posts = parsePostData.outputData        
+            self.posts = parsePostData.outputData
+            for post in self.posts {
+                self.photoService?.fetch(byUrl: post.photo)
+            }
 //            self.tableView.insertRows(at: [NSIndexPath(row: self.lastRow, section: 0) as IndexPath], with: .automatic)
         }
         
@@ -117,7 +121,8 @@ class NewsController: UITableViewController {
         }
         
         let post = posts[indexPath.row]
-        cell.configure(with: post, at: indexPath, by: photoService) { [weak self] in
+        cell.configure(with: post, at: indexPath, by: photoService)
+        { [weak self] in
             guard let self = self else { return }
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
