@@ -38,6 +38,7 @@
 		3F72C37521EAAD43004719AA /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72C37421EAAD43004719AA /* RoundImageView.swift */; };
 		3F72C37A21EE5AD6004719AA /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72C37921EE5AD6004719AA /* DatabaseService.swift */; };
 		3F72EF8721C6F03400068F71 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72EF8621C6F03400068F71 /* Session.swift */; };
+		3F76AB2B22385EA4004F9B25 /* NewsCellBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76AB2A22385EA4004F9B25 /* NewsCellBody.swift */; };
 		3F8ED9AF218A3CDC0035F2C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */; };
 		3F8ED9B4218A3CDC0035F2C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B2218A3CDC0035F2C0 /* Main.storyboard */; };
 		3F8ED9B6218A3CDD0035F2C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F8ED9B5218A3CDD0035F2C0 /* Assets.xcassets */; };
@@ -91,6 +92,7 @@
 		3F72C37421EAAD43004719AA /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		3F72C37921EE5AD6004719AA /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		3F72EF8621C6F03400068F71 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3F76AB2A22385EA4004F9B25 /* NewsCellBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellBody.swift; sourceTree = "<group>"; };
 		3F8ED9AB218A3CDC0035F2C0 /* InTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8ED9AE218A3CDC0035F2C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F8ED9B3218A3CDC0035F2C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				0335A4D421A600D80010626E /* NewsController.swift */,
 				0335A4D621A600F00010626E /* NewsCell.swift */,
 				3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */,
+				3F76AB2A22385EA4004F9B25 /* NewsCellBody.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				0335A4DC21B45F540010626E /* CustomPushAnimator.swift in Sources */,
 				03B78A9821A4A1FB00D5FBD2 /* UserFriendsHeader.swift in Sources */,
 				3F55E7E021DFD1630026F518 /* Fetchable.swift in Sources */,
+				3F76AB2B22385EA4004F9B25 /* NewsCellBody.swift in Sources */,
 				0335A4D921A607D00010626E /* NewsModel.swift in Sources */,
 				3FC51E54220A07230030FD16 /* Post.swift in Sources */,
 				3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */,

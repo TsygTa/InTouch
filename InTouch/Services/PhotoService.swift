@@ -75,6 +75,18 @@ class PhotoService {
         }
     }
     
+    public func fetch(byUrl url: String) {
+        Alamofire.request(url).responseData(queue: DispatchQueue.global()) {
+            [weak self] response in
+            guard let data = response.data,
+                let image = UIImage(data: data),
+                let self = self else { return }
+            
+            self.images[url] = image
+            self.saveImageToCache(url: url, image: image)
+        }
+    }
+    
     public func photo(at indexPath: IndexPath, by urlString: String) -> UIImage? {
         
         if let photo = images[urlString] {
