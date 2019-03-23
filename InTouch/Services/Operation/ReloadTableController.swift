@@ -21,7 +21,7 @@ class ReloadTableController: Operation {
         self.completion = completion
     }
     override func main() {
-        controller.tableView.reloadData()
+//        controller.tableView.reloadData()
         if let rC = self.refreshController {
             rC.endRefreshing()
         }

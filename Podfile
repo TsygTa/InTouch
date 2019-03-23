@@ -12,5 +12,6 @@ target 'InTouch' do
   pod 'Alamofire', '4.8.1'
   pod 'SwiftyJSON', '4.2.0'
   pod 'Kingfisher', '5.1.0'
+  pod 'SnapKit'
 
 end

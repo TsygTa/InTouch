@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SnapKit
 
 class NewsCell: UITableViewCell {
+    
+    static let offset: CGFloat = 8
 
     @IBOutlet weak var authorImage: UIImageView!
     @IBOutlet weak var authorLabel: UILabel!
@@ -19,9 +22,30 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var repostControl: ImgBtnLabelControl!
     @IBOutlet weak var viewsControl: ImgBtnLabelControl!
 
-    @IBOutlet weak var postView: NewsCellBody!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var footerView: UIView!
     
-    @IBOutlet weak var postViewHeightConstraint: NSLayoutConstraint!
+    
+    private var postPhoto = UIImageView()
+    private var photoScaledHeight: CGFloat = 0
+    
+    private let offset: CGFloat = 8
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        contentView.addSubview(postPhoto)
+        postPhoto.contentMode = .scaleAspectFill
+        
+        postPhoto.snp.makeConstraints { make in
+            make.height.equalTo(photoScaledHeight)
+        }
+        
+    }
+    
+    override func layoutSubviews() {
+        postPhoto.frame = CGRect(x: offset, y: offset + headerView.frame.size.height, width: bounds.width - 2*offset, height: photoScaledHeight)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,11 +55,9 @@ class NewsCell: UITableViewCell {
         self.repostControl.setImage("send.png")
         self.viewsControl.setImage("show.png")
         self.viewsControl.setButtonDisabled(true)
-        
-        // Initialization code
     }
     
-    public func configure(with item: Post, at indexPath: IndexPath,  by photoService: PhotoService?, completion: (() -> Void)?) {
+    public func configure(with item: Post, at indexPath: IndexPath,  by photoService: PhotoService, photoHeight photoScaledHeight: CGFloat) {
         
         self.likesControl.setCounter(item.likes)
         self.viewsControl.setCounter(item.views)
@@ -62,15 +84,15 @@ class NewsCell: UITableViewCell {
         } else {
             self.viewsControl.isHidden = false
         }
-        
-        postView.configure(with: item, at: indexPath, by: photoService)
-        self.postViewHeightConstraint.constant = postView.postViewHeight
-        completion?()
+        self.photoScaledHeight = photoScaledHeight
+        postPhoto.image = photoService.photo(at: indexPath, by: item.photo)
     }
     
 //    override func prepareForReuse() {
 //        super.prepareForReuse()
-//        postPhoto.kf.cancelDownloadTask()
-//        postPhoto.image = nil
+//        postHeightConstraint.constant = photoScaledHeight + 2*offset
+//        postPhoto.snp.makeConstraints{ (make) -> Void in
+//            make.height.equalTo(photoScaledHeight)
+//        }
 //    }
 }

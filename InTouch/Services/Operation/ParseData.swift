@@ -27,6 +27,9 @@ class ParseData<Element: Object & VKFetchable>: Operation {
         let json = try? JSON(data: data)
         
         if !item.isEmpty {
+            if item == "items" {
+                Post.startFrom = json?["response"]["new_from"].stringValue ?? ""
+            }
             self.outputData = json?["response"][item].arrayValue.map { Element.parseJSON(json: $0) } ?? []
         } else {
             self.outputData = json?["response"].arrayValue.map { Element.parseJSON(json: $0) } ?? []

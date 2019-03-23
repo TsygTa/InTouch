@@ -8,28 +8,45 @@
 
 import UIKit
 import RealmSwift
+import SnapKit
 
 class NewsController: UITableViewController {
     
-//    private let networkingService = NetworkingService()
     private var groups = [Group]()
     private var users = [User]()
     
     private var posts = [Post]()
-    private var lastRow: Int = 0
+    private var photoHeights = [IndexPath: CGFloat]()
+    private var textHeights = [IndexPath: CGFloat]()
+    private var maxSize = CGSize()
+    
+    private var currentPeriod = 0
+    private var total = 100
+    private var isLoadInProgress = false
     
     private var operationQueue = OperationQueue()
     private var photoService: PhotoService?
     
+    private var indicatorView = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 338
+        tableView.register(NewsCellFramedLayout.self, forCellReuseIdentifier: NewsCellFramedLayout.reuseId)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.prefetchDataSource = self
+        
+        tableView.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints({ make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        })
+        indicatorView.startAnimating()
         
         photoService = PhotoService(container: self.tableView)
-        configureRefreshControl()
-        self.loadNews()
+ //       configureRefreshControl()
+        tableView.isHidden = true
     }
     
     private func configureRefreshControl() {
@@ -45,27 +62,15 @@ class NewsController: UITableViewController {
     @objc func refreshNews() {
         guard let rC = refreshControl else { return }
         rC.beginRefreshing()
+        
         self.loadNews()
     }
     
-    private func loadNews(completion: (() -> Void)? = nil) {
-//        networkingService.fetch(completion: { [weak self] (posts: [Post]?, groups: [Group]?, users: [User]?, error: Error?) in
-//
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                    return
-//                }
-//                guard let listP = posts, let listG = groups, let listU = users, let self = self else { return }
-//
-//                DatabaseService.saveData(data: listG)
-//                DatabaseService.saveData(data: listU)
-//
-//                self.posts = listP
-//                self.tableView.reloadData()
-//            }
-//        })
+    private func loadNews() {
         
+        guard !isLoadInProgress else { return }
+        
+        isLoadInProgress = true
         let getDataOperation = GetDataOperation(type: Post.self)
         
         let parseUserData = ParseData<User>(item: "profiles")
@@ -74,20 +79,55 @@ class NewsController: UITableViewController {
         
         let saveUserToRealm = SaveDataToRealm<User>()
         let saveGrouptToRealm = SaveDataToRealm<Group>()
-        let reloadPostController = ReloadTableController(controller: self, refreshController: tableView.refreshControl, completion: completion)
+        let reloadPostController = ReloadTableController(controller: self, refreshController: self.refreshControl, completion: nil)
         
         parseUserData.addDependency(getDataOperation)
         parseGroupData.addDependency(getDataOperation)
         parsePostData.addDependency(getDataOperation)
         
-        parsePostData.completionBlock = { [unowned parsePostData, unowned reloadPostController] in
-            self.posts = parsePostData.outputData
-            for post in self.posts {
+        parsePostData.completionBlock = { [] in
+           
+            let newPosts = parsePostData.outputData
+            let lastIndex = self.posts.count
+            
+            self.currentPeriod += 1
+            self.posts.append(contentsOf: newPosts)
+            
+            for (index, post) in newPosts.enumerated() {
                 self.photoService?.fetch(byUrl: post.photo)
+                let indexPath = IndexPath(item: lastIndex + index, section: 0)
+                
+                var textHeight: CGFloat = 0
+                let boundsRect = post.post.boundingRect(with: self.maxSize,
+                    options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                                      context: nil)
+                textHeight = boundsRect.height.rounded(FloatingPointRoundingRule.up)
+                
+                var photoHeight: CGFloat = 0
+                if post.photoWidth != 0 {
+                    photoHeight = CGFloat(post.photoHeight)/CGFloat(post.photoWidth) * self.maxSize.width
+                }
+                DispatchQueue.main.async {
+                    self.textHeights[indexPath] = textHeight
+                    self.photoHeights[indexPath] = photoHeight
+                }
             }
-//            self.tableView.insertRows(at: [NSIndexPath(row: self.lastRow, section: 0) as IndexPath], with: .automatic)
+            let newIndexPaths = self.calculateIndexPathsToReload(from: newPosts)
+            self.isLoadInProgress = false
+            if self.currentPeriod > 1 {
+                DispatchQueue.main.async {
+                    let indexPathsToReload = self.visibleIndexPathsToReload(intersecting: newIndexPaths)
+                    self.tableView.reloadRows(at: indexPathsToReload, with: .automatic)
+                    self.tableView.scrollToNearestSelectedRow(at: .top, animated: true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.indicatorView.stopAnimating()
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                }
+            }
         }
-        
         saveUserToRealm.addDependency(parseUserData)
         saveGrouptToRealm.addDependency(parseGroupData)
         reloadPostController.addDependency(parsePostData)
@@ -97,48 +137,71 @@ class NewsController: UITableViewController {
         OperationQueue.main.addOperation(reloadPostController)
     }
     
+    private func calculateIndexPathsToReload(from newPosts: [Post]) -> [IndexPath] {
+        let startIndex = posts.count - newPosts.count
+        let endIndex = startIndex + newPosts.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        maxSize = CGSize(width: tableView.bounds.width - 2*NewsCell.offset, height: CGFloat.greatestFiniteMagnitude)
         self.loadNews()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.posts.count
+        return self.total
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsCellID", for: indexPath) as? NewsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCellFramedLayout.reuseId, for: indexPath) as? NewsCellFramedLayout else {
             return UITableViewCell()
         }
         
-        let post = posts[indexPath.row]
-        cell.configure(with: post, at: indexPath, by: photoService)
-        { [weak self] in
-            guard let self = self else { return }
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
+        if isLoadingCell(for: indexPath) {
+            cell.configure(with: nil)
+        } else {
+            let post = posts[indexPath.row]
+            let textHeight = textHeights[indexPath] ?? 0
+            let photoHeight = photoHeights[indexPath] ?? 0
+            cell.configure(with: post, at: indexPath, by: photoService!, textHeight: textHeight, photoHeight: photoHeight)
         }
         
-//        if indexPath.row == self.posts.count - 1 {
-//            Session.instance.newsDumpCounter += 1
-//            self.lastRow = indexPath.row
-//            if let rC = self.tableView.refreshControl {
-//                rC.beginRefreshing()
-//            }
-//            self.loadNews() { [weak self] in
-//                guard let self = self else { return }
-//                self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-//            }
-//        }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let textHeight = textHeights[indexPath] ?? 0
+        let photoHeight = photoHeights[indexPath] ?? 0
+        return 6*NewsCellFramedLayout.offset + NewsCellFramedLayout.authorImageHeight + textHeight + photoHeight + NewsCellFramedLayout.controlsHeight
+    }
+}
+
+extension NewsController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            loadNews()
+        }
+    }
+}
+
+private extension NewsController {
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= posts.count
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 }
