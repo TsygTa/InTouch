@@ -29,6 +29,7 @@
 		3F37FAD021AB2A2900AE4AD1 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */; };
 		3F37FAD421AC140100AE4AD1 /* CircalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37FAD321AC140100AE4AD1 /* CircalView.swift */; };
 		3F3B58DE2216D31A008BE552 /* ImgBtnLabelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */; };
+		3F458487223F7646004F90E7 /* NewsCellFramedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F458486223F7646004F90E7 /* NewsCellFramedLayout.swift */; };
 		3F4641FC21F7C5E3007730DB /* UIViewController+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */; };
 		3F551AC521CD9B0E004E51A7 /* VKLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */; };
 		3F551AC721CFD5FA004E51A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F551AC621CFD5FA004E51A7 /* User.swift */; };
@@ -83,6 +84,7 @@
 		3F37FACF21AB2A2900AE4AD1 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		3F37FAD321AC140100AE4AD1 /* CircalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircalView.swift; sourceTree = "<group>"; };
 		3F3B58DD2216D31A008BE552 /* ImgBtnLabelControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgBtnLabelControl.swift; sourceTree = "<group>"; };
+		3F458486223F7646004F90E7 /* NewsCellFramedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellFramedLayout.swift; sourceTree = "<group>"; };
 		3F4641FB21F7C5E3007730DB /* UIViewController+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ext.swift"; sourceTree = "<group>"; };
 		3F551AC421CD9B0E004E51A7 /* VKLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoginViewController.swift; sourceTree = "<group>"; };
 		3F551AC621CFD5FA004E51A7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				0335A4D621A600F00010626E /* NewsCell.swift */,
 				3F8F674F22255FFC00E5D809 /* ScaleImageView.swift */,
 				3F76AB2A22385EA4004F9B25 /* NewsCellBody.swift */,
+				3F458486223F7646004F90E7 /* NewsCellFramedLayout.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -457,6 +461,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +511,7 @@
 				3F551AC921CFD61D004E51A7 /* Group.swift in Sources */,
 				03F4C7AE219CCDDB00D900E8 /* LikeControl.swift in Sources */,
 				3F551ACB21CFD645004E51A7 /* Photo.swift in Sources */,
+				3F458487223F7646004F90E7 /* NewsCellFramedLayout.swift in Sources */,
 				0335A4D721A600F00010626E /* NewsCell.swift in Sources */,
 				3F973BB0222D438000425961 /* PhotoService.swift in Sources */,
 				3F973BB2222D4EB800425961 /* DataReloadable.swift in Sources */,

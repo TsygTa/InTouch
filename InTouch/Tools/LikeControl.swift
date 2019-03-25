@@ -26,6 +26,7 @@ class LikeControl: UIControl{
         let str = self.counter > 0 ? String(format:"%d", self.counter) : ""
         button.setTitle(str, for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.tintColor = UIColor.black
         button.addTarget(self, action: #selector(addLike(_:)), for: .touchUpInside)
         self.addSubview(button)

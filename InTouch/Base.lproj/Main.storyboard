@@ -214,7 +214,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="DqM-uX-c0p">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" text="" id="DqM-uX-c0p">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -291,7 +291,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FriendCellID" id="FEs-CJ-2Rx" customClass="FriendCell" customModule="InTouch" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="FriendCellID" id="FEs-CJ-2Rx" customClass="FriendCell" customModule="InTouch" customModuleProvider="target">
                                 <rect key="frame" x="5" y="0.0" width="365" height="555"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -299,7 +299,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Las-tA-ilH" customClass="PhotoView" customModule="InTouch" customModuleProvider="target">
-                                            <rect key="frame" x="28" y="68" width="309" height="387"/>
+                                            <rect key="frame" x="28" y="68" width="309" height="323"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                     <real key="value" value="9"/>
@@ -313,7 +313,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBy-tg-hE9" customClass="LikeControl" customModule="InTouch" customModuleProvider="target">
-                                            <rect key="frame" x="142.5" y="495" width="80" height="32"/>
+                                            <rect key="frame" x="142.5" y="431" width="80" height="32"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="AZg-Fb-F9P"/>
@@ -414,11 +414,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellID" editingAccessoryType="detailButton" focusStyle="custom" rowHeight="473" id="hOx-MQ-pXE" customClass="NewsCell" customModule="InTouch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="473"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCellID" editingAccessoryType="detailButton" focusStyle="custom" rowHeight="75" id="hOx-MQ-pXE" customClass="NewsCell" customModule="InTouch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hOx-MQ-pXE" id="WN9-rZ-BQz">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="473"/>
+                                <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hOx-MQ-pXE" id="WN9-rZ-BQz">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xyx-Pt-QGS">
@@ -462,8 +462,8 @@
                                                 <constraint firstAttribute="trailing" secondItem="7v5-Gc-pjy" secondAttribute="trailing" constant="8" id="xWT-Ba-mBF"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Edz-31-hgv">
-                                            <rect key="frame" x="0.0" y="426" width="375" height="47"/>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Edz-31-hgv">
+                                            <rect key="frame" x="0.0" y="171" width="375" height="47"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-v7-QOs" customClass="LikeControl" customModule="InTouch" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="0.0" width="80" height="32"/>
@@ -511,25 +511,15 @@
                                                 <constraint firstItem="o6R-v7-QOs" firstAttribute="leading" secondItem="Edz-31-hgv" secondAttribute="leading" constant="8" id="k8s-Kq-CUg"/>
                                             </constraints>
                                         </view>
-                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPz-4X-HN1" customClass="NewsCellBody" customModule="InTouch" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="88" width="343" height="330"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="HVX-H5-LzM"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Xyx-Pt-QGS" firstAttribute="top" secondItem="WN9-rZ-BQz" secondAttribute="top" id="D0P-zr-FZv"/>
-                                        <constraint firstItem="TPz-4X-HN1" firstAttribute="top" secondItem="Xyx-Pt-QGS" secondAttribute="bottom" constant="8" id="Pif-jn-FhB"/>
-                                        <constraint firstItem="TPz-4X-HN1" firstAttribute="trailing" secondItem="WN9-rZ-BQz" secondAttribute="trailingMargin" id="TBa-wG-vpQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="Edz-31-hgv" secondAttribute="bottom" id="Wpm-J7-C0C"/>
                                         <constraint firstItem="Edz-31-hgv" firstAttribute="leading" secondItem="WN9-rZ-BQz" secondAttribute="leading" id="XeS-SX-jan"/>
-                                        <constraint firstItem="TPz-4X-HN1" firstAttribute="leading" secondItem="WN9-rZ-BQz" secondAttribute="leadingMargin" id="eVd-ej-Mrx"/>
+                                        <constraint firstItem="Edz-31-hgv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xyx-Pt-QGS" secondAttribute="bottom" id="biZ-EZ-Jvx"/>
                                         <constraint firstAttribute="trailing" secondItem="Edz-31-hgv" secondAttribute="trailing" id="gM8-L6-uzF"/>
                                         <constraint firstItem="Xyx-Pt-QGS" firstAttribute="leading" secondItem="WN9-rZ-BQz" secondAttribute="leading" id="qER-3t-4td"/>
                                         <constraint firstAttribute="trailing" secondItem="Xyx-Pt-QGS" secondAttribute="trailing" id="tQX-lB-euH"/>
-                                        <constraint firstItem="Edz-31-hgv" firstAttribute="top" secondItem="TPz-4X-HN1" secondAttribute="bottom" constant="8" id="w6l-88-m2l"/>
-                                        <constraint firstAttribute="bottom" secondItem="Edz-31-hgv" secondAttribute="bottom" id="yHH-9b-IkF"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -537,9 +527,9 @@
                                     <outlet property="authorLabel" destination="7v5-Gc-pjy" id="qNP-Ii-wNn"/>
                                     <outlet property="commentsControl" destination="of8-D6-4Pw" id="pt7-zH-Xim"/>
                                     <outlet property="dateLabel" destination="egp-js-JzH" id="t2e-xX-Ooi"/>
+                                    <outlet property="footerView" destination="Edz-31-hgv" id="g2M-Fi-D3J"/>
+                                    <outlet property="headerView" destination="Xyx-Pt-QGS" id="Wbh-aK-Zqo"/>
                                     <outlet property="likesControl" destination="o6R-v7-QOs" id="TPx-FW-r40"/>
-                                    <outlet property="postView" destination="TPz-4X-HN1" id="8Gc-CE-SOR"/>
-                                    <outlet property="postViewHeightConstraint" destination="HVX-H5-LzM" id="Ecc-jr-MRd"/>
                                     <outlet property="repostControl" destination="AP4-I9-E6g" id="55P-wd-Wsj"/>
                                     <outlet property="viewsControl" destination="Wdt-RT-bxs" id="XXU-HY-HT1"/>
                                 </connections>
@@ -630,7 +620,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="ei5-kc-DTf">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" text="" id="ei5-kc-DTf">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>

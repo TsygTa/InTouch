@@ -17,21 +17,34 @@ final class Post: Object, Codable, VKFetchable {
             return "/method/newsfeed.get"
         }
     }
-    static var periodStart = 30*24*60*60
-    static var periodEnd = 31*24*60*60
+    
+    static var startFrom: String = "" // new_from for from
+    static let newsNumber: Int = 10
+    
     static var parameters: Parameters {
         get {
+            if !startFrom.isEmpty {
+                return [
+                    "filters": "post,photo",
+                    "access_token": Session.instance.token,
+                    "return_banned": "0",
+                    "from": startFrom,
+                    "count": newsNumber,
+                    "fields": "first_name,last_name,name,deactivated,is_closed,is_friend",
+                    "version": "5.92"
+                ]
+            }
             return [
                 "filters": "post,photo",
                 "access_token": Session.instance.token,
                 "return_banned": "0",
-                "start_time": String(format:"%d", NSDate().timeIntervalSince1970 - TimeInterval(self.periodStart * (Session.instance.newsDumpCounter+1))),
-                "end_time": String(format:"%d", NSDate().timeIntervalSince1970 - TimeInterval(self.periodEnd * Session.instance.newsDumpCounter)),
+                "count": newsNumber,
                 "fields": "first_name,last_name,name,deactivated,is_closed,is_friend",
                 "version": "5.92"
             ]
         }
     }
+    
     var id: Int = 0
     var type: String = "post"
     var date: Double = 0
