@@ -56,13 +56,13 @@ class NewsController: UITableViewController {
         rC.tintColor = UIColor.green
         rC.attributedTitle = NSAttributedString(string: "Загрузка новостей...")
         rC.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
-        tableView.addSubview(rC)
+//        tableView.addSubview(rC)
         tableView.refreshControl = rC
     }
     
     @objc func refreshNews() {
         guard let rC = refreshControl else { return }
-        
+        rC.beginRefreshing()
         self.loadNews(refresh: true)
     }
     
