@@ -15,6 +15,9 @@ class NewsCellFramedLayout: UITableViewCell {
     static let offset: CGFloat = 8
     static let authorImageHeight: CGFloat = 64
     static let controlsHeight: CGFloat = 28
+    static let maxTextHeight: CGFloat = 100
+    
+    var delegate: PostDelegate?
     
     private var authorImage = UIImageView()
     private var authorLabel = UILabel()
@@ -24,6 +27,8 @@ class NewsCellFramedLayout: UITableViewCell {
     private var photoScaledHeight: CGFloat = 0
     private var postText = UILabel()
     private var postTextHeight: CGFloat = 0
+    private var originalPostTextHeight: CGFloat = 0
+    private var showMoreButton = UIButton()
     
     private var likesControl = ImgBtnLabelControl()
     private var commentsControl = ImgBtnLabelControl()
@@ -36,6 +41,8 @@ class NewsCellFramedLayout: UITableViewCell {
     private let rowLabelHeight: CGFloat = 28
     private let controlsHeight: CGFloat = 28
     private let controlsWidth: CGFloat = 80
+    
+    private var cellIndexPath: IndexPath?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,6 +60,14 @@ class NewsCellFramedLayout: UITableViewCell {
         
         contentView.addSubview(postText)
         postText.numberOfLines = 0
+        contentView.addSubview(showMoreButton)
+        showMoreButton.setTitle("Показать полностью...", for: [])
+        showMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        showMoreButton.setTitleColor(UIColor.blue, for: .normal)
+        showMoreButton.titleLabel?.backgroundColor = UIColor.white
+        showMoreButton.titleLabel?.isOpaque = true
+        
+        showMoreButton.addTarget(self, action: #selector(showMoreAction(_:)), for: .touchUpInside)
         
         contentView.addSubview(postPhoto)
         postPhoto.contentMode = .scaleAspectFill
@@ -71,6 +86,13 @@ class NewsCellFramedLayout: UITableViewCell {
         likesControl.setImage("heart.png")
         
         contentView.addSubview(indicatorView)
+    }
+    @objc private func showMoreAction(_ sender: UIButton) {
+        guard let delegate = self.delegate, let indexPath = self.cellIndexPath else {return}
+        delegate.onTextExpand(indexPath)
+        self.postTextHeight = self.originalPostTextHeight
+        sender.isHidden = true
+        self.layoutSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,6 +119,11 @@ class NewsCellFramedLayout: UITableViewCell {
                                  y: offset + authorImageHeight + offset,
                                  width: bounds.width - 2*offset,
                                  height: postTextHeight)
+        
+        showMoreButton.frame = CGRect(x: offset,
+                                      y: authorImageHeight + postTextHeight,
+                                      width: 170,
+                                      height: 14)
         
         postPhoto.frame = CGRect(x: offset,
                                  y: 3*offset + authorImageHeight + postTextHeight,
@@ -126,7 +153,7 @@ class NewsCellFramedLayout: UITableViewCell {
                                     height: 32)
     }
     
-    public func configure(with item: Post?, at indexPath: IndexPath? = nil,  by photoService: PhotoService? = nil, textHeight postTextHeight: CGFloat = CGFloat(0), photoHeight photoScaledHeight: CGFloat = CGFloat(0)) {
+    public func configure(with item: Post?, at indexPath: IndexPath? = nil,  by photoService: PhotoService? = nil, textHeight postTextHeight: CGFloat = CGFloat(0), photoHeight photoScaledHeight: CGFloat = CGFloat(0), textExpanded expanded: Bool = false) {
         
         guard let item = item, let indexPath = indexPath else {
             self.layer.borderColor = UIColor.white.cgColor
@@ -134,6 +161,8 @@ class NewsCellFramedLayout: UITableViewCell {
             indicatorView.startAnimating()
             return
         }
+        
+        self.cellIndexPath = indexPath
         
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
@@ -164,10 +193,18 @@ class NewsCellFramedLayout: UITableViewCell {
         }
         
         postText.attributedText = NewsCellFramedLayout.getAttributedString(text: item.post)
-        self.postTextHeight = postTextHeight
 
         self.photoScaledHeight = photoScaledHeight
         postPhoto.image = photoService?.photo(at: indexPath, by: item.photo)
+        
+        if postTextHeight > NewsCellFramedLayout.maxTextHeight, !expanded {
+            self.postTextHeight = NewsCellFramedLayout.maxTextHeight
+            self.originalPostTextHeight = postTextHeight
+            showMoreButton.isHidden = false
+        } else {
+            self.postTextHeight = postTextHeight
+            showMoreButton.isHidden = true
+        }
         
         indicatorView.stopAnimating()
     }
@@ -178,5 +215,9 @@ class NewsCellFramedLayout: UITableViewCell {
                                                  options: [.documentType: NSAttributedString.DocumentType.html],
                                                  documentAttributes: nil) else { return nil }
         return attrStr
+    }
+    
+    override func prepareForReuse() {
+//        newsTextLabel.subviews.forEach { $0.removeFromSuperview() }
     }
 }

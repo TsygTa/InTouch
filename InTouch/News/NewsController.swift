@@ -18,6 +18,7 @@ class NewsController: UITableViewController {
     private var posts = [Post]()
     private var photoHeights = [IndexPath: CGFloat]()
     private var textHeights = [IndexPath: CGFloat]()
+    private var textExpanded = [IndexPath: Bool]()
     private var maxSize = CGSize()
     
     private var currentPeriod = 0
@@ -45,7 +46,7 @@ class NewsController: UITableViewController {
         indicatorView.startAnimating()
         
         photoService = PhotoService(container: self.tableView)
- //       configureRefreshControl()
+        configureRefreshControl()
         tableView.isHidden = true
     }
     
@@ -55,22 +56,24 @@ class NewsController: UITableViewController {
         rC.tintColor = UIColor.green
         rC.attributedTitle = NSAttributedString(string: "Загрузка новостей...")
         rC.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
-        
+        tableView.addSubview(rC)
         tableView.refreshControl = rC
     }
     
     @objc func refreshNews() {
         guard let rC = refreshControl else { return }
-        rC.beginRefreshing()
         
-        self.loadNews()
+        self.loadNews(refresh: true)
     }
     
-    private func loadNews() {
+    private func loadNews(refresh: Bool = false) {
         
         guard !isLoadInProgress else { return }
         
         isLoadInProgress = true
+        if refresh {
+            Post.startFrom = ""
+        }
         let getDataOperation = GetDataOperation(type: Post.self)
         
         let parseUserData = ParseData<User>(item: "profiles")
@@ -87,6 +90,13 @@ class NewsController: UITableViewController {
         
         parsePostData.completionBlock = { [] in
            
+            if refresh {
+                self.posts.removeAll()
+                self.textHeights.removeAll()
+                self.textExpanded.removeAll()
+                self.photoHeights.removeAll()
+                self.currentPeriod = 0
+            }
             let newPosts = parsePostData.outputData
             let lastIndex = self.posts.count
             
@@ -109,6 +119,7 @@ class NewsController: UITableViewController {
                 }
                 DispatchQueue.main.async {
                     self.textHeights[indexPath] = textHeight
+                    self.textExpanded[indexPath] = false
                     self.photoHeights[indexPath] = photoHeight
                 }
             }
@@ -172,25 +183,42 @@ class NewsController: UITableViewController {
         } else {
             let post = posts[indexPath.row]
             let textHeight = textHeights[indexPath] ?? 0
+            let expanded = textExpanded[indexPath] ?? true
             let photoHeight = photoHeights[indexPath] ?? 0
-            cell.configure(with: post, at: indexPath, by: photoService!, textHeight: textHeight, photoHeight: photoHeight)
+            cell.configure(with: post, at: indexPath, by: photoService!, textHeight: textHeight, photoHeight: photoHeight, textExpanded: expanded)
         }
+        cell.delegate = self
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let textHeight = textHeights[indexPath] ?? 0
+        var textHeight = textHeights[indexPath] ?? 0
+        let expanded = textExpanded[indexPath] ?? true
         let photoHeight = photoHeights[indexPath] ?? 0
+        
+        if textHeight > NewsCellFramedLayout.maxTextHeight, !expanded {
+            textHeight = NewsCellFramedLayout.maxTextHeight
+        }
         return 6*NewsCellFramedLayout.offset + NewsCellFramedLayout.authorImageHeight + textHeight + photoHeight + NewsCellFramedLayout.controlsHeight
     }
 }
 
-extension NewsController: UITableViewDataSourcePrefetching {
+protocol PostDelegate {
+    func onTextExpand (_ indexPath: IndexPath)
+}
+
+extension NewsController: UITableViewDataSourcePrefetching, PostDelegate {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
             loadNews()
         }
+    }
+    
+    func onTextExpand(_ indexPath: IndexPath) {
+        textExpanded[indexPath] = true
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 
